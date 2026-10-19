@@ -1,0 +1,54 @@
+{
+  "plan_version": 1,
+  "unit": {
+    "name": "CPU",
+    "kind": "class",
+    "file": "rtl/CPU.svh",
+    "owns": [
+      "FR-008",
+      "FR-009",
+      "FR-010",
+      "IF-009",
+      "IF-010",
+      "IF-011",
+      "IF-012",
+      "D-008",
+      "D-009",
+      "D-012",
+      "D-018"
+    ],
+    "contains": [
+      {
+        "name": "l_alu",
+        "type": "logical_alu"
+      },
+      {
+        "name": "a_alu",
+        "type": "arithmetic_alu"
+      }
+    ],
+    "control": {
+      "kind": "opcode dispatch",
+      "rule": "0000-0110 -> a_alu; 0111-1101 -> l_alu; 1110-1111 -> invalid policy"
+    },
+    "methods": [
+      "function new()",
+      "function void Reset()",
+      "function int Calc(input int in1, input int in2, input alu_op_t operation)"
+    ]
+  },
+  "owned_ids": [
+    "FR-008",
+    "FR-009",
+    "FR-010",
+    "IF-009",
+    "IF-010",
+    "IF-011",
+    "IF-012",
+    "D-008",
+    "D-009",
+    "D-012",
+    "D-018"
+  ],
+  "requirement_text": "See normalized_spec.json and Phase 1 source tables for the exact source wording."
+}

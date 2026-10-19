@@ -1,0 +1,18 @@
+{
+  "status": "ready",
+  "blocking_items": [],
+  "warnings": [
+    "18 Phase 1 open questions were unresolved in the source; Phase 2 resolves them explicitly as D-001..D-018 and marks them as implementation decisions, not source requirements.",
+    "Architecture source was PNG-only; a reconstructed PlantUML file is supplied.",
+    "No clock/reset hardware contract applies because this is a SystemVerilog class model."
+  ],
+  "checks": {
+    "all_requirements_have_ids": true,
+    "all_interfaces_have_types_or_explicit_unspecified_fields": true,
+    "all_operations_have_codes": true,
+    "all_phase2_decisions_recorded": true,
+    "architecture_components_match_required_classes": true,
+    "design_kind_defined": true,
+    "clock_reset_required": false
+  }
+}

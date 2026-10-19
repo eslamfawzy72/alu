@@ -1,0 +1,76 @@
+{
+  "plan_version": 1,
+  "unit": {
+    "name": "base_alu",
+    "kind": "class",
+    "file": "rtl/base_alu.svh",
+    "owns": [
+      "FR-001",
+      "FR-002",
+      "FR-003",
+      "FR-004",
+      "FR-005",
+      "IF-001",
+      "IF-002",
+      "IF-003",
+      "IF-004",
+      "IF-005",
+      "IF-006",
+      "IF-007",
+      "IF-008",
+      "D-007",
+      "D-010",
+      "D-011",
+      "D-013"
+    ],
+    "state": [
+      {
+        "name": "operand_A",
+        "type": "int",
+        "reset": 0
+      },
+      {
+        "name": "operand_B",
+        "type": "int",
+        "reset": 0
+      },
+      {
+        "name": "alu_op",
+        "type": "alu_op_t",
+        "reset": "OP_SEL_B"
+      },
+      {
+        "name": "alu_result",
+        "type": "int",
+        "reset": 0
+      }
+    ],
+    "methods": [
+      "function void load_operand_A(input int value)",
+      "function void load_operand_B(input int value)",
+      "function void initialize()",
+      "function void display()",
+      "virtual function void execute()"
+    ]
+  },
+  "owned_ids": [
+    "FR-001",
+    "FR-002",
+    "FR-003",
+    "FR-004",
+    "FR-005",
+    "IF-001",
+    "IF-002",
+    "IF-003",
+    "IF-004",
+    "IF-005",
+    "IF-006",
+    "IF-007",
+    "IF-008",
+    "D-007",
+    "D-010",
+    "D-011",
+    "D-013"
+  ],
+  "requirement_text": "See normalized_spec.json and Phase 1 source tables for the exact source wording."
+}

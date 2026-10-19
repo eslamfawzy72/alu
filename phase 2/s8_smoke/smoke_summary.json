@@ -1,0 +1,10 @@
+{
+  "status": "pending_environment",
+  "testbench": "tb/tb_alu.sv",
+  "expected_cases": 19,
+  "simulator_required": [
+    "Verilator",
+    "Questa",
+    "Icarus"
+  ]
+}

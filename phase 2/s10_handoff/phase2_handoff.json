@@ -1,0 +1,63 @@
+{
+  "phase": 2,
+  "status": "verification_ready_but_environment_blocked",
+  "plan_version": 1,
+  "spec_version": "phase1.0-normalized",
+  "files": [
+    "rtl/cpu_pkg.sv",
+    "rtl/base_alu.svh",
+    "rtl/logical_alu.svh",
+    "rtl/arithmetic_alu.svh",
+    "rtl/CPU.svh",
+    "tb/tb_alu.sv"
+  ],
+  "build_list": "files.f",
+  "gate_results": {
+    "S1": "completed_with_warnings",
+    "S2": "ready",
+    "S3": "completed",
+    "S4": "provisionally_approved",
+    "S5": "completed",
+    "S6": "environment_blocked",
+    "S7": "not_invoked",
+    "S8": "pending_environment",
+    "S9": "provisional_trace_completed",
+    "S10": "handoff_manifest_created_but_final_baseline_blocked"
+  },
+  "trace_summary": {
+    "rtl_trace": "s9_trace/rtl_trace.json",
+    "graph": "s9_trace/design_graph.graphml",
+    "conformance": "s9_trace/conformance_report.json"
+  },
+  "added_elements": [
+    {
+      "name": "execute()",
+      "reason": "Common virtual dispatch point for derived ALU classes.",
+      "decision": "D-013",
+      "approval": "provisionally approved for Phase 2 implementation"
+    },
+    {
+      "name": "arithmetic_alu.carry",
+      "reason": "State needed to make ADD with CARRY deterministic without changing Calc signature.",
+      "decision": "D-005",
+      "approval": "provisionally approved"
+    },
+    {
+      "name": "arithmetic_alu.borrow",
+      "reason": "State needed to make SUB with BORROW deterministic without changing Calc signature.",
+      "decision": "D-006",
+      "approval": "provisionally approved"
+    }
+  ],
+  "deviations": [
+    "Phase 1 architecture was PNG-only; reconstructed PlantUML supplied.",
+    "Comparison operations visible in the Phase 1 image are excluded because they have no Phase 1 requirement/operation IDs.",
+    "Formal tool-based S6/S8 validation is pending installation of a SystemVerilog toolchain."
+  ],
+  "open_items": [
+    "Run Verilator/Verible/Surelog (and optionally Yosys if the project is ever changed to hardware mode).",
+    "Run tb/tb_alu.sv and update smoke_log.txt with real results.",
+    "Human reviewer should approve the Phase 2 assumptions before a final baseline tag."
+  ],
+  "baseline_tag": null
+}

@@ -1,0 +1,43 @@
+{
+  "stage": "S6",
+  "status": "environment_blocked",
+  "checks": {
+    "schema_and_required_structure": "pass",
+    "token_structure_check": "pass",
+    "interface_conformance_fallback": "pass",
+    "verilator_lint": "not_run",
+    "verible_lint": "not_run",
+    "surelog_parse": "not_run",
+    "synthesis_check": "not_applicable_class_model"
+  },
+  "tool_status": {
+    "verilator": null,
+    "verible-verilog-lint": null,
+    "surelog": null,
+    "yosys": null
+  },
+  "details": {
+    "reason": "Required external SystemVerilog tools are not installed in the execution environment. No tool-based pass is fabricated.",
+    "fallback_checks": {
+      "tokens": {
+        "class base_alu": true,
+        "class logical_alu extends base_alu": true,
+        "class arithmetic_alu extends base_alu": true,
+        "class CPU": true,
+        "typedef enum logic [3:0]": true,
+        "function int CPU::Calc": true,
+        "function void CPU::Reset": true,
+        "l_alu": true,
+        "a_alu": true
+      },
+      "interfaces": {
+        "base_alu_properties": true,
+        "required_methods": true,
+        "all_14_enum_codes": true,
+        "CPU_members": true,
+        "Calc_signature": true
+      }
+    }
+  },
+  "routing": "S7 is not required for a known failure; S8 remains pending until a simulator is available."
+}

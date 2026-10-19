@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Phase 1 Handoff",
+  "type": "object",
+  "required": [
+    "requirements",
+    "interfaces",
+    "operations",
+    "phase2_decisions"
+  ],
+  "properties": {
+    "requirements": {
+      "type": "array"
+    },
+    "interfaces": {
+      "type": "array"
+    },
+    "operations": {
+      "type": "array"
+    },
+    "phase2_decisions": {
+      "type": "array"
+    }
+  }
+}
