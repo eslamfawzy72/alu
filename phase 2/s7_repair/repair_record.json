@@ -1,8 +1,0 @@
-{
-  "stage": "S7",
-  "status": "not_invoked",
-  "reason": "No reported RTL error exists; S6 is blocked by missing external tools rather than a code failure.",
-  "rounds": 0,
-  "cap": 5,
-  "escalation": null
-}
