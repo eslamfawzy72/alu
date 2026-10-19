@@ -1,0 +1,6 @@
+{
+ "flags_reviewed": ["F1", "F2", "F3", "F4", "F5"],
+ "decision": "accept baseline with open items",
+ "reviewer": "PENDING - provisional for this run; design lead to sign",
+ "date": "2026-10-19"
+}
