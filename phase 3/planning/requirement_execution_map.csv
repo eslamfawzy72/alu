@@ -1,0 +1,29 @@
+Phase 1 TC,Requirement IDs,Method,Planned verification procedure,Pre-integration status,Blocked by
+TC-001,FR-001,static_review,Class/property declaration and property types,PREPARED_NOT_EXECUTED,Phase 2 source needed
+TC-002,FR-002,api_method,load_a reads back A after each of six values,PREPARED_NOT_EXECUTED,Phase 2 method/property interface needed
+TC-003,FR-003,api_method,load_b reads back B after each of six values,PREPARED_NOT_EXECUTED,Phase 2 method/property interface needed
+TC-004,FR-004,api_method,initialize_check with approved postconditions,SPEC_BLOCKED,Q-007 approval and Phase 2
+TC-005,FR-005,api_method,display_check with approved acceptance criteria,SPEC_BLOCKED,Q-010 approval and Phase 2
+TC-006,FR-006,functional_oracle,Opcode 7: 10 directed plus seeded random cases; check only with approved oracle,READY_FOR_DUT,Phase 2 implementation
+TC-007,FR-006,functional_oracle,Opcode 8: 10 directed plus seeded random cases; check only with approved oracle,READY_FOR_DUT,Phase 2 implementation
+TC-008,FR-006,functional_oracle,Opcode 9: 10 directed plus seeded random cases; check only with approved oracle,READY_FOR_DUT,Phase 2 implementation
+TC-009,FR-006,functional_oracle,Opcode 10: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-010,FR-006,functional_oracle,Opcode 11: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-011,FR-006,functional_oracle,Opcode 12: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-012,FR-006,functional_oracle,Opcode 13: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-013,FR-007,functional_oracle,Opcode 0: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-014,FR-007,functional_oracle,Opcode 1: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-015,FR-007,functional_oracle,Opcode 2: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-016,FR-007,functional_oracle,Opcode 3: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-017,FR-007,functional_oracle,Opcode 4: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-018,FR-007,functional_oracle,Opcode 5: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-019,FR-007,functional_oracle,Opcode 6: 10 directed plus seeded random cases; check only with approved oracle,SPEC_BLOCKED,Phase 2; expected behavior per specification
+TC-020,FR-008,api_method,handles_exist and static type check,PREPARED_NOT_EXECUTED,Phase 2 compile
+TC-021,FR-009,api_method,reset_check with approved postconditions,SPEC_BLOCKED,Q-008 approval and Phase 2
+TC-022,FR-010,functional_plus_route,opcode 3 output and routing_check,PARTIALLY_READY,Q-004 and Phase 2
+TC-023,FR-010,functional_plus_route,opcode 7 output and routing_check,PARTIALLY_READY,Phase 2; route observation separately
+TC-024,FR-011,static_review,Compare enum values to 14 opcode source records,PREPARED_NOT_EXECUTED,Phase 2 source
+TC-025,FR-012,compile_import,Compile cpu_pkg and import it into testbench,PREPARED_NOT_EXECUTED,Phase 2 source
+TC-026,FR-013,compile_execution,Compile/run test with actual CPU and child handles,PREPARED_NOT_EXECUTED,Phase 2 source
+TC-027,"FR-001, FR-006, FR-007",blocked_negative,"Invalid codes 14 and 15 generated, not executed",SPEC_BLOCKED,Q-009
+TC-028,"FR-002, FR-003, FR-004",api_method,load A/B then initialize_check,SPEC_BLOCKED,Q-007 approved postconditions and Phase 2

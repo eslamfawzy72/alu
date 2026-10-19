@@ -1,0 +1,9 @@
+Decision ID,Topic,Phase 1 Question,Approved interpretation,Approval/reference,State,TB setting
+DEC-001,Select-B,Q-017,,,PENDING,P3_ENABLE_SELECT_B
+DEC-002,INC/DEC boundaries,Q-002/Q-004,,,PENDING,P3_ENABLE_INC_DEC
+DEC-003,ADD width/overflow,Q-004,,,PENDING,P3_ENABLE_ADD
+DEC-004,SUB order/overflow,Q-002/Q-004,,,PENDING,P3_ENABLE_SUB
+DEC-005,Carry source,Q-005,,,PENDING,P3_ENABLE_CARRY
+DEC-006,Borrow source,Q-006,,,PENDING,P3_ENABLE_BORROW
+DEC-007,Shift semantics,Q-003/Q-004,,,PENDING,P3_ENABLE_SHIFTS
+DEC-008,Rotate semantics,Q-003/Q-004,,,PENDING,P3_ENABLE_ROTATES

@@ -1,17 +1,16 @@
-# Phase 3 — Verification
+# Phase 3 — Verification Planning and Environment
 
-Phase 3 provides verification planning and a SystemVerilog test environment for the ALU assignment.
+Verification plan and class-based SystemVerilog testbench for the ALU assignment. The environment is independent of the CPU implementation; it is ready for Phase 2 integration, **not verified against a DUT**.
 
-- `planning/` — verification plan (.md and .docx), requirements matrix, 42 directed scenarios, random strategy, coverage/checker plans, traceability and open questions.
-- `tb/` — oracle, scoreboard, 14-operation stimulus, DUT adapter and interface/structural review instructions.
-- `scripts/` — `validate_plan.py` validates planning IDs; `audit_readiness.py` reports blocked and planned checks.
-- `results/` — blank execution-evidence sheet; no simulation results have been claimed.
+- `planning/`: verification plan, Phase 1 traceability, 28-test execution mapping, directed/random strategies, coverage, checkers, pending clarification decisions.
+- `tb/`: transaction, test generator, driver, DUT adapter, monitor, oracle, scoreboard, coverage and API probes. See `tb/README.md`.
+- `scripts/`: planning validator, requirements readiness, source audit, offline mapping tests and testbench-source integrity checks.
+- `results/`: evidence placeholders; no simulated PASS results.
 
-## Use
+From the `phase 3/` folder run `python scripts/validate_plan.py` and `python scripts/verify_tb_sources.py`. Those checks inspect documentation/source structure only; SystemVerilog compilation requires an SV-capable simulator. Run `python scripts/offline_unit_tests.py` for mapping tests. Run `python scripts/source_audit.py /path/to/phase2` to inspect Phase 2 class/package organization once available.
 
-1. `python3 scripts/validate_plan.py` then `python3 scripts/audit_readiness.py`.
-2. Connect `tb/alu_dut_adapter.sv` to the actual Phase 2 `cpu_pkg` using its exact public interface.
-3. Run `alu_test` using a class-capable SystemVerilog simulator and save the results.
-4. Resolve Phase 1 open questions before enabling numerical checks for unspecified operations.
+The runner generates 144 directed stimulus cases (10 x 14 + 4 invalid opcode probes) and defaults to 300 seeded randomized transactions. By default only AND/OR/XOR have candidate expected-value comparisons supported by the Phase 1 bitwise interpretation; the others are explicitly blocked until decisions are approved. `+PLAN_ONLY` can enumerate without a DUT but **never counts as DUT verification**.
 
-**Current status:** all 14 opcodes have directed and random stimulus; only AND/OR/XOR have active numeric oracles. Structural and behavioral checks are documented but need the actual DUT, and ambiguous behavior stays BLOCKED. A test scenario's existence is not proof of verification.
+**Integration:** bind the adapter using the confirmed `cpu_pkg` API, compile with an SV simulator, execute, and record results. See `tb/integration_checks.md`. No pretend RTL, fabricated simulation or undocumented behavior is included.
+
+For isolated testbench fault-detection tests, see `tb/selftest/README.md`. The mock is never used for actual DUT sign-off.

@@ -30,13 +30,13 @@ Verification planning maintains test scenarios, scoreboards, coverage and eviden
 - **Checkers** (`checker_plan.csv`): active/pending expected-value checks.
 - **Open questions** (`open_questions.csv`): mirrors all 18 supplied Phase 1 open questions.
 - **Traceability** (`traceability.csv`): source-to-phase-3 relationships.
-- **Testbench** (`../tb/`): transaction, oracle, scoreboard, test runner and integration adapter.
+- **Testbench** (`../tb/`): transaction, driver, DUT adapter, monitor, reference model, scoreboard, coverage, test runner and isolated mock self-test.
 
 ## 5. Stimulus and checks
 
-Each directed operation has nominal, zero/boundary and alternating-bit cases; these are planning candidates, not claims that all 14 can already be checked. Bitwise AND/OR/XOR use signed `int` operands as 32-bit bit patterns and a separate reference model. Random bitwise stimulus uses seeded simulator randomization through `$urandom` and a configurable iteration count. Only a **checked** comparison contributes to pass or coverage; a missing oracle must be blocked, never counted as passing.
+Each directed operation has nominal, zero/boundary and alternating-bit cases; these are planning candidates, not claims that all 14 can already be checked. Bitwise AND/OR/XOR use signed `int` operands as 32-bit bit patterns and a separate reference model. Random bitwise stimulus uses a deterministic seeded linear-congruential generator and a configurable iteration count. Only a **checked** comparison contributes to pass or coverage; a missing oracle must be blocked, never counted as passing.
 
-The current testbench counts checked directed/random samples and reports per-opcode coverage for three defined operations. CSV coverage rows for remaining operations are planning targets, not measured results.
+The current testbench records generated, compared, blocked, and passed/failed counts per opcode; only the candidate AND/OR/XOR model is enabled by default. Stimulus coverage is not functional sign-off coverage. CSV coverage rows for remaining operations are planning targets, not measured results.
 
 ## 6. Exit criteria and evidence
 
@@ -67,11 +67,11 @@ Directed / random test generator
               |
          ALU transaction
               |
-          DUT adapter  ------>  CPU class in cpu_pkg (black box)
+     Driver -> DUT adapter --> CPU class in cpu_pkg (black box)
               |                            |
               +---------- actual result <-+
               |
-  Independent bitwise oracle -> Scoreboard -> Pass/fail counters
+  Monitor(actual) + oracle(expected) -> Scoreboard -> Pass/fail counters
               |
       Checked sample counters / summary
 ```

@@ -1,22 +1,12 @@
-# DUT integration and structural checks
+# Phase 2 integration contract
 
-The simulation-facing adapter is intentionally disconnected until the Phase 2 package is delivered. Do not record blocked scenarios as passed. Complete these checks against delivered source code; record evidence in `results/verification_results.csv`.
+1. Build Phase 2 `cpu_pkg` separately; **do not copy CPU logic into the verification environment**.
+2. Confirm the actual `CPU.Calc`, `CPU.Reset`, `base_alu` loading method signatures and opcode enum from the approved Phase 1 interface. Phase 1 intentionally did not specify every signature.
+3. Add a subclass `phase2_adapter extends alu_dut_adapter` in a separate file. It owns the actual `CPU` object, maps the opcode to the project's enum, calls `Calc`, and returns the actual result. This file is the **only** integration-specific code.
+4. Implement `load_a` and `load_b` against accessible base-class properties (read back and compare). Implement `handles_exist` by checking real logical/arithmetic handles, or use static compile assertions; do not fabricate observations.
+5. `initialize_check` and `reset_check` require approved postconditions (Phase 1 Q-007/Q-008). `display_check` requires an agreed display acceptance criterion (Q-010). `routing_check` requires observable routing/instrumentation; results alone cannot prove which child was used.
+6. Enable optional oracles in `alu_rules.svh` only after closing relevant Phase 1 questions. Record the choice and source in `planning/decisions.csv`.
+7. Compile against the actual class source files, run the regression, capture logs and status reports. A passing enabled subset is not verification sign-off.
+8. Review `planning/requirement_execution_map.csv` and update execution evidence per TC.
 
-| Check | Phase 1 reference | How to check | Status now |
-|---|---|---|---|
-| `base_alu` has int `operand_A`, `operand_B`, `alu_result`, and enum `alu_op` | FR-001 | Compile/type review | NOT RUN |
-| `load_operand_A` stores a value | FR-002 | API/property readback after call | NOT RUN |
-| `load_operand_B` stores a value | FR-003 | API/property readback after call | NOT RUN |
-| `initialize` post-state | FR-004 / Q-007 | State check to approved reset policy | BLOCKED |
-| `display` output | FR-005 / Q-010 | Output capture/review against agreed format | BLOCKED |
-| Derived logical/arithmetic classes extend `base_alu` | FR-006, FR-007 | Compile/type review | NOT RUN |
-| CPU holds `l_alu` and `a_alu` objects | FR-008 | Inspect members and construction | NOT RUN |
-| `Reset` behavior | FR-009 / Q-007 | Repeated reset / post-state | BLOCKED |
-| `Calc` accepts two ints and enum, produces int | FR-010 / Q-001 | Call/type check via adapter | NOT RUN |
-| `cpu_pkg` contains required classes; separate source files | FR-011, FR-012 | Compile/package and file review | NOT RUN |
-| Correct opcode dispatch | OP-001..OP-014 | Run scenarios / review routing | PARTIAL, no DUT |
-| Unsupported opcodes | Q open | Negative tests after agreed policy | BLOCKED |
-
-Integration: replace `alu_dut_adapter.calculate()` using actual Phase 2 package, then compile package first, followed by `alu_tb_pkg.sv`, `alu_dut_adapter.sv`, `alu_test.sv`. No replacement implementation belongs in Phase 3.
-
-**Constraints:** No `uvm` dependency; the environment uses plain SystemVerilog classes. The simulator must support SystemVerilog classes and the selected DUT API. No compile or simulation run is claimed here.
+**Important:** The example `clk/reset/a/b/result` module shown in a generic RTL diagram is not this assignment's class-based CPU interface. Do not add a clock or module DUT without an approved change.
