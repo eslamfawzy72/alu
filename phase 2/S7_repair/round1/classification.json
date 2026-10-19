@@ -1,0 +1,20 @@
+{
+ "round": 1,
+ "classified": [
+  {
+   "message": {
+    "tool": "verilator",
+    "severity": "warning",
+    "rule": "DECLFILENAME",
+    "file": "rtl/cpu.svh",
+    "line": 3,
+    "text": "Filename 'cpu' does not match CLASS name: 'CPU'"
+   },
+   "cls": "structural",
+   "fix": "rename the file to the unit name",
+   "route": "S3",
+   "why": "the fix renames cpu.svh, a file name fixed by D-014; a repair may not change a name the spec fixed, so the plan must decide"
+  }
+ ],
+ "next": "S3"
+}

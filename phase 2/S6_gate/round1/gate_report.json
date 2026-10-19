@@ -1,0 +1,53 @@
+{
+ "result": "fail",
+ "checks": {
+  "compile_lint": "fail",
+  "style": "pass",
+  "interface": "pass",
+  "synthesis": "not_applicable (class_model)"
+ },
+ "messages": [
+  {
+   "tool": "verilator",
+   "severity": "warning",
+   "rule": "DECLFILENAME",
+   "file": "rtl/cpu.svh",
+   "line": 3,
+   "text": "Filename 'cpu' does not match CLASS name: 'CPU'"
+  }
+ ],
+ "classes_found": {
+  "base_alu": [
+   "display",
+   "execute",
+   "get_name",
+   "initialize",
+   "load_operand_A",
+   "load_operand_B",
+   "new"
+  ],
+  "logical_alu": [
+   "execute",
+   "get_name",
+   "new"
+  ],
+  "arithmetic_alu": [
+   "display",
+   "execute",
+   "get_carry",
+   "get_name",
+   "initialize",
+   "new",
+   "set_carry"
+  ],
+  "CPU": [
+   "Calc",
+   "Reset",
+   "new"
+  ]
+ },
+ "tools": {
+  "verilator": "Verilator 5.020 2024-01-01 rev (Debian 5.020-1)",
+  "verible": "Version\tv0.0-3946-g851d3ff4"
+ }
+}

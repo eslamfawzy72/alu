@@ -1,0 +1,140 @@
+{
+ "written_by": "Claude acting as the S5 generator (no LLM call); files written in build order",
+ "build_order": [
+  "cpu_pkg",
+  "base_alu",
+  "logical_alu",
+  "arithmetic_alu",
+  "CPU"
+ ],
+ "files": [
+  {
+   "unit": "CPU",
+   "file": "CPU.svh",
+   "lines": 40,
+   "tags_found": [
+    "D-002",
+    "D-008",
+    "D-009",
+    "D-012",
+    "D-018",
+    "FR-008",
+    "FR-009",
+    "FR-010",
+    "IF-009",
+    "IF-010",
+    "IF-011",
+    "IF-012"
+   ],
+   "owned_not_tagged": [],
+   "tags_outside_slice": [],
+   "ok": true
+  },
+  {
+   "unit": "arithmetic_alu",
+   "file": "arithmetic_alu.svh",
+   "lines": 69,
+   "tags_found": [
+    "D-002",
+    "D-004",
+    "D-005",
+    "D-006",
+    "D-007",
+    "D-010",
+    "D-016",
+    "D-017",
+    "FR-007",
+    "IF-015",
+    "OP-001",
+    "OP-002",
+    "OP-003",
+    "OP-004",
+    "OP-005",
+    "OP-006",
+    "OP-007"
+   ],
+   "owned_not_tagged": [],
+   "tags_outside_slice": [],
+   "ok": true
+  },
+  {
+   "unit": "base_alu",
+   "file": "base_alu.svh",
+   "lines": 48,
+   "tags_found": [
+    "D-007",
+    "D-010",
+    "D-011",
+    "D-012",
+    "D-018",
+    "FR-001",
+    "FR-002",
+    "FR-003",
+    "FR-004",
+    "FR-005",
+    "IF-001",
+    "IF-002",
+    "IF-003",
+    "IF-004",
+    "IF-005",
+    "IF-006",
+    "IF-007",
+    "IF-008",
+    "IF-016"
+   ],
+   "owned_not_tagged": [],
+   "tags_outside_slice": [],
+   "ok": true
+  },
+  {
+   "unit": "cpu_pkg",
+   "file": "cpu_pkg.sv",
+   "lines": 31,
+   "tags_found": [
+    "D-001",
+    "D-013",
+    "D-014",
+    "FR-011",
+    "FR-012",
+    "IF-013",
+    "IF-014"
+   ],
+   "owned_not_tagged": [],
+   "tags_outside_slice": [],
+   "ok": true
+  },
+  {
+   "unit": "logical_alu",
+   "file": "logical_alu.svh",
+   "lines": 30,
+   "tags_found": [
+    "D-002",
+    "D-003",
+    "D-004",
+    "FR-006",
+    "OP-008",
+    "OP-009",
+    "OP-010",
+    "OP-011",
+    "OP-012",
+    "OP-013",
+    "OP-014"
+   ],
+   "owned_not_tagged": [],
+   "tags_outside_slice": [],
+   "ok": true
+  }
+ ],
+ "filelist": "S5_rtl/files.f",
+ "plan_version": 2,
+ "regenerations": [
+  {
+   "after": "plan v2 (S7 escalation, round 1)",
+   "units": [
+    "CPU",
+    "cpu_pkg"
+   ],
+   "change": "CPU class file renamed cpu.svh -> CPU.svh (content unchanged); cpu_pkg include line updated"
+  }
+ ]
+}

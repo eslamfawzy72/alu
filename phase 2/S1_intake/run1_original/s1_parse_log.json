@@ -1,0 +1,85 @@
+{
+ "phase1_folder": "phase1_original",
+ "files": [
+  {
+   "file": "ALU_Verification_Requirements.csv",
+   "status": "read",
+   "rows": 28,
+   "sha256": "083911b621fc"
+  },
+  {
+   "file": "ALU_Functional_Requirements.csv",
+   "status": "read",
+   "rows": 13,
+   "sha256": "9cda00528b13"
+  },
+  {
+   "file": "ALU_Interfaces_and_Signals.csv",
+   "status": "read",
+   "rows": 14,
+   "sha256": "cbd59017f99e"
+  },
+  {
+   "file": "ALU_Operation_Behavior_Table.csv",
+   "status": "read",
+   "rows": 14,
+   "sha256": "a773bd512260"
+  },
+  {
+   "file": "ALU_Open_Questions.csv",
+   "status": "read",
+   "rows": 18,
+   "sha256": "5da7e8ac2404"
+  },
+  {
+   "file": "ALU_Design_Decisions.csv",
+   "status": "missing"
+  },
+  {
+   "file": "ALU_Constraints_and_Assumptions.csv",
+   "status": "read",
+   "rows": 18,
+   "sha256": "4545cea31a4b"
+  },
+  {
+   "file": "ALU_Golden_Vectors.csv",
+   "status": "missing"
+  }
+ ],
+ "problems": [
+  "IF-001 operand_A: no width ('Not specified')",
+  "IF-002 operand_B: no width ('Not specified')",
+  "IF-004 alu_result: no width ('Not specified')",
+  "IF-005 load_operand_A: no method signature ('Parameter type not specified')",
+  "IF-006 load_operand_B: no method signature ('Parameter type not specified')",
+  "IF-007 initialize: no method signature ('No parameters specified')",
+  "IF-008 display: no method signature ('Display output; exact type not specified')",
+  "IF-011 Reset: no method signature ('Not specified')",
+  "IF-012 Calc: no method signature ('in1: int; in2: int; operation: enum; Result: int')",
+  "OP-001 Select data on port B: result not defined ('Select/forward data from port B; exact result assignment is not detail')",
+  "OP-002 Increment data on port B: result not defined ('Increment data on port B; exact arithmetic width and overflow behavior')",
+  "OP-003 Decrement data on port B: result not defined ('Decrement data on port B; exact arithmetic width and underflow behavio')",
+  "OP-004 ADD without CARRY: result not defined ('Add operands without carry; exact carry-in/output handling is not spec')",
+  "OP-005 ADD with CARRY: result not defined ('Add with carry; carry source and handling are not specified.')",
+  "OP-006 SUB without BORROW: result not defined ('Subtract without borrow; operand order and borrow conventions require ')",
+  "OP-007 SUB with BORROW: result not defined ('Subtract with borrow; borrow source and operand order require clarific')",
+  "OP-011 Shift left: result not defined ('Shift left; exact operand mapping and shift amount are not specified.')",
+  "OP-012 Shift right: result not defined ('Shift right; logical versus arithmetic shift is not specified.')",
+  "OP-013 Rotate left: result not defined ('Rotate left; exact operand mapping and rotate amount are not specified')",
+  "OP-014 Rotate right: result not defined ('Rotate right; exact operand mapping and rotate amount are not specifie')",
+  "architecture is only an image (High-Level ALU Architecture Diagram.png); no component or relation can be read from it"
+ ],
+ "loaded": {
+  "requirements": 13,
+  "interfaces": 14,
+  "types": 0,
+  "operations": 14,
+  "constraints": 18,
+  "open_questions": 18,
+  "decisions": 0,
+  "classes": 0,
+  "verification": 28,
+  "golden_vectors": 0,
+  "existing_rtl": 0
+ }
+}

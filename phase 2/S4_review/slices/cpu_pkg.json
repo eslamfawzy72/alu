@@ -1,0 +1,80 @@
+{
+ "unit": {
+  "name": "cpu_pkg",
+  "kind": "package",
+  "file": "cpu_pkg.sv",
+  "types": [
+   {
+    "name": "alu_op_t",
+    "kind": "enum",
+    "base": "logic [3:0]",
+    "if": "IF-014",
+    "decision": "D-001",
+    "members": {
+     "OP_SEL_B": "4'b0000",
+     "OP_INC_B": "4'b0001",
+     "OP_DEC_B": "4'b0010",
+     "OP_ADD": "4'b0011",
+     "OP_ADDC": "4'b0100",
+     "OP_SUB": "4'b0101",
+     "OP_SUBB": "4'b0110",
+     "OP_AND": "4'b0111",
+     "OP_OR": "4'b1000",
+     "OP_XOR": "4'b1001",
+     "OP_SHL": "4'b1010",
+     "OP_SHR": "4'b1011",
+     "OP_ROL": "4'b1100",
+     "OP_ROR": "4'b1101"
+    },
+    "invalid_codes": [
+     "4'b1110",
+     "4'b1111"
+    ]
+   }
+  ],
+  "includes": [
+   "base_alu.svh",
+   "logical_alu.svh",
+   "arithmetic_alu.svh",
+   "CPU.svh"
+  ],
+  "behaviour": "Declares alu_op_t, then includes one file per class in dependency order (base class first, CPU last because it uses both derived classes).",
+  "owns": [
+   "FR-011",
+   "FR-012",
+   "IF-013",
+   "IF-014",
+   "D-001",
+   "D-013",
+   "D-014"
+  ],
+  "uses": []
+ },
+ "spec_text": {
+  "FR-011": "Represent ALU operation codes using an enum type.",
+  "FR-012": "Create a cpu_pkg package that holds all CPU definitions.",
+  "IF-013": "cpu_pkg.cpu_pkg: SystemVerilog package",
+  "IF-014": "cpu_pkg.Operation code set: 4-bit operation codes / enum",
+  "D-001": "Declare typedef enum logic [3:0] {...} alu_op_t; once in cpu_pkg, with the 14 listed codes (OP_SEL_B=4'b0000 ... OP_ROR=4'b1101). Both alu_op and Calc's operation use alu_op_t.",
+  "D-013": "extern is not used (it is optional). Methods are defined inside each class.",
+  "D-014": "cpu_pkg defines alu_op_t and includes base_alu.svh, logical_alu.svh, arithmetic_alu.svh, cpu.svh in that order. Each class stays in its own file."
+ },
+ "base_class": null,
+ "enum": null,
+ "coding_rules": {
+  "language": "SystemVerilog-2017 (IEEE 1800-2017)",
+  "one_unit_per_file": "CA-001",
+  "extern": "not used (D-013)",
+  "tags": "every line implementing an ID ends with // @ID",
+  "only_tag": "IDs in owns or uses of this slice"
+ },
+ "must_tag": [
+  "FR-011",
+  "FR-012",
+  "IF-013",
+  "IF-014",
+  "D-001",
+  "D-013",
+  "D-014"
+ ]
+}

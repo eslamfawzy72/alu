@@ -1,0 +1,155 @@
+{
+ "unit": {
+  "name": "logical_alu",
+  "kind": "class",
+  "file": "logical_alu.svh",
+  "extends": "base_alu",
+  "properties": [],
+  "methods": [
+   {
+    "name": "get_name",
+    "signature": "virtual function string get_name()",
+    "behaviour": "returns \"logical_alu\"",
+    "overrides": "base_alu"
+   },
+   {
+    "name": "execute",
+    "signature": "virtual function void execute()",
+    "overrides": "base_alu",
+    "behaviour": "case on alu_op over OP-008..OP-014; any other code reports $error"
+   }
+  ],
+  "datapath": [
+   {
+    "op": "OP-008",
+    "enum": "OP_AND",
+    "compute": "alu_result = operand_A & operand_B"
+   },
+   {
+    "op": "OP-009",
+    "enum": "OP_OR",
+    "compute": "alu_result = operand_A | operand_B"
+   },
+   {
+    "op": "OP-010",
+    "enum": "OP_XOR",
+    "compute": "alu_result = operand_A ^ operand_B"
+   },
+   {
+    "op": "OP-011",
+    "enum": "OP_SHL",
+    "compute": "alu_result = a << amt"
+   },
+   {
+    "op": "OP-012",
+    "enum": "OP_SHR",
+    "compute": "alu_result = a >> amt (logical: a is unsigned, so zeros fill)"
+   },
+   {
+    "op": "OP-013",
+    "enum": "OP_ROL",
+    "compute": "alu_result = (a << amt) | (a >> (32 - amt)); amt = 0 gives a >> 32 = 0, so the result is a"
+   },
+   {
+    "op": "OP-014",
+    "enum": "OP_ROR",
+    "compute": "alu_result = (a >> amt) | (a << (32 - amt))"
+   }
+  ],
+  "locals": [
+   {
+    "name": "a",
+    "type": "int unsigned",
+    "value": "operand_A as an unsigned 32-bit pattern",
+    "why": "makes >> a logical shift (D-004) and rotates see plain bits"
+   },
+   {
+    "name": "amt",
+    "type": "int unsigned",
+    "value": "operand_B[4:0], 0 to 31",
+    "why": "shift/rotate amount (D-003)"
+   }
+  ],
+  "owns": [
+   "FR-006",
+   "OP-008",
+   "OP-009",
+   "OP-010",
+   "OP-011",
+   "OP-012",
+   "OP-013",
+   "OP-014",
+   "D-003",
+   "D-004"
+  ],
+  "uses": [
+   "D-002"
+  ]
+ },
+ "spec_text": {
+  "FR-006": "Define logical_alu as a class derived from base_alu and support the listed logical operations.",
+  "OP-008": "result = A & B",
+  "OP-009": "result = A | B",
+  "OP-010": "result = A ^ B",
+  "OP-011": "result = A << B[4:0]",
+  "OP-012": "result = A >> B[4:0] (logical, zero fill)",
+  "OP-013": "result = A rotated left by B[4:0] within 32 bits",
+  "OP-014": "result = A rotated right by B[4:0] within 32 bits",
+  "D-003": "Shifts and rotates act on operand_A; the amount is operand_B[4:0] (0 to 31). Amount 0 returns A unchanged.",
+  "D-004": "Resolved by the language: the spec declares int, which is 32-bit, signed, 2-state in SystemVerilog. Arithmetic wraps modulo 2^32. Shift right is logical (>>), rotates work on 32 bits.",
+  "D-002": "in1/operand_A is the first operand, in2/operand_B the second. Binary ops compute A op B; SUB is A - B. Port-B ops (SEL_B, INC_B, DEC_B) use operand_B only."
+ },
+ "base_class": {
+  "name": "base_alu",
+  "methods": [
+   "function new()",
+   "function void load_operand_A(int value)",
+   "function void load_operand_B(int value)",
+   "virtual function void initialize()",
+   "virtual function void display()",
+   "virtual function string get_name()",
+   "virtual function void execute()"
+  ],
+  "properties": [
+   "int operand_A",
+   "int operand_B",
+   "alu_op_t alu_op",
+   "int alu_result"
+  ]
+ },
+ "enum": {
+  "OP_SEL_B": "4'b0000",
+  "OP_INC_B": "4'b0001",
+  "OP_DEC_B": "4'b0010",
+  "OP_ADD": "4'b0011",
+  "OP_ADDC": "4'b0100",
+  "OP_SUB": "4'b0101",
+  "OP_SUBB": "4'b0110",
+  "OP_AND": "4'b0111",
+  "OP_OR": "4'b1000",
+  "OP_XOR": "4'b1001",
+  "OP_SHL": "4'b1010",
+  "OP_SHR": "4'b1011",
+  "OP_ROL": "4'b1100",
+  "OP_ROR": "4'b1101"
+ },
+ "coding_rules": {
+  "language": "SystemVerilog-2017 (IEEE 1800-2017)",
+  "one_unit_per_file": "CA-001",
+  "extern": "not used (D-013)",
+  "tags": "every line implementing an ID ends with // @ID",
+  "only_tag": "IDs in owns or uses of this slice"
+ },
+ "must_tag": [
+  "FR-006",
+  "OP-008",
+  "OP-009",
+  "OP-010",
+  "OP-011",
+  "OP-012",
+  "OP-013",
+  "OP-014",
+  "D-003",
+  "D-004"
+ ]
+}

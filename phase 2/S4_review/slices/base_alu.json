@@ -1,0 +1,176 @@
+{
+ "unit": {
+  "name": "base_alu",
+  "kind": "class",
+  "file": "base_alu.svh",
+  "extends": null,
+  "properties": [
+   {
+    "name": "operand_A",
+    "type": "int",
+    "width": 32,
+    "if": "IF-001",
+    "after_initialize": "0"
+   },
+   {
+    "name": "operand_B",
+    "type": "int",
+    "width": 32,
+    "if": "IF-002",
+    "after_initialize": "0"
+   },
+   {
+    "name": "alu_op",
+    "type": "alu_op_t",
+    "width": 4,
+    "if": "IF-003",
+    "after_initialize": "OP_SEL_B"
+   },
+   {
+    "name": "alu_result",
+    "type": "int",
+    "width": 32,
+    "if": "IF-004",
+    "after_initialize": "0"
+   }
+  ],
+  "methods": [
+   {
+    "name": "new",
+    "signature": "function new()",
+    "behaviour": "calls initialize() so no object is used before it has known values",
+    "decision": "D-018"
+   },
+   {
+    "name": "load_operand_A",
+    "signature": "function void load_operand_A(int value)",
+    "behaviour": "operand_A = value",
+    "if": "IF-005",
+    "req": "FR-002"
+   },
+   {
+    "name": "load_operand_B",
+    "signature": "function void load_operand_B(int value)",
+    "behaviour": "operand_B = value",
+    "if": "IF-006",
+    "req": "FR-003"
+   },
+   {
+    "name": "initialize",
+    "signature": "virtual function void initialize()",
+    "behaviour": "operand_A = 0, operand_B = 0, alu_op = OP_SEL_B, alu_result = 0. Virtual so arithmetic_alu can also clear carry and CPU.Reset() reaches it through one call",
+    "if": "IF-007",
+    "req": "FR-004",
+    "decision": "D-007"
+   },
+   {
+    "name": "display",
+    "signature": "virtual function void display()",
+    "behaviour": "prints one line: [<class>] op=<alu_op.name()> A=<%0d> B=<%0d> result=<%0d>",
+    "if": "IF-008",
+    "req": "FR-005",
+    "decision": "D-010"
+   },
+   {
+    "name": "get_name",
+    "signature": "virtual function string get_name()",
+    "behaviour": "returns \"base_alu\"; overridden so display() prints the real class name",
+    "added": true
+   },
+   {
+    "name": "execute",
+    "signature": "virtual function void execute()",
+    "behaviour": "base class has no operations: reports $error and leaves alu_result unchanged",
+    "if": "IF-016",
+    "decision": "D-012"
+   }
+  ],
+  "owns": [
+   "FR-001",
+   "FR-002",
+   "FR-003",
+   "FR-004",
+   "FR-005",
+   "IF-001",
+   "IF-002",
+   "IF-003",
+   "IF-004",
+   "IF-005",
+   "IF-006",
+   "IF-007",
+   "IF-008",
+   "IF-016",
+   "D-007",
+   "D-010",
+   "D-011"
+  ],
+  "uses": [
+   "D-012",
+   "D-018"
+  ]
+ },
+ "spec_text": {
+  "FR-001": "Define a base_alu class that provides the common properties and methods used by the ALU classes.",
+  "FR-002": "Provide load_operand_A to load/store operand A.",
+  "FR-003": "Provide load_operand_B to load/store operand B.",
+  "FR-004": "Provide an initialize method for the base_alu class.",
+  "FR-005": "Provide a display method in base_alu.",
+  "IF-001": "base_alu.operand_A: int",
+  "IF-002": "base_alu.operand_B: int",
+  "IF-003": "base_alu.alu_op: alu_op_t (enum logic [3:0])",
+  "IF-004": "base_alu.alu_result: int",
+  "IF-005": "base_alu.load_operand_A: function void load_operand_A(int value)",
+  "IF-006": "base_alu.load_operand_B: function void load_operand_B(int value)",
+  "IF-007": "base_alu.initialize: function void initialize()",
+  "IF-008": "base_alu.display: virtual function void display()",
+  "IF-016": "base_alu.execute: virtual function void execute()",
+  "D-007": "initialize() sets operand_A = 0, operand_B = 0, alu_op = OP_SEL_B, alu_result = 0 (and carry = 0 in arithmetic_alu). new() calls initialize().",
+  "D-010": "display() prints one line: [<class>] op=<op.name()> A=<%0d> B=<%0d> result=<%0d> (arithmetic_alu adds  carry=<0/1>).",
+  "D-011": "function void load_operand_A(int value), function void load_operand_B(int value), function void initialize(), function void display().",
+  "D-012": "function int Calc(int in1, int in2, alu_op_t operation). Codes 0000-0110 go to a_alu, 0111-1101 to l_alu. Calc loads operands and op into that ALU, calls its execute(), returns its alu_result.",
+  "D-018": "CPU.new() constructs l_alu and a_alu; base_alu.new() calls initialize(), so no object is ever used uninitialised."
+ },
+ "base_class": null,
+ "enum": {
+  "OP_SEL_B": "4'b0000",
+  "OP_INC_B": "4'b0001",
+  "OP_DEC_B": "4'b0010",
+  "OP_ADD": "4'b0011",
+  "OP_ADDC": "4'b0100",
+  "OP_SUB": "4'b0101",
+  "OP_SUBB": "4'b0110",
+  "OP_AND": "4'b0111",
+  "OP_OR": "4'b1000",
+  "OP_XOR": "4'b1001",
+  "OP_SHL": "4'b1010",
+  "OP_SHR": "4'b1011",
+  "OP_ROL": "4'b1100",
+  "OP_ROR": "4'b1101"
+ },
+ "coding_rules": {
+  "language": "SystemVerilog-2017 (IEEE 1800-2017)",
+  "one_unit_per_file": "CA-001",
+  "extern": "not used (D-013)",
+  "tags": "every line implementing an ID ends with // @ID",
+  "only_tag": "IDs in owns or uses of this slice"
+ },
+ "must_tag": [
+  "FR-001",
+  "FR-002",
+  "FR-003",
+  "FR-004",
+  "FR-005",
+  "IF-001",
+  "IF-002",
+  "IF-003",
+  "IF-004",
+  "IF-005",
+  "IF-006",
+  "IF-007",
+  "IF-008",
+  "IF-016",
+  "D-007",
+  "D-010",
+  "D-011"
+ ]
+}
