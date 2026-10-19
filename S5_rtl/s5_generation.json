@@ -10,7 +10,7 @@
  "files": [
   {
    "unit": "CPU",
-   "file": "cpu.svh",
+   "file": "CPU.svh",
    "lines": 40,
    "tags_found": [
     "D-002",
@@ -125,5 +125,16 @@
    "ok": true
   }
  ],
- "filelist": "S5_rtl/files.f"
+ "filelist": "S5_rtl/files.f",
+ "plan_version": 2,
+ "regenerations": [
+  {
+   "after": "plan v2 (S7 escalation, round 1)",
+   "units": [
+    "CPU",
+    "cpu_pkg"
+   ],
+   "change": "CPU class file renamed cpu.svh -> CPU.svh (content unchanged); cpu_pkg include line updated"
+  }
+ ]
 }

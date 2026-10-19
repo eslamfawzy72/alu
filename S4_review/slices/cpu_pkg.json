@@ -36,7 +36,7 @@
    "base_alu.svh",
    "logical_alu.svh",
    "arithmetic_alu.svh",
-   "cpu.svh"
+   "CPU.svh"
   ],
   "behaviour": "Declares alu_op_t, then includes one file per class in dependency order (base class first, CPU last because it uses both derived classes).",
   "owns": [

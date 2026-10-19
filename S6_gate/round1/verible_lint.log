@@ -1,0 +1,2 @@
+$ verible-verilog-lint rtl/arithmetic_alu.svh rtl/base_alu.svh rtl/cpu.svh rtl/cpu_pkg.sv rtl/logical_alu.svh
+(no findings)

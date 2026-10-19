@@ -26,6 +26,6 @@ package cpu_pkg;  // @FR-012 @IF-013
   `include "base_alu.svh"        // @D-014
   `include "logical_alu.svh"     // @D-014
   `include "arithmetic_alu.svh"  // @D-014
-  `include "cpu.svh"             // @D-014
+  `include "CPU.svh"             // @D-014
 
 endpackage : cpu_pkg

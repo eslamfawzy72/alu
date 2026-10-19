@@ -2,7 +2,7 @@
  "unit": {
   "name": "CPU",
   "kind": "class",
-  "file": "cpu.svh",
+  "file": "CPU.svh",
   "extends": null,
   "properties": [
    {

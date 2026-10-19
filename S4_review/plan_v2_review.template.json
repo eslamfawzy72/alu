@@ -1,0 +1,13 @@
+{
+ "plan_version": 2,
+ "decision": "approved | rejected",
+ "reviewer": "",
+ "date": "",
+ "comments": [],
+ "added_elements": {
+  "get_name()": "approved | rejected"
+ },
+ "deviations": {
+  "D-014": "approved | rejected"
+ }
+}

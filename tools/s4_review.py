@@ -36,18 +36,25 @@ if len(sys.argv) < 6:
         for w in x["warnings"]:
             if not w.startswith("added element"):
                 L.append(f"- **Warning**: {w}")
+    for d in plan.get("deviations", []):
+        L.append(f"- **Deviation from {d['id']}**: spec says `{d['spec_says']}`, plan does `{d['plan_does']}`. {d['why']}")
+    if plan.get("replan_reason"):
+        L.insert(3, f"Re-plan requested by {plan['replan_reason']['from']}: {plan['replan_reason']['summary']}.\n")
     for e in plan["not_in_rtl"]:
         L.append(f"- **Not in RTL** {e['id']}: {e['reason']}")
     L += ["", "Write the decision into `plan_v%d_review.json` (template next to this file)." % v]
     (out / f"plan_v{v}_review_request.md").write_text("\n".join(L) + "\n")
     tmpl = {"plan_version": v, "decision": "approved | rejected", "reviewer": "", "date": "",
-            "comments": [], "added_elements": {a["name"]: "approved | rejected" for a in plan["added_elements"]}}
+            "comments": [], "added_elements": {a["name"]: "approved | rejected" for a in plan["added_elements"]},
+            "deviations": {d["id"]: "approved | rejected" for d in plan.get("deviations", [])}}
     (out / f"plan_v{v}_review.template.json").write_text(json.dumps(tmpl, indent=1))
     print("awaiting_review")
     sys.exit(0)
 
 rev = json.loads(Path(sys.argv[5]).read_text())
-if rev["decision"] != "approved" or any(s != "approved" for s in rev["added_elements"].values()):
+devs = rev.get("deviations", {})
+if rev["decision"] != "approved" or any(s != "approved" for s in rev["added_elements"].values()) \
+        or any(devs.get(d["id"]) != "approved" for d in plan.get("deviations", [])):
     print("rejected: back to S3 with", rev["comments"]); sys.exit(2)
 shutil.copy(plan_p, out / "design_plan_approved.json")
 rules = {"language": "SystemVerilog-2017 (IEEE 1800-2017)", "one_unit_per_file": "CA-001",
