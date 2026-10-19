@@ -6,12 +6,16 @@ set -euo pipefail
 cd "$(dirname "$0")"
 export PATH=/tmp/verible-v0.0-3946-g851d3ff4/bin:$PATH   # adjust to your Verible install
 H=S1_intake/run2_answered/phase1_handoff.json
+P1="../phase 1"   # Phase 1 output, revision 2 (the answers)
 
-# S1 + S2, run 1: the original Phase 1 output (expected: blocked)
-python3 tools/s1_normalize.py inputs/phase1_original S1_intake/run1_original
+# S1 + S2, run 1: Phase 1 revision 1, every question still open (expected: blocked).
+# ../phase 1 now holds revision 2, so revision 1 is taken from git history.
+R1=$(mktemp -d)
+git -C .. archive 1463e78 "phase 1" | tar -x -C "$R1"
+python3 tools/s1_normalize.py "$R1/phase 1" S1_intake/run1_original
 python3 tools/s2_readiness.py S1_intake/run1_original/phase1_handoff.json S2_readiness/run1_original || true
-# S1 + S2, run 2: Phase 1's answers
-python3 tools/s1_normalize.py inputs/phase1_answered S1_intake/run2_answered
+# S1 + S2, run 2: Phase 1 revision 2
+python3 tools/s1_normalize.py "$P1" S1_intake/run2_answered
 python3 tools/s2_readiness.py $H S2_readiness/run2_answered --approvals inputs/decision_approvals.json
 
 # S3 self-check and S4 for plan v1 and v2

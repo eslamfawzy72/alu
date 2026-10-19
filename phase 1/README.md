@@ -6,6 +6,32 @@ Phase 1 focuses on analyzing the project's specification and converting its cont
 
 The phase captures the system overview, functional requirements, interfaces and signals, operations and behavior, constraints and assumptions, verification requirements, open questions, and traceability information. It also identifies the high-level architecture.
 
+## Current output: revision 2
+
+This folder holds the current Phase 1 output for the ALU assignment. Later phases read these files directly.
+
+| File | Deliverable | IDs |
+| --- | --- | --- |
+| `ALU_Project_Overview_Mapping.md` | 1. Project overview | |
+| `ALU_Functional_Requirements.csv` | 2. Functional requirements | FR-001 to FR-013 |
+| `ALU_Interfaces_and_Signals.csv` | 3. Interfaces and signals | IF-001 to IF-016 |
+| `ALU_Operation_Behavior_Table.csv` | 4. Operation / behavior table | OP-001 to OP-014 |
+| `ALU_Constraints_and_Assumptions.csv` | 5. Constraints and assumptions | CA-001 to CA-018 |
+| `ALU_Verification_Requirements.csv` | 6. Verification requirements | TC-001 to TC-028 |
+| `ALU_Open_Questions.csv` | 7. Open questions, each answered by a decision | Q-001 to Q-018 |
+| `ALU_Traceability.csv` | 8. Traceability | TR-001 to TR-108 |
+| `ALU_Architecture_Corrected.svg`, `.png` | 9. High-level architecture | |
+| `ALU_Design_Decisions.csv` | answers to the open questions, with approval status | D-001 to D-018 |
+| `ALU_Golden_Vectors.csv` | exact expected results, including boundary cases | vectors 1 to 37 |
+| `alu_spec.json` | the same content in machine-readable form, with `spec_version` (read this first) | |
+| `REVISION_2.md` | what revision 2 changed from revision 1, and why | |
+
+Revision 1, in which all 18 questions are still open, is kept in git history at commit `1463e78`.
+
+## Answering questions from later phases
+
+When a later phase finds a gap, it writes a `questions_for_phase1.md` file in its own folder, with one numbered question per gap. Phase 1 answers each question by updating the files in this folder. It keeps the existing IDs, adds new IDs for new items, and updates `spec_version` in `alu_spec.json`. Later phases then read the updated files; they do not copy them.
+
 ## Objectives
 
 - Understand the system described by the source specification.

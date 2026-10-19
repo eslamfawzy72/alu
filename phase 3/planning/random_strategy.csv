@@ -1,3 +1,0 @@
-Strategy ID,Source IDs,Stimulus,Constraints,Oracle,Repetitions,Status
-RS-001,OP-008;OP-009;OP-010,Uniform random A and B (32-bit int); random opcode from AND/OR/XOR,"Only opcodes 7, 8, 9 while remaining semantics unresolved",Independent bitwise computation,300 default; configurable plusarg RANDOM_N,ACTIVE
-RS-002,OP-001..OP-007;OP-011..OP-014,"Extend to arithmetic, shifts and rotates after approvals",PENDING per Q-002..Q-006 and Q-017,PENDING,PENDING,BLOCKED
