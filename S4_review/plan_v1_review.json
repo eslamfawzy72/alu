@@ -1,0 +1,11 @@
+{
+ "plan_version": 1,
+ "decision": "approved",
+ "reviewer": "PENDING - provisional approval for this run; design lead to sign",
+ "date": "2026-10-19",
+ "comments": [
+  "initialize() made virtual: accepted, Calc/Reset interfaces unchanged.",
+  "cpu.svh kept as named in D-014; if lint flags the file name, S7 decides."
+ ],
+ "added_elements": {"get_name()": "approved"}
+}

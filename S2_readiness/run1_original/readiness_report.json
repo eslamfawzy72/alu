@@ -1,0 +1,722 @@
+{
+ "status": "blocked",
+ "counts": {
+  "block": 74,
+  "condition": 0,
+  "warn": 15
+ },
+ "findings": [
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-001",
+   "finding": "open question with no answer: What is the exact SystemVerilog enum type name and where should it be declared?",
+   "question": "Q-001: What is the exact SystemVerilog enum type name and where should it be declared? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-002",
+   "finding": "open question with no answer: For each operation, which input operand(s) are used and in what order?",
+   "question": "Q-002: For each operation, which input operand(s) are used and in what order? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-003",
+   "finding": "open question with no answer: For shift and rotate operations, where does the shift/rotation amount come from?",
+   "question": "Q-003: For shift and rotate operations, where does the shift/rotation amount come from? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-004",
+   "finding": "open question with no answer: What operand width and signedness should apply to shifts, rotations, and arithmetic results?",
+   "question": "Q-004: What operand width and signedness should apply to shifts, rotations, and arithmetic results? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-005",
+   "finding": "open question with no answer: How is carry-in supplied for ADD with CARRY, and how should carry-out be represented?",
+   "question": "Q-005: How is carry-in supplied for ADD with CARRY, and how should carry-out be represented? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-006",
+   "finding": "open question with no answer: How is borrow-in supplied for SUB with BORROW, and how should borrow-out be represented?",
+   "question": "Q-006: How is borrow-in supplied for SUB with BORROW, and how should borrow-out be represented? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-007",
+   "finding": "open question with no answer: What should initialize() set, and what should the default values of the ALU properties be?",
+   "question": "Q-007: What should initialize() set, and what should the default values of the ALU properties be? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-008",
+   "finding": "open question with no answer: What exact state should CPU Reset clear or initialize?",
+   "question": "Q-008: What exact state should CPU Reset clear or initialize? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-009",
+   "finding": "open question with no answer: What should happen when an unsupported or unassigned opcode is supplied?",
+   "question": "Q-009: What should happen when an unsupported or unassigned opcode is supplied? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-010",
+   "finding": "open question with no answer: What exact output and formatting should display() produce?",
+   "question": "Q-010: What exact output and formatting should display() produce? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-011",
+   "finding": "open question with no answer: What are the exact parameter and return types of load_operand_A(), load_operand_B(), and initialize()?",
+   "question": "Q-011: What are the exact parameter and return types of load_operand_A(), load_operand_B(), and initialize()? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-012",
+   "finding": "open question with no answer: What exact signature and dispatch behavior should CPU.Calc use for operation and Result?",
+   "question": "Q-012: What exact signature and dispatch behavior should CPU.Calc use for operation and Result? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-013",
+   "finding": "open question with no answer: Should the ALU class functions be declared extern, and if so, which functions?",
+   "question": "Q-013: Should the ALU class functions be declared extern, and if so, which functions? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-014",
+   "finding": "open question with no answer: What exact set of definitions must cpu_pkg contain?",
+   "question": "Q-014: What exact set of definitions must cpu_pkg contain? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-015",
+   "finding": "open question with no answer: What minimum test cases or acceptance criteria are required for submission?",
+   "question": "Q-015: What minimum test cases or acceptance criteria are required for submission? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-016",
+   "finding": "open question with no answer: Should arithmetic operations expose overflow, carry, or borrow flags in addition to alu_result?",
+   "question": "Q-016: Should arithmetic operations expose overflow, carry, or borrow flags in addition to alu_result? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-017",
+   "finding": "open question with no answer: For operation 4'b0000, where should selected port-B data be stored or returned?",
+   "question": "Q-017: For operation 4'b0000, where should selected port-B data be stored or returned? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R01",
+   "severity": "block",
+   "item": "Q-018",
+   "finding": "open question with no answer: What should happen if CPU or an ALU method is called before its objects/state are initialized?",
+   "question": "Q-018: What should happen if CPU or an ALU method is called before its objects/state are initialized? Please give the agreed answer, who approved it and the date.",
+   "input": "IN-07"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-001",
+   "finding": "no owning component",
+   "question": "FR-001 Define base ALU class: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-001",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-002",
+   "finding": "no owning component",
+   "question": "FR-002 Load operand A: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-002",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-003",
+   "finding": "no owning component",
+   "question": "FR-003 Load operand B: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-003",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-004",
+   "finding": "no owning component",
+   "question": "FR-004 Initialize base ALU: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-004",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-005",
+   "finding": "no owning component",
+   "question": "FR-005 Display ALU information: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-005",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-006",
+   "finding": "no owning component",
+   "question": "FR-006 Implement logical ALU operations: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-006",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-007",
+   "finding": "no owning component",
+   "question": "FR-007 Implement arithmetic ALU operations: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-007",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-008",
+   "finding": "no owning component",
+   "question": "FR-008 Define CPU class: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-008",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-009",
+   "finding": "no owning component",
+   "question": "FR-009 Reset CPU: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-009",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-010",
+   "finding": "no owning component",
+   "question": "FR-010 Calculate selected ALU operation: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-010",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-011",
+   "finding": "no owning component",
+   "question": "FR-011 Define operation enumeration: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-011",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-012",
+   "finding": "no owning component",
+   "question": "FR-012 Create CPU package: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-012",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R03",
+   "severity": "block",
+   "item": "FR-013",
+   "finding": "no owning component",
+   "question": "FR-013 Provide a test program: which class or package implements it?",
+   "input": "IN-01 / IN-08"
+  },
+  {
+   "rule": "R03",
+   "severity": "warn",
+   "item": "FR-013",
+   "finding": "priority not given",
+   "question": null,
+   "input": "IN-01"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-001",
+   "finding": "operand_A: no width",
+   "question": "IF-001 operand_A: give the exact data type and width in bits.",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-002",
+   "finding": "operand_B: no width",
+   "question": "IF-002 operand_B: give the exact data type and width in bits.",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-003",
+   "finding": "alu_op: no owner",
+   "question": "IF-003: which class or package owns it?",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-004",
+   "finding": "alu_result: no width",
+   "question": "IF-004 alu_result: give the exact data type and width in bits.",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-004",
+   "finding": "alu_result: no owner",
+   "question": "IF-004: which class or package owns it?",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-005",
+   "finding": "load_operand_A: no full signature",
+   "question": "IF-005 load_operand_A: give the full declaration (return type, every argument with its type).",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-006",
+   "finding": "load_operand_B: no full signature",
+   "question": "IF-006 load_operand_B: give the full declaration (return type, every argument with its type).",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-007",
+   "finding": "initialize: no full signature",
+   "question": "IF-007 initialize: give the full declaration (return type, every argument with its type).",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-008",
+   "finding": "display: no full signature",
+   "question": "IF-008 display: give the full declaration (return type, every argument with its type).",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-011",
+   "finding": "Reset: no full signature",
+   "question": "IF-011 Reset: give the full declaration (return type, every argument with its type).",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-012",
+   "finding": "Calc: no full signature",
+   "question": "IF-012 Calc: give the full declaration (return type, every argument with its type).",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R04",
+   "severity": "block",
+   "item": "IF-014",
+   "finding": "Operation code set: no owner",
+   "question": "IF-014: which class or package owns it?",
+   "input": "IN-02"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-001",
+   "finding": "Select data on port B: result not defined",
+   "question": "OP-001 Select data on port B (4'b0000): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-001",
+   "finding": "Select data on port B: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-002",
+   "finding": "Increment data on port B: result not defined",
+   "question": "OP-002 Increment data on port B (4'b0001): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-002",
+   "finding": "Increment data on port B: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-003",
+   "finding": "Decrement data on port B: result not defined",
+   "question": "OP-003 Decrement data on port B (4'b0010): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-003",
+   "finding": "Decrement data on port B: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-004",
+   "finding": "ADD without CARRY: result not defined",
+   "question": "OP-004 ADD without CARRY (4'b0011): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-004",
+   "finding": "ADD without CARRY: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-005",
+   "finding": "ADD with CARRY: result not defined",
+   "question": "OP-005 ADD with CARRY (4'b0100): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-005",
+   "finding": "ADD with CARRY: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-006",
+   "finding": "SUB without BORROW: result not defined",
+   "question": "OP-006 SUB without BORROW (4'b0101): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-006",
+   "finding": "SUB without BORROW: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-007",
+   "finding": "SUB with BORROW: result not defined",
+   "question": "OP-007 SUB with BORROW (4'b0110): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-007",
+   "finding": "SUB with BORROW: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-008",
+   "finding": "AND: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-009",
+   "finding": "OR: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-010",
+   "finding": "XOR: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-011",
+   "finding": "Shift left: result not defined",
+   "question": "OP-011 Shift left (4'b1010): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-011",
+   "finding": "Shift left: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-012",
+   "finding": "Shift right: result not defined",
+   "question": "OP-012 Shift right (4'b1011): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-012",
+   "finding": "Shift right: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-013",
+   "finding": "Rotate left: result not defined",
+   "question": "OP-013 Rotate left (4'b1100): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-013",
+   "finding": "Rotate left: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-014",
+   "finding": "Rotate right: result not defined",
+   "question": "OP-014 Rotate right (4'b1101): give the exact result, operand order and any flag effects, with boundary values.",
+   "input": "IN-04"
+  },
+  {
+   "rule": "R05",
+   "severity": "block",
+   "item": "OP-014",
+   "finding": "Rotate right: no owning unit",
+   "question": null,
+   "input": "IN-04"
+  },
+  {
+   "rule": "R06",
+   "severity": "block",
+   "item": "alu_op",
+   "finding": "no type definition for the operation enum",
+   "question": "Give the enum type name, base type, every member with its value, and where it is declared.",
+   "input": "IN-03"
+  },
+  {
+   "rule": "R07",
+   "severity": "block",
+   "item": "invalid opcode",
+   "finding": "behaviour for codes 4'b1110 / 4'b1111 not defined",
+   "question": "What must Calc return and report for an unsupported operation code?",
+   "input": "IN-05"
+  },
+  {
+   "rule": "R08",
+   "severity": "block",
+   "item": "initialize / Reset",
+   "finding": "values after initialize() and Reset() not defined",
+   "question": "What value does every property hold after construction, initialize() and CPU.Reset()?",
+   "input": "IN-06"
+  },
+  {
+   "rule": "R09",
+   "severity": "block",
+   "item": "architecture",
+   "finding": "no editable architecture (only High-Level ALU Architecture Diagram.png)",
+   "question": "Send the architecture as an editable .puml or draw.io file (classes, extends, contains).",
+   "input": "IN-08"
+  },
+  {
+   "rule": "R10",
+   "severity": "block",
+   "item": "design kind",
+   "finding": "not stated whether this is synthesizable hardware or a simulation model",
+   "question": "Is the deliverable synthesizable RTL or a simulation-only class model? Any target device?",
+   "input": "IN-09"
+  },
+  {
+   "rule": "R10",
+   "severity": "block",
+   "item": "baseline",
+   "finding": "no spec version or approval record",
+   "question": "Give the spec version, approval status, approvers, date and the Git commit of the Phase 1 files.",
+   "input": "IN-10"
+  },
+  {
+   "rule": "R12",
+   "severity": "warn",
+   "item": "smoke vectors",
+   "finding": "no vectors with exact expected values; S8 cannot check results",
+   "question": null,
+   "input": "IN-16"
+  },
+  {
+   "rule": "R12",
+   "severity": "warn",
+   "item": "coding rules",
+   "finding": "no project coding rules; S5/S6 use the assignment constraints (CA-001 one class per file, CA-008 extern optional) and Verilator/Verible defaults",
+   "question": null,
+   "input": "IN-15"
+  }
+ ]
+}

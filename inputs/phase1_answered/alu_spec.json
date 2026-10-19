@@ -1,0 +1,819 @@
+{
+  "spec_version": "1.1-proposed",
+  "source": "ALU_assignment.pdf + Phase 1 tables + ALU_Design_Decisions.csv",
+  "status_note": "Decisions marked Proposed must be approved before Phase 2 treats them as requirements.",
+  "design_kind": "SystemVerilog class hierarchy (simulation only, not synthesizable)",
+  "package": {
+    "name": "cpu_pkg",
+    "file": "cpu_pkg.sv",
+    "includes_in_order": [
+      "base_alu.svh",
+      "logical_alu.svh",
+      "arithmetic_alu.svh",
+      "cpu.svh"
+    ],
+    "decision": "D-014"
+  },
+  "types": [
+    {
+      "name": "alu_op_t",
+      "kind": "enum",
+      "base": "logic [3:0]",
+      "members": [
+        {
+          "name": "OP_SEL_B",
+          "value": "4'b0000",
+          "op_id": "OP-001"
+        },
+        {
+          "name": "OP_INC_B",
+          "value": "4'b0001",
+          "op_id": "OP-002"
+        },
+        {
+          "name": "OP_DEC_B",
+          "value": "4'b0010",
+          "op_id": "OP-003"
+        },
+        {
+          "name": "OP_ADD",
+          "value": "4'b0011",
+          "op_id": "OP-004"
+        },
+        {
+          "name": "OP_ADDC",
+          "value": "4'b0100",
+          "op_id": "OP-005"
+        },
+        {
+          "name": "OP_SUB",
+          "value": "4'b0101",
+          "op_id": "OP-006"
+        },
+        {
+          "name": "OP_SUBB",
+          "value": "4'b0110",
+          "op_id": "OP-007"
+        },
+        {
+          "name": "OP_AND",
+          "value": "4'b0111",
+          "op_id": "OP-008"
+        },
+        {
+          "name": "OP_OR",
+          "value": "4'b1000",
+          "op_id": "OP-009"
+        },
+        {
+          "name": "OP_XOR",
+          "value": "4'b1001",
+          "op_id": "OP-010"
+        },
+        {
+          "name": "OP_SHL",
+          "value": "4'b1010",
+          "op_id": "OP-011"
+        },
+        {
+          "name": "OP_SHR",
+          "value": "4'b1011",
+          "op_id": "OP-012"
+        },
+        {
+          "name": "OP_ROL",
+          "value": "4'b1100",
+          "op_id": "OP-013"
+        },
+        {
+          "name": "OP_ROR",
+          "value": "4'b1101",
+          "op_id": "OP-014"
+        }
+      ],
+      "invalid_codes": [
+        "4'b1110",
+        "4'b1111"
+      ],
+      "decision": "D-001"
+    }
+  ],
+  "data_semantics": {
+    "int": "32-bit signed 2-state; arithmetic wraps modulo 2^32",
+    "shift_right": "logical",
+    "shift_amount": "operand_B[4:0]",
+    "decision": [
+      "D-003",
+      "D-004"
+    ]
+  },
+  "classes": [
+    {
+      "name": "base_alu",
+      "file": "base_alu.svh",
+      "extends": null,
+      "req": [
+        "FR-001"
+      ],
+      "properties": [
+        {
+          "name": "operand_A",
+          "type": "int",
+          "if": "IF-001"
+        },
+        {
+          "name": "operand_B",
+          "type": "int",
+          "if": "IF-002"
+        },
+        {
+          "name": "alu_op",
+          "type": "alu_op_t",
+          "if": "IF-003"
+        },
+        {
+          "name": "alu_result",
+          "type": "int",
+          "if": "IF-004"
+        }
+      ],
+      "methods": [
+        {
+          "sig": "function new()",
+          "does": "calls initialize()",
+          "decision": "D-018"
+        },
+        {
+          "sig": "function void load_operand_A(int value)",
+          "req": "FR-002",
+          "decision": "D-011"
+        },
+        {
+          "sig": "function void load_operand_B(int value)",
+          "req": "FR-003",
+          "decision": "D-011"
+        },
+        {
+          "sig": "function void initialize()",
+          "req": "FR-004",
+          "does": "A=0, B=0, alu_op=OP_SEL_B, alu_result=0",
+          "decision": "D-007"
+        },
+        {
+          "sig": "virtual function void display()",
+          "req": "FR-005",
+          "decision": "D-010"
+        },
+        {
+          "sig": "virtual function void execute()",
+          "does": "computes alu_result from alu_op; overridden by derived classes",
+          "note": "added design element (not in assignment) so CPU can dispatch polymorphically"
+        }
+      ]
+    },
+    {
+      "name": "logical_alu",
+      "file": "logical_alu.svh",
+      "extends": "base_alu",
+      "req": [
+        "FR-006"
+      ],
+      "ops": [
+        "OP-008",
+        "OP-009",
+        "OP-010",
+        "OP-011",
+        "OP-012",
+        "OP-013",
+        "OP-014"
+      ],
+      "methods": [
+        {
+          "sig": "virtual function void execute()",
+          "does": "OP-008..OP-014"
+        }
+      ]
+    },
+    {
+      "name": "arithmetic_alu",
+      "file": "arithmetic_alu.svh",
+      "extends": "base_alu",
+      "req": [
+        "FR-007"
+      ],
+      "extra_properties": [
+        {
+          "name": "carry",
+          "type": "bit",
+          "decision": "D-005"
+        }
+      ],
+      "ops": [
+        "OP-001",
+        "OP-002",
+        "OP-003",
+        "OP-004",
+        "OP-005",
+        "OP-006",
+        "OP-007"
+      ],
+      "methods": [
+        {
+          "sig": "virtual function void execute()",
+          "does": "OP-001..OP-007, updates carry for OP-004..OP-007"
+        },
+        {
+          "sig": "function void initialize()",
+          "does": "super.initialize(); carry = 0"
+        },
+        {
+          "sig": "function bit get_carry()",
+          "decision": "D-016"
+        },
+        {
+          "sig": "function void set_carry(bit c)",
+          "note": "lets tests set carry-in directly"
+        }
+      ]
+    },
+    {
+      "name": "CPU",
+      "file": "cpu.svh",
+      "extends": null,
+      "req": [
+        "FR-008",
+        "FR-009",
+        "FR-010"
+      ],
+      "properties": [
+        {
+          "name": "l_alu",
+          "type": "logical_alu",
+          "if": "IF-009"
+        },
+        {
+          "name": "a_alu",
+          "type": "arithmetic_alu",
+          "if": "IF-010"
+        }
+      ],
+      "methods": [
+        {
+          "sig": "function new()",
+          "does": "l_alu = new(); a_alu = new();",
+          "decision": "D-018"
+        },
+        {
+          "sig": "function void Reset()",
+          "does": "l_alu.initialize(); a_alu.initialize();",
+          "decision": "D-008"
+        },
+        {
+          "sig": "function int Calc(int in1, int in2, alu_op_t operation)",
+          "does": "0000-0110 -> a_alu, 0111-1101 -> l_alu: load A, B, op; execute(); return alu_result. Invalid code: $error, return 0, no state change.",
+          "decision": [
+            "D-009",
+            "D-012"
+          ]
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "OP-001",
+      "name": "Select data on port B",
+      "enum": "OP_SEL_B",
+      "code": "4'b0000",
+      "alu": "arithmetic",
+      "semantics": "result = B",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-002",
+      "name": "Increment data on port B",
+      "enum": "OP_INC_B",
+      "code": "4'b0001",
+      "alu": "arithmetic",
+      "semantics": "result = B + 1 (wraps)",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-003",
+      "name": "Decrement data on port B",
+      "enum": "OP_DEC_B",
+      "code": "4'b0010",
+      "alu": "arithmetic",
+      "semantics": "result = B - 1 (wraps)",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-004",
+      "name": "ADD without CARRY",
+      "enum": "OP_ADD",
+      "code": "4'b0011",
+      "alu": "arithmetic",
+      "semantics": "result = A + B; carry = unsigned carry out",
+      "updates_carry": true
+    },
+    {
+      "id": "OP-005",
+      "name": "ADD with CARRY",
+      "enum": "OP_ADDC",
+      "code": "4'b0100",
+      "alu": "arithmetic",
+      "semantics": "result = A + B + carry; carry = unsigned carry out",
+      "updates_carry": true
+    },
+    {
+      "id": "OP-006",
+      "name": "SUB without BORROW",
+      "enum": "OP_SUB",
+      "code": "4'b0101",
+      "alu": "arithmetic",
+      "semantics": "result = A - B; carry = borrow out",
+      "updates_carry": true
+    },
+    {
+      "id": "OP-007",
+      "name": "SUB with BORROW",
+      "enum": "OP_SUBB",
+      "code": "4'b0110",
+      "alu": "arithmetic",
+      "semantics": "result = A - B - carry; carry = borrow out",
+      "updates_carry": true
+    },
+    {
+      "id": "OP-008",
+      "name": "AND",
+      "enum": "OP_AND",
+      "code": "4'b0111",
+      "alu": "logical",
+      "semantics": "result = A & B",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-009",
+      "name": "OR",
+      "enum": "OP_OR",
+      "code": "4'b1000",
+      "alu": "logical",
+      "semantics": "result = A | B",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-010",
+      "name": "XOR",
+      "enum": "OP_XOR",
+      "code": "4'b1001",
+      "alu": "logical",
+      "semantics": "result = A ^ B",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-011",
+      "name": "Shift left",
+      "enum": "OP_SHL",
+      "code": "4'b1010",
+      "alu": "logical",
+      "semantics": "result = A << B[4:0]",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-012",
+      "name": "Shift right",
+      "enum": "OP_SHR",
+      "code": "4'b1011",
+      "alu": "logical",
+      "semantics": "result = A >> B[4:0] (logical, zero fill)",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-013",
+      "name": "Rotate left",
+      "enum": "OP_ROL",
+      "code": "4'b1100",
+      "alu": "logical",
+      "semantics": "result = A rotated left by B[4:0] within 32 bits",
+      "updates_carry": false
+    },
+    {
+      "id": "OP-014",
+      "name": "Rotate right",
+      "enum": "OP_ROR",
+      "code": "4'b1101",
+      "alu": "logical",
+      "semantics": "result = A rotated right by B[4:0] within 32 bits",
+      "updates_carry": false
+    }
+  ],
+  "test_program": {
+    "file": "tb_cpu.sv",
+    "kind": "program block importing cpu_pkg",
+    "req": "FR-013",
+    "must_cover": [
+      "every vector below via CPU.Calc",
+      "Reset restores D-007 values",
+      "invalid codes 4'b1110 and 4'b1111",
+      "display() runs on all three ALU classes"
+    ],
+    "pass_criterion": "0 mismatches; prints PASS/FAIL summary",
+    "decision": "D-015"
+  },
+  "golden_vectors": [
+    {
+      "op": "OP_SEL_B",
+      "code": "4'b0000",
+      "A": 5,
+      "B": 23,
+      "carry_in": 0,
+      "expected_result": 23,
+      "result_hex": "32'h00000017",
+      "note": "basic"
+    },
+    {
+      "op": "OP_INC_B",
+      "code": "4'b0001",
+      "A": 0,
+      "B": 9,
+      "carry_in": 0,
+      "expected_result": 10,
+      "result_hex": "32'h0000000A",
+      "note": "basic"
+    },
+    {
+      "op": "OP_INC_B",
+      "code": "4'b0001",
+      "A": 0,
+      "B": 2147483647,
+      "carry_in": 0,
+      "expected_result": -2147483648,
+      "result_hex": "32'h80000000",
+      "note": "max int wraps to min"
+    },
+    {
+      "op": "OP_INC_B",
+      "code": "4'b0001",
+      "A": 0,
+      "B": -1,
+      "carry_in": 0,
+      "expected_result": 0,
+      "result_hex": "32'h00000000",
+      "note": "-1 + 1 = 0"
+    },
+    {
+      "op": "OP_DEC_B",
+      "code": "4'b0010",
+      "A": 0,
+      "B": 9,
+      "carry_in": 0,
+      "expected_result": 8,
+      "result_hex": "32'h00000008",
+      "note": "basic"
+    },
+    {
+      "op": "OP_DEC_B",
+      "code": "4'b0010",
+      "A": 0,
+      "B": -2147483648,
+      "carry_in": 0,
+      "expected_result": 2147483647,
+      "result_hex": "32'h7FFFFFFF",
+      "note": "min int wraps to max"
+    },
+    {
+      "op": "OP_ADD",
+      "code": "4'b0011",
+      "A": 7,
+      "B": 5,
+      "carry_in": 0,
+      "expected_result": 12,
+      "result_hex": "32'h0000000C",
+      "note": "basic",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_ADD",
+      "code": "4'b0011",
+      "A": -1,
+      "B": 1,
+      "carry_in": 0,
+      "expected_result": 0,
+      "result_hex": "32'h00000000",
+      "note": "unsigned carry out",
+      "expected_carry": 1
+    },
+    {
+      "op": "OP_ADD",
+      "code": "4'b0011",
+      "A": 2147483647,
+      "B": 1,
+      "carry_in": 0,
+      "expected_result": -2147483648,
+      "result_hex": "32'h80000000",
+      "note": "signed overflow, no carry",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_ADD",
+      "code": "4'b0011",
+      "A": 7,
+      "B": 5,
+      "carry_in": 1,
+      "expected_result": 12,
+      "result_hex": "32'h0000000C",
+      "note": "carry in ignored",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_ADDC",
+      "code": "4'b0100",
+      "A": 7,
+      "B": 5,
+      "carry_in": 1,
+      "expected_result": 13,
+      "result_hex": "32'h0000000D",
+      "note": "carry in used",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_ADDC",
+      "code": "4'b0100",
+      "A": -1,
+      "B": 0,
+      "carry_in": 1,
+      "expected_result": 0,
+      "result_hex": "32'h00000000",
+      "note": "carry in causes carry out",
+      "expected_carry": 1
+    },
+    {
+      "op": "OP_ADDC",
+      "code": "4'b0100",
+      "A": 7,
+      "B": 5,
+      "carry_in": 0,
+      "expected_result": 12,
+      "result_hex": "32'h0000000C",
+      "note": "carry 0 equals ADD",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_SUB",
+      "code": "4'b0101",
+      "A": 9,
+      "B": 4,
+      "carry_in": 0,
+      "expected_result": 5,
+      "result_hex": "32'h00000005",
+      "note": "basic",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_SUB",
+      "code": "4'b0101",
+      "A": 4,
+      "B": 9,
+      "carry_in": 0,
+      "expected_result": -5,
+      "result_hex": "32'hFFFFFFFB",
+      "note": "negative result, borrow out",
+      "expected_carry": 1
+    },
+    {
+      "op": "OP_SUB",
+      "code": "4'b0101",
+      "A": 9,
+      "B": 4,
+      "carry_in": 1,
+      "expected_result": 5,
+      "result_hex": "32'h00000005",
+      "note": "borrow in ignored",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_SUBB",
+      "code": "4'b0110",
+      "A": 9,
+      "B": 4,
+      "carry_in": 1,
+      "expected_result": 4,
+      "result_hex": "32'h00000004",
+      "note": "borrow in used",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_SUBB",
+      "code": "4'b0110",
+      "A": 0,
+      "B": 0,
+      "carry_in": 1,
+      "expected_result": -1,
+      "result_hex": "32'hFFFFFFFF",
+      "note": "0 - 0 - 1 borrows",
+      "expected_carry": 1
+    },
+    {
+      "op": "OP_SUBB",
+      "code": "4'b0110",
+      "A": 9,
+      "B": 4,
+      "carry_in": 0,
+      "expected_result": 5,
+      "result_hex": "32'h00000005",
+      "note": "borrow 0 equals SUB",
+      "expected_carry": 0
+    },
+    {
+      "op": "OP_AND",
+      "code": "4'b0111",
+      "A": 12,
+      "B": 10,
+      "carry_in": 0,
+      "expected_result": 8,
+      "result_hex": "32'h00000008",
+      "note": "basic"
+    },
+    {
+      "op": "OP_AND",
+      "code": "4'b0111",
+      "A": -1,
+      "B": 3855,
+      "carry_in": 0,
+      "expected_result": 3855,
+      "result_hex": "32'h00000F0F",
+      "note": "mask"
+    },
+    {
+      "op": "OP_OR",
+      "code": "4'b1000",
+      "A": 12,
+      "B": 10,
+      "carry_in": 0,
+      "expected_result": 14,
+      "result_hex": "32'h0000000E",
+      "note": "basic"
+    },
+    {
+      "op": "OP_XOR",
+      "code": "4'b1001",
+      "A": 12,
+      "B": 10,
+      "carry_in": 0,
+      "expected_result": 6,
+      "result_hex": "32'h00000006",
+      "note": "basic"
+    },
+    {
+      "op": "OP_XOR",
+      "code": "4'b1001",
+      "A": -1,
+      "B": -1,
+      "carry_in": 0,
+      "expected_result": 0,
+      "result_hex": "32'h00000000",
+      "note": "x ^ x = 0"
+    },
+    {
+      "op": "OP_SHL",
+      "code": "4'b1010",
+      "A": 1,
+      "B": 4,
+      "carry_in": 0,
+      "expected_result": 16,
+      "result_hex": "32'h00000010",
+      "note": "basic"
+    },
+    {
+      "op": "OP_SHL",
+      "code": "4'b1010",
+      "A": 1,
+      "B": 31,
+      "carry_in": 0,
+      "expected_result": -2147483648,
+      "result_hex": "32'h80000000",
+      "note": "into sign bit"
+    },
+    {
+      "op": "OP_SHL",
+      "code": "4'b1010",
+      "A": 5,
+      "B": 32,
+      "carry_in": 0,
+      "expected_result": 5,
+      "result_hex": "32'h00000005",
+      "note": "amount uses B[4:0], 32 -> 0"
+    },
+    {
+      "op": "OP_SHL",
+      "code": "4'b1010",
+      "A": 5,
+      "B": 0,
+      "carry_in": 0,
+      "expected_result": 5,
+      "result_hex": "32'h00000005",
+      "note": "amount 0"
+    },
+    {
+      "op": "OP_SHR",
+      "code": "4'b1011",
+      "A": 16,
+      "B": 4,
+      "carry_in": 0,
+      "expected_result": 1,
+      "result_hex": "32'h00000001",
+      "note": "basic"
+    },
+    {
+      "op": "OP_SHR",
+      "code": "4'b1011",
+      "A": -2147483648,
+      "B": 31,
+      "carry_in": 0,
+      "expected_result": 1,
+      "result_hex": "32'h00000001",
+      "note": "logical, not arithmetic"
+    },
+    {
+      "op": "OP_SHR",
+      "code": "4'b1011",
+      "A": -1,
+      "B": 1,
+      "carry_in": 0,
+      "expected_result": 2147483647,
+      "result_hex": "32'h7FFFFFFF",
+      "note": "zero fill"
+    },
+    {
+      "op": "OP_ROL",
+      "code": "4'b1100",
+      "A": -2147483647,
+      "B": 1,
+      "carry_in": 0,
+      "expected_result": 3,
+      "result_hex": "32'h00000003",
+      "note": "MSB wraps to LSB"
+    },
+    {
+      "op": "OP_ROL",
+      "code": "4'b1100",
+      "A": 1,
+      "B": 0,
+      "carry_in": 0,
+      "expected_result": 1,
+      "result_hex": "32'h00000001",
+      "note": "amount 0"
+    },
+    {
+      "op": "OP_ROL",
+      "code": "4'b1100",
+      "A": 305419896,
+      "B": 8,
+      "carry_in": 0,
+      "expected_result": 878082066,
+      "result_hex": "32'h34567812",
+      "note": "byte rotate"
+    },
+    {
+      "op": "OP_ROR",
+      "code": "4'b1101",
+      "A": 1,
+      "B": 1,
+      "carry_in": 0,
+      "expected_result": -2147483648,
+      "result_hex": "32'h80000000",
+      "note": "LSB wraps to MSB"
+    },
+    {
+      "op": "OP_ROR",
+      "code": "4'b1101",
+      "A": 3,
+      "B": 1,
+      "carry_in": 0,
+      "expected_result": -2147483647,
+      "result_hex": "32'h80000001",
+      "note": "two bits"
+    },
+    {
+      "op": "OP_ROR",
+      "code": "4'b1101",
+      "A": 305419896,
+      "B": 8,
+      "carry_in": 0,
+      "expected_result": 2014458966,
+      "result_hex": "32'h78123456",
+      "note": "byte rotate"
+    }
+  ],
+  "tool_gate": {
+    "compile_and_run": "a simulator with SV class support: Verilator >= 5 (--binary), Questa or VCS (e.g. on EDA Playground)",
+    "not_applicable": "Yosys synthesis check: classes are not synthesizable",
+    "checks": [
+      "compiles with no errors",
+      "lint warnings reviewed",
+      "all golden vectors pass",
+      "each class in its own file (CA-001)",
+      "names match IF-001..IF-014"
+    ]
+  }
+}

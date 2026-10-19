@@ -1,0 +1,218 @@
+{
+ "unit": {
+  "name": "arithmetic_alu",
+  "kind": "class",
+  "file": "arithmetic_alu.svh",
+  "extends": "base_alu",
+  "properties": [
+   {
+    "name": "carry",
+    "type": "bit",
+    "width": 1,
+    "if": "IF-015",
+    "after_initialize": "0",
+    "decision": "D-005"
+   }
+  ],
+  "methods": [
+   {
+    "name": "get_name",
+    "signature": "virtual function string get_name()",
+    "behaviour": "returns \"arithmetic_alu\"",
+    "overrides": "base_alu"
+   },
+   {
+    "name": "initialize",
+    "signature": "virtual function void initialize()",
+    "overrides": "base_alu",
+    "behaviour": "super.initialize(); carry = 0",
+    "decision": "D-007"
+   },
+   {
+    "name": "get_carry",
+    "signature": "function bit get_carry()",
+    "behaviour": "returns carry",
+    "decision": "D-016"
+   },
+   {
+    "name": "set_carry",
+    "signature": "function void set_carry(bit c)",
+    "behaviour": "carry = c (lets a test set carry-in directly; named in alu_spec.json)",
+    "decision": "D-005"
+   },
+   {
+    "name": "display",
+    "signature": "virtual function void display()",
+    "overrides": "base_alu",
+    "behaviour": "base line plus carry=<0/1>",
+    "decision": "D-010"
+   },
+   {
+    "name": "execute",
+    "signature": "virtual function void execute()",
+    "overrides": "base_alu",
+    "behaviour": "case on alu_op over OP-001..OP-007; any other code reports $error"
+   }
+  ],
+  "datapath": [
+   {
+    "op": "OP-001",
+    "enum": "OP_SEL_B",
+    "compute": "alu_result = operand_B",
+    "carry": "unchanged"
+   },
+   {
+    "op": "OP-002",
+    "enum": "OP_INC_B",
+    "compute": "alu_result = operand_B + 1 (wraps)",
+    "carry": "unchanged"
+   },
+   {
+    "op": "OP-003",
+    "enum": "OP_DEC_B",
+    "compute": "alu_result = operand_B - 1 (wraps)",
+    "carry": "unchanged"
+   },
+   {
+    "op": "OP-004",
+    "enum": "OP_ADD",
+    "compute": "wide = a + b; alu_result = wide[31:0]",
+    "carry": "wide[32]"
+   },
+   {
+    "op": "OP-005",
+    "enum": "OP_ADDC",
+    "compute": "wide = a + b + cin; alu_result = wide[31:0]",
+    "carry": "wide[32]"
+   },
+   {
+    "op": "OP-006",
+    "enum": "OP_SUB",
+    "compute": "wide = a - b; alu_result = wide[31:0]",
+    "carry": "wide[32] (1 = borrow: unsigned A < B)"
+   },
+   {
+    "op": "OP-007",
+    "enum": "OP_SUBB",
+    "compute": "wide = a - b - cin; alu_result = wide[31:0]",
+    "carry": "wide[32] (borrow out)"
+   }
+  ],
+  "locals": [
+   {
+    "name": "a, b",
+    "type": "logic [32:0]",
+    "value": "{1'b0, operand_A}, {1'b0, operand_B}",
+    "why": "33-bit unsigned copies: bit 32 of the sum is the carry out, bit 32 of the difference is the borrow out (D-005, D-006)"
+   },
+   {
+    "name": "cin",
+    "type": "logic [32:0]",
+    "value": "carry zero-extended",
+    "why": "carry-in / borrow-in for ADDC and SUBB"
+   },
+   {
+    "name": "wide",
+    "type": "logic [32:0]",
+    "value": "33-bit result",
+    "why": "result plus carry/borrow in one value"
+   }
+  ],
+  "owns": [
+   "FR-007",
+   "OP-001",
+   "OP-002",
+   "OP-003",
+   "OP-004",
+   "OP-005",
+   "OP-006",
+   "OP-007",
+   "IF-015",
+   "D-005",
+   "D-006",
+   "D-016",
+   "D-017"
+  ],
+  "uses": [
+   "D-002",
+   "D-004",
+   "D-007",
+   "D-010"
+  ]
+ },
+ "spec_text": {
+  "FR-007": "Define arithmetic_alu as a class derived from base_alu and support the listed arithmetic operations.",
+  "OP-001": "result = B",
+  "OP-002": "result = B + 1 (wraps)",
+  "OP-003": "result = B - 1 (wraps)",
+  "OP-004": "result = A + B; carry = unsigned carry out",
+  "OP-005": "result = A + B + carry; carry = unsigned carry out",
+  "OP-006": "result = A - B; carry = borrow out",
+  "OP-007": "result = A - B - carry; carry = borrow out",
+  "IF-015": "arithmetic_alu.carry: bit",
+  "D-005": "Add a bit carry property to arithmetic_alu (status flag, like a CPU carry flag). ADDC computes A + B + carry. ADD, ADDC, SUB, SUBB all update carry with the unsigned carry/borrow out. Calc's signature stays as in the spec.",
+  "D-006": "The same carry bit acts as borrow. SUBB computes A - B - carry. Borrow out = 1 when the unsigned subtraction needs a borrow.",
+  "D-016": "Expose only the carry flag (D-005), read with function bit get_carry(). No overflow flag.",
+  "D-017": "SEL_B writes operand_B into alu_result.",
+  "D-002": "in1/operand_A is the first operand, in2/operand_B the second. Binary ops compute A op B; SUB is A - B. Port-B ops (SEL_B, INC_B, DEC_B) use operand_B only.",
+  "D-004": "Resolved by the language: the spec declares int, which is 32-bit, signed, 2-state in SystemVerilog. Arithmetic wraps modulo 2^32. Shift right is logical (>>), rotates work on 32 bits.",
+  "D-007": "initialize() sets operand_A = 0, operand_B = 0, alu_op = OP_SEL_B, alu_result = 0 (and carry = 0 in arithmetic_alu). new() calls initialize().",
+  "D-010": "display() prints one line: [<class>] op=<op.name()> A=<%0d> B=<%0d> result=<%0d> (arithmetic_alu adds  carry=<0/1>)."
+ },
+ "base_class": {
+  "name": "base_alu",
+  "methods": [
+   "function new()",
+   "function void load_operand_A(int value)",
+   "function void load_operand_B(int value)",
+   "virtual function void initialize()",
+   "virtual function void display()",
+   "virtual function string get_name()",
+   "virtual function void execute()"
+  ],
+  "properties": [
+   "int operand_A",
+   "int operand_B",
+   "alu_op_t alu_op",
+   "int alu_result"
+  ]
+ },
+ "enum": {
+  "OP_SEL_B": "4'b0000",
+  "OP_INC_B": "4'b0001",
+  "OP_DEC_B": "4'b0010",
+  "OP_ADD": "4'b0011",
+  "OP_ADDC": "4'b0100",
+  "OP_SUB": "4'b0101",
+  "OP_SUBB": "4'b0110",
+  "OP_AND": "4'b0111",
+  "OP_OR": "4'b1000",
+  "OP_XOR": "4'b1001",
+  "OP_SHL": "4'b1010",
+  "OP_SHR": "4'b1011",
+  "OP_ROL": "4'b1100",
+  "OP_ROR": "4'b1101"
+ },
+ "coding_rules": {
+  "language": "SystemVerilog-2017 (IEEE 1800-2017)",
+  "one_unit_per_file": "CA-001",
+  "extern": "not used (D-013)",
+  "tags": "every line implementing an ID ends with // @ID",
+  "only_tag": "IDs in owns or uses of this slice"
+ },
+ "must_tag": [
+  "FR-007",
+  "OP-001",
+  "OP-002",
+  "OP-003",
+  "OP-004",
+  "OP-005",
+  "OP-006",
+  "OP-007",
+  "IF-015",
+  "D-005",
+  "D-006",
+  "D-016",
+  "D-017"
+ ]
+}
