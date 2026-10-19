@@ -99,7 +99,11 @@ for i, rows in trace.items():
     for r in rows:
         g.add_edge(i, r["unit"], rel="implemented_in", line=f"{r['file']}:{r['line']}")
 nx.write_graphml(g, out / "design_graph.graphml")
-(out / "design_graph.json").write_text(json.dumps(nx.node_link_data(g, edges="links"), indent=1))
+try:                                               # networkx >= 3.4
+    nl = nx.node_link_data(g, edges="links")
+except TypeError:                                  # older networkx (Ubuntu 24.04 ships 2.8)
+    nl = nx.node_link_data(g)
+(out / "design_graph.json").write_text(json.dumps(nl, indent=1))
 
 # 3 plan vs code
 mm = []

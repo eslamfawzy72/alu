@@ -28,7 +28,9 @@ for d in h["decisions"]:
 out = []
 for m in gate["messages"]:
     r = {"message": m}
-    if m["rule"] in STRUCTURAL:
+    if m["rule"] == "ERROR" and "syntax error" in m["text"]:
+        r.update(cls="local", fix="correct the syntax on or just before the reported line", route="S6 after patch")
+    elif m["rule"] in STRUCTURAL:
         r.update(cls="structural", why=STRUCTURAL[m["rule"]], route="S3")
     elif m["rule"] in LOCAL:
         r.update(cls="local", fix=LOCAL[m["rule"]], route="S6 after patch")

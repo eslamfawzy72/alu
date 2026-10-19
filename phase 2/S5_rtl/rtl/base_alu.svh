@@ -4,7 +4,7 @@
 
 class base_alu;  // @FR-001
 
-  int      operand_A;   // @IF-001
+  int      operand_A;  // @IF-001
   int      operand_B;   // @IF-002
   alu_op_t alu_op;      // @IF-003
   int      alu_result;  // @IF-004

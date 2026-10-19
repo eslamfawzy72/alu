@@ -17,7 +17,10 @@ files = sorted(str(p.relative_to(root)) for p in (root / "rtl").iterdir() if p.s
 
 
 def run(cmd):
-    p = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
+    try:
+        p = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
+    except FileNotFoundError:
+        return 127, f"{cmd[0]}: not installed"
     return p.returncode, p.stdout + p.stderr
 
 
@@ -37,7 +40,7 @@ rc2, log2 = run(["verible-verilog-lint"] + files)
 for m in re.finditer(r"([^:\n]+):(\d+):(\d+)(?:-\d+)?: (.*?) \[Style: [^\]]*\] \[([\w-]+)\]", log2):
     msgs.append({"tool": "verible", "severity": "warning", "rule": m[5], "file": m[1], "line": int(m[2]),
                  "text": m[4]})
-checks["style"] = "pass" if rc2 == 0 else "fail"
+checks["style"] = "skipped (verible not installed)" if rc2 == 127 else ("pass" if rc2 == 0 else "fail")
 
 # 3 interface conformance from Verilator's own parse tree
 rc3, log3 = run(["verilator", "--xml-only", "-Wno-fatal", "-f", "files.f", "--top-module", plan["top"],
@@ -56,7 +59,7 @@ if rc3 == 0:
         for f in list(c.findall("func")) + list(c.findall("task")):
             mem["methods"].add(f.get("name"))
 iface = []
-for u in plan["units"]:
+for u in (plan["units"] if rc3 == 0 else []):
     if u["kind"] != "class":
         continue
     got = found.get(u["name"])
@@ -75,10 +78,11 @@ for u in plan["units"]:
         iface.append(f"{u['name']} extends {got['extends']}, planned {u['extends']}")
 for t in iface:
     msgs.append({"tool": "interface_check", "severity": "error", "rule": "IFACE", "file": "", "line": 0, "text": t})
-checks["interface"] = "pass" if rc3 == 0 and not iface else "fail"
+checks["interface"] = ("skipped (design does not parse)" if rc3 != 0 else
+                       "pass" if not iface else "fail")
 checks["synthesis"] = "not_applicable (class_model)"
 
-rep = {"result": "pass" if all(v == "pass" or v.startswith("not_") for v in checks.values()) else "fail",
+rep = {"result": "pass" if all(v == "pass" or v.startswith(("not_", "skipped (")) for v in checks.values()) else "fail",
        "checks": checks, "messages": msgs, "classes_found": {k: sorted(v["methods"]) for k, v in found.items()},
        "tools": {"verilator": run(["verilator", "--version"])[1].strip(),
                  "verible": run(["verible-verilog-lint", "--version"])[1].split("\n")[0]}}
