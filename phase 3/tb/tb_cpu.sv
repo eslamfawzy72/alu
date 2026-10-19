@@ -9,7 +9,7 @@
 //
 // Plusargs: +GOLDEN=<file>      golden vectors (default ../phase 1/ALU_Golden_Vectors.csv)
 //           +SEED=<n>           random seed (default 1)
-//           +RANDOM_N=<n>       random transactions (default 2000)
+//           +RANDOM_N=<n>       random transactions (default 5000)
 //           +CHECKER_SELFTEST   corrupts the first checked value; the run must then FAIL
 
 program automatic tb_cpu;
@@ -543,7 +543,7 @@ program automatic tb_cpu;
     int          n;
     golden = "../phase 1/ALU_Golden_Vectors.csv";
     seed   = 1;
-    n      = 2000;
+    n      = 5000;
     void'($value$plusargs("GOLDEN=%s", golden));
     void'($value$plusargs("SEED=%d", seed));
     void'($value$plusargs("RANDOM_N=%d", n));

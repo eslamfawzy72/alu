@@ -59,7 +59,7 @@ D-015 requires every opcode, the boundary vectors, Reset and an invalid opcode. 
 ## 5. Stimulus
 
 - **Directed:** every row of `ALU_Golden_Vectors.csv` goes through `CPU.Calc`, with `carry` first set to the vector's "Carry in" (review flag F2). The TC-specific tests in section 4 use the Phase 1 example inputs where a TC gives them (17 and −4 for the loads, `Calc(7, 5, ADD)`, `Calc(12, 10, AND)`).
-- **Random:** 2000 calls by default (`+RANDOM_N`), seed 1 (`+SEED`). The opcode is uniform over the 14 valid codes. One operand in four is a corner value (0, 1, −1, 31, 32, `INT_MAX`, `INT_MIN`), the rest are uniform 32-bit values. `carry` is never reset between calls, so carry chains across calls are tested. Invalid codes are directed only (TC-027), because each one prints an `$error`.
+- **Random:** 5000 calls by default (`+RANDOM_N`), seed 1 (`+SEED`). The opcode is uniform over the 14 valid codes. One operand in four is a corner value (0, 1, −1, 31, 32, `INT_MAX`, `INT_MIN`), the rest are uniform 32-bit values. `carry` is never reset between calls, so carry chains across calls are tested. Invalid codes are directed only (TC-027), because each one prints an `$error`.
 
 ## 6. Checking
 

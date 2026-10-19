@@ -75,7 +75,7 @@ bash run.sh +CHECKER_SELFTEST   # must end with "checker self-test OK"
 bash run.sh                     # the regression; must end with "Phase 3 regression: PASS"
 ```
 
-`+SEED=<n>` and `+RANDOM_N=<n>` change the random test. With fewer than about 500 random calls, some coverage bins may stay empty and the run fails.
+`+SEED=<n>` and `+RANDOM_N=<n>` (default 5000) change the random test. Below about 3000 random calls, some shift-amount coverage bins can stay empty, and the run then fails on coverage.
 
 ### 6. Triage every FAIL
 
