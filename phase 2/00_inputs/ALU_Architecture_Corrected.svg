@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="720" viewBox="0 0 1000 720" font-family="DejaVu Sans, Arial, sans-serif">
+  <defs>
+    <marker id="inh" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M1 1L13 7L1 13z" fill="#ffffff" stroke="#444" stroke-width="1.2"/>
+    </marker>
+    <marker id="has" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse">
+      <path d="M1 5L8 1L15 5L8 9z" fill="#444"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#444"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="720" fill="#ffffff"/>
+  <text x="500" y="34" text-anchor="middle" font-size="22" font-weight="bold" fill="#1F3A5F">ALU class hierarchy and CPU integration (corrected)</text>
+
+  <rect x="20" y="56" width="750" height="590" rx="14" fill="#F7F5FF" stroke="#7F77DD" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="36" y="80" font-size="15" font-weight="bold" fill="#3C3489">package cpu_pkg  (cpu_pkg.sv)</text>
+
+  <g>
+    <rect x="40" y="96" width="310" height="90" rx="8" fill="#EEEDFE" stroke="#534AB7"/>
+    <text x="195" y="120" text-anchor="middle" font-size="15" font-weight="bold" fill="#26215C">alu_op_t  (enum logic [3:0])</text>
+    <text x="195" y="144" text-anchor="middle" font-size="13" fill="#3C3489">14 codes: 4'b0000 to 4'b1101</text>
+    <text x="195" y="166" text-anchor="middle" font-size="13" fill="#3C3489">4'b1110, 4'b1111 invalid (D-009)</text>
+  </g>
+
+  <g>
+    <rect x="420" y="96" width="330" height="128" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+    <text x="585" y="120" text-anchor="middle" font-size="15" font-weight="bold" fill="#04342C">CPU  (cpu.svh)</text>
+    <text x="436" y="144" font-size="13" fill="#085041">logical_alu  l_alu</text>
+    <text x="436" y="163" font-size="13" fill="#085041">arithmetic_alu  a_alu</text>
+    <text x="436" y="186" font-size="13" fill="#085041">new()   Reset()</text>
+    <text x="436" y="207" font-size="13" fill="#085041">int Calc(int in1, int in2, alu_op_t operation)</text>
+  </g>
+
+  <g>
+    <rect x="190" y="262" width="390" height="150" rx="8" fill="#FAEEDA" stroke="#854F0B"/>
+    <text x="385" y="286" text-anchor="middle" font-size="15" font-weight="bold" fill="#412402">base_alu  (base_alu.svh)</text>
+    <text x="206" y="312" font-size="13" fill="#633806">int operand_A, operand_B, alu_result</text>
+    <text x="206" y="332" font-size="13" fill="#633806">alu_op_t alu_op</text>
+    <text x="206" y="356" font-size="13" fill="#633806">new()  load_operand_A(int)  load_operand_B(int)</text>
+    <text x="206" y="376" font-size="13" fill="#633806">initialize()</text>
+    <text x="206" y="398" font-size="13" fill="#633806">virtual display()   virtual execute()</text>
+  </g>
+
+  <g>
+    <rect x="40" y="480" width="330" height="140" rx="8" fill="#FBEAF0" stroke="#993556"/>
+    <text x="205" y="504" text-anchor="middle" font-size="15" font-weight="bold" fill="#4B1528">logical_alu  (logical_alu.svh)</text>
+    <text x="56" y="530" font-size="13" fill="#72243E">extends base_alu</text>
+    <text x="56" y="554" font-size="13" fill="#72243E">execute():  AND  OR  XOR</text>
+    <text x="56" y="576" font-size="13" fill="#72243E">SHL  SHR  ROL  ROR</text>
+    <text x="56" y="600" font-size="13" fill="#72243E">codes 4'b0111 to 4'b1101</text>
+  </g>
+
+  <g>
+    <rect x="410" y="480" width="340" height="140" rx="8" fill="#E6F1FB" stroke="#185FA5"/>
+    <text x="580" y="504" text-anchor="middle" font-size="15" font-weight="bold" fill="#042C53">arithmetic_alu  (arithmetic_alu.svh)</text>
+    <text x="426" y="530" font-size="13" fill="#0C447C">extends base_alu;  + bit carry</text>
+    <text x="426" y="554" font-size="13" fill="#0C447C">execute():  SEL_B  INC_B  DEC_B</text>
+    <text x="426" y="576" font-size="13" fill="#0C447C">ADD  ADDC  SUB  SUBB</text>
+    <text x="426" y="600" font-size="13" fill="#0C447C">codes 4'b0000 to 4'b0110</text>
+  </g>
+
+  <path d="M205 480 V446 H300 V414" fill="none" stroke="#444" stroke-width="1.3" marker-end="url(#inh)"/>
+  <path d="M580 480 V446 H470 V414" fill="none" stroke="#444" stroke-width="1.3" marker-end="url(#inh)"/>
+
+  <path d="M690 224 V478" fill="none" stroke="#444" stroke-width="1.3" marker-start="url(#has)" marker-end="url(#arr)"/>
+  <text x="698" y="350" font-size="12" fill="#555">a_alu</text>
+  <path d="M450 224 V242 H30 V550 H38" fill="none" stroke="#444" stroke-width="1.3" marker-start="url(#has)" marker-end="url(#arr)"/>
+  <text x="108" y="236" font-size="12" fill="#555">l_alu</text>
+
+  <g>
+    <rect x="800" y="96" width="180" height="128" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+    <text x="890" y="120" text-anchor="middle" font-size="15" font-weight="bold" fill="#2C2C2A">tb_cpu.sv</text>
+    <text x="816" y="144" font-size="13" fill="#444441">program block</text>
+    <text x="816" y="165" font-size="13" fill="#444441">import cpu_pkg::*;</text>
+    <text x="816" y="186" font-size="13" fill="#444441">Calc(), Reset()</text>
+    <text x="816" y="207" font-size="13" fill="#444441">golden vectors</text>
+  </g>
+  <path d="M800 160 H753" fill="none" stroke="#444" stroke-width="1.3" marker-end="url(#arr)"/>
+
+  <g font-size="13" fill="#333">
+    <path d="M40 682 H90" stroke="#444" stroke-width="1.3" marker-end="url(#inh)"/>
+    <text x="100" y="686">extends (inheritance)</text>
+    <path d="M290 682 H340" stroke="#444" stroke-width="1.3" marker-start="url(#has)" marker-end="url(#arr)"/>
+    <text x="350" y="686">contains (CPU has-a)</text>
+    <path d="M530 682 H580" stroke="#444" stroke-width="1.3" marker-end="url(#arr)"/>
+    <text x="590" y="686">calls</text>
+    <text x="660" y="686" fill="#666">D-xxx = ALU_Design_Decisions.csv</text>
+  </g>
+</svg>

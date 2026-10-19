@@ -25,8 +25,8 @@ Read from the other phase folders as they are.
 | Phase 1 | `../phase 1/alu_spec.json` | API, enum and operation semantics (reference model) |
 | Phase 1 | `../phase 1/ALU_Design_Decisions.csv` | D-001 to D-018: state, invalid codes, display format, test program content |
 | Phase 1 | `../phase 1/ALU_Open_Questions.csv` | must have no open question |
-| Phase 2 | `../phase 2/S10_handoff/phase2_handoff.json` | DUT files and filelist (`../phase 2/S5_rtl/files.f`) |
-| Phase 2 | `../phase 2/S10_handoff/review_notes.md` | DUT behaviour the tests must allow for (flags F1, F2) |
+| Phase 2 | `../phase 2/08_release/phase2_handoff.md` | DUT files and filelist (`../phase 2/04_rtl/files.f`) |
+| Phase 2 | `../phase 2/08_release/phase2_handoff.md` | DUT behaviour the tests must allow for (flags F1, F2) |
 
 ## Steps
 
@@ -51,7 +51,7 @@ Check each row. A failed row is a question for Phase 1.
 | R9 | approved decisions | Design Decisions → "Approved by", "Date" | filled in |
 | R10 | a design to test | `phase2_handoff.json` | `dut.filelist` exists and gates S6 and S8 passed |
 
-Write every failed row to `questions_for_phase1.md` (or report R10 to Phase 2). Use one numbered question per gap, cite the ID, and say what answer is needed. This is the same format as `phase 2/S2_readiness/run1_original/questions_for_phase1.md`.
+Write every failed row to `questions_for_phase1.md` (or report R10 to Phase 2). Use one numbered question per gap, cite the ID, and say what answer is needed. This is the same format as `phase 2/01_spec_check/questions_for_phase1.md`.
 
 - **R1 to R8, R10 failed:** blocking. Stop until Phase 1 answers by updating its files with the same IDs, then repeat from step 1.
 - **R9 failed:** a condition. Continue, mark all results provisional, and list it in `verification_plan.md` section 3.

@@ -20,8 +20,8 @@ Phase 1 defines what is correct and Phase 3 defines how it is tested. Every expe
 | Invalid codes | same | D-009 |
 | `display()` format | same | D-010 |
 | Content and exit criterion of the test program | same | D-015 |
-| Design under test and its filelist | `phase 2/S10_handoff/phase2_handoff.json` → `dut` | `S5_rtl/files.f` |
-| Known DUT behaviour the tests must handle | `phase 2/S10_handoff/review_notes.md` | F1: Verilator stops on `$error`; F2: `carry` is state |
+| Design under test and its filelist | `phase 2/08_release/phase2_handoff.md` | `04_rtl/files.f` |
+| Known DUT behaviour the tests must handle | `phase 2/08_release/phase2_handoff.md` | F1: Verilator stops on `$error`; F2: `carry` is state |
 
 ## 3. Readiness result
 

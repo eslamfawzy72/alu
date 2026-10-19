@@ -1,1 +1,0 @@
-$ verilator --lint-only -Wall -f files.f --top-module cpu_pkg

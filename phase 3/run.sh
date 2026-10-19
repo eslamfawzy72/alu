@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-DUT="../phase 2/S5_rtl"   # from phase 2/S10_handoff/phase2_handoff.json -> dut (filelist files.f)
+DUT="../phase 2/04_rtl"   # from phase 2/08_release/phase2_handoff.md (filelist files.f)
 OUT=results
 case " $* " in *" +CHECKER_SELFTEST "*) OUT=results/checker_selftest ;; esac
 LOG=$OUT/sim.log
