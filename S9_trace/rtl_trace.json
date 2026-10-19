@@ -1,0 +1,642 @@
+{
+ "D-001": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 8,
+   "unit": "cpu_pkg",
+   "code": "typedef enum logic [3:0] {"
+  }
+ ],
+ "D-002": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 33,
+   "unit": "CPU",
+   "code": "alu.load_operand_A(in1);"
+  },
+  {
+   "file": "rtl/CPU.svh",
+   "line": 34,
+   "unit": "CPU",
+   "code": "alu.load_operand_B(in2);"
+  },
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 45,
+   "unit": "arithmetic_alu",
+   "code": "OP_ADD: begin"
+  },
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 55,
+   "unit": "arithmetic_alu",
+   "code": "OP_SUB: begin"
+  },
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 17,
+   "unit": "logical_alu",
+   "code": "OP_AND: alu_result = operand_A & operand_B;"
+  },
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 18,
+   "unit": "logical_alu",
+   "code": "OP_OR:  alu_result = operand_A | operand_B;"
+  },
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 19,
+   "unit": "logical_alu",
+   "code": "OP_XOR: alu_result = operand_A ^ operand_B;"
+  }
+ ],
+ "D-003": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 14,
+   "unit": "logical_alu",
+   "code": "int unsigned amt = {27'b0, operand_B[4:0]};"
+  }
+ ],
+ "D-004": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 36,
+   "unit": "arithmetic_alu",
+   "code": "logic [32:0] a   = {1'b0, operand_A};"
+  },
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 13,
+   "unit": "logical_alu",
+   "code": "int unsigned a   = int'(operand_A);"
+  },
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 21,
+   "unit": "logical_alu",
+   "code": "OP_SHR: alu_result = int'(a >> amt);"
+  }
+ ],
+ "D-005": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 10,
+   "unit": "arithmetic_alu",
+   "code": "bit carry;"
+  },
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 26,
+   "unit": "arithmetic_alu",
+   "code": "function void set_carry(bit c);"
+  },
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 50,
+   "unit": "arithmetic_alu",
+   "code": "OP_ADDC: begin"
+  }
+ ],
+ "D-006": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 10,
+   "unit": "arithmetic_alu",
+   "code": "bit carry;"
+  },
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 60,
+   "unit": "arithmetic_alu",
+   "code": "OP_SUBB: begin"
+  }
+ ],
+ "D-007": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 18,
+   "unit": "arithmetic_alu",
+   "code": "carry = 1'b0;"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 27,
+   "unit": "base_alu",
+   "code": "operand_A  = 0;"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 28,
+   "unit": "base_alu",
+   "code": "operand_B  = 0;"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 29,
+   "unit": "base_alu",
+   "code": "alu_op     = OP_SEL_B;"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 30,
+   "unit": "base_alu",
+   "code": "alu_result = 0;"
+  }
+ ],
+ "D-008": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 15,
+   "unit": "CPU",
+   "code": "l_alu.initialize();"
+  },
+  {
+   "file": "rtl/CPU.svh",
+   "line": 16,
+   "unit": "CPU",
+   "code": "a_alu.initialize();"
+  }
+ ],
+ "D-009": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 29,
+   "unit": "CPU",
+   "code": "$error(\"CPU.Calc: invalid operation code 4'b%04b\", operation);"
+  },
+  {
+   "file": "rtl/CPU.svh",
+   "line": 30,
+   "unit": "CPU",
+   "code": "return 0;"
+  }
+ ],
+ "D-010": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 31,
+   "unit": "arithmetic_alu",
+   "code": "$display(\"[%s] op=%s A=%0d B=%0d result=%0d carry=%0b\","
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 39,
+   "unit": "base_alu",
+   "code": "$display(\"[%s] op=%s A=%0d B=%0d result=%0d\","
+  }
+ ],
+ "D-011": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 17,
+   "unit": "base_alu",
+   "code": "function void load_operand_A(int value);"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 21,
+   "unit": "base_alu",
+   "code": "function void load_operand_B(int value);"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 26,
+   "unit": "base_alu",
+   "code": "virtual function void initialize();"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 38,
+   "unit": "base_alu",
+   "code": "virtual function void display();"
+  }
+ ],
+ "D-012": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 24,
+   "unit": "CPU",
+   "code": "if (operation inside {[OP_SEL_B : OP_SUBB]}) begin"
+  },
+  {
+   "file": "rtl/CPU.svh",
+   "line": 26,
+   "unit": "CPU",
+   "code": "end else if (operation inside {[OP_AND : OP_ROR]}) begin"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 44,
+   "unit": "base_alu",
+   "code": "virtual function void execute();"
+  }
+ ],
+ "D-013": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 25,
+   "unit": "cpu_pkg",
+   "code": ""
+  }
+ ],
+ "D-014": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 26,
+   "unit": "cpu_pkg",
+   "code": "`include \"base_alu.svh\""
+  },
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 27,
+   "unit": "cpu_pkg",
+   "code": "`include \"logical_alu.svh\""
+  },
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 28,
+   "unit": "cpu_pkg",
+   "code": "`include \"arithmetic_alu.svh\""
+  },
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 29,
+   "unit": "cpu_pkg",
+   "code": "`include \"CPU.svh\""
+  }
+ ],
+ "D-016": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 21,
+   "unit": "arithmetic_alu",
+   "code": "function bit get_carry();"
+  }
+ ],
+ "D-017": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 42,
+   "unit": "arithmetic_alu",
+   "code": "OP_SEL_B: alu_result = operand_B;"
+  }
+ ],
+ "D-018": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 9,
+   "unit": "CPU",
+   "code": "l_alu = new();"
+  },
+  {
+   "file": "rtl/CPU.svh",
+   "line": 10,
+   "unit": "CPU",
+   "code": "a_alu = new();"
+  },
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 14,
+   "unit": "base_alu",
+   "code": "initialize();"
+  }
+ ],
+ "FR-001": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 5,
+   "unit": "base_alu",
+   "code": "class base_alu;"
+  }
+ ],
+ "FR-002": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 17,
+   "unit": "base_alu",
+   "code": "function void load_operand_A(int value);"
+  }
+ ],
+ "FR-003": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 21,
+   "unit": "base_alu",
+   "code": "function void load_operand_B(int value);"
+  }
+ ],
+ "FR-004": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 26,
+   "unit": "base_alu",
+   "code": "virtual function void initialize();"
+  }
+ ],
+ "FR-005": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 38,
+   "unit": "base_alu",
+   "code": "virtual function void display();"
+  }
+ ],
+ "FR-006": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 5,
+   "unit": "logical_alu",
+   "code": "class logical_alu extends base_alu;"
+  }
+ ],
+ "FR-007": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 8,
+   "unit": "arithmetic_alu",
+   "code": "class arithmetic_alu extends base_alu;"
+  }
+ ],
+ "FR-008": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 3,
+   "unit": "CPU",
+   "code": "class CPU;"
+  }
+ ],
+ "FR-009": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 14,
+   "unit": "CPU",
+   "code": "function void Reset();"
+  }
+ ],
+ "FR-010": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 21,
+   "unit": "CPU",
+   "code": "function int Calc(int in1, int in2, alu_op_t operation);"
+  }
+ ],
+ "FR-011": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 8,
+   "unit": "cpu_pkg",
+   "code": "typedef enum logic [3:0] {"
+  }
+ ],
+ "FR-012": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 5,
+   "unit": "cpu_pkg",
+   "code": "package cpu_pkg;"
+  }
+ ],
+ "IF-001": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 7,
+   "unit": "base_alu",
+   "code": "int      operand_A;"
+  }
+ ],
+ "IF-002": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 8,
+   "unit": "base_alu",
+   "code": "int      operand_B;"
+  }
+ ],
+ "IF-003": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 9,
+   "unit": "base_alu",
+   "code": "alu_op_t alu_op;"
+  }
+ ],
+ "IF-004": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 10,
+   "unit": "base_alu",
+   "code": "int      alu_result;"
+  }
+ ],
+ "IF-005": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 17,
+   "unit": "base_alu",
+   "code": "function void load_operand_A(int value);"
+  }
+ ],
+ "IF-006": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 21,
+   "unit": "base_alu",
+   "code": "function void load_operand_B(int value);"
+  }
+ ],
+ "IF-007": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 26,
+   "unit": "base_alu",
+   "code": "virtual function void initialize();"
+  }
+ ],
+ "IF-008": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 38,
+   "unit": "base_alu",
+   "code": "virtual function void display();"
+  }
+ ],
+ "IF-009": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 5,
+   "unit": "CPU",
+   "code": "logical_alu    l_alu;"
+  }
+ ],
+ "IF-010": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 6,
+   "unit": "CPU",
+   "code": "arithmetic_alu a_alu;"
+  }
+ ],
+ "IF-011": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 14,
+   "unit": "CPU",
+   "code": "function void Reset();"
+  }
+ ],
+ "IF-012": [
+  {
+   "file": "rtl/CPU.svh",
+   "line": 21,
+   "unit": "CPU",
+   "code": "function int Calc(int in1, int in2, alu_op_t operation);"
+  }
+ ],
+ "IF-013": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 5,
+   "unit": "cpu_pkg",
+   "code": "package cpu_pkg;"
+  }
+ ],
+ "IF-014": [
+  {
+   "file": "rtl/cpu_pkg.sv",
+   "line": 8,
+   "unit": "cpu_pkg",
+   "code": "typedef enum logic [3:0] {"
+  }
+ ],
+ "IF-015": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 10,
+   "unit": "arithmetic_alu",
+   "code": "bit carry;"
+  }
+ ],
+ "IF-016": [
+  {
+   "file": "rtl/base_alu.svh",
+   "line": 44,
+   "unit": "base_alu",
+   "code": "virtual function void execute();"
+  }
+ ],
+ "OP-001": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 42,
+   "unit": "arithmetic_alu",
+   "code": "OP_SEL_B: alu_result = operand_B;"
+  }
+ ],
+ "OP-002": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 43,
+   "unit": "arithmetic_alu",
+   "code": "OP_INC_B: alu_result = operand_B + 1;"
+  }
+ ],
+ "OP-003": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 44,
+   "unit": "arithmetic_alu",
+   "code": "OP_DEC_B: alu_result = operand_B - 1;"
+  }
+ ],
+ "OP-004": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 45,
+   "unit": "arithmetic_alu",
+   "code": "OP_ADD: begin"
+  }
+ ],
+ "OP-005": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 50,
+   "unit": "arithmetic_alu",
+   "code": "OP_ADDC: begin"
+  }
+ ],
+ "OP-006": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 55,
+   "unit": "arithmetic_alu",
+   "code": "OP_SUB: begin"
+  }
+ ],
+ "OP-007": [
+  {
+   "file": "rtl/arithmetic_alu.svh",
+   "line": 60,
+   "unit": "arithmetic_alu",
+   "code": "OP_SUBB: begin"
+  }
+ ],
+ "OP-008": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 17,
+   "unit": "logical_alu",
+   "code": "OP_AND: alu_result = operand_A & operand_B;"
+  }
+ ],
+ "OP-009": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 18,
+   "unit": "logical_alu",
+   "code": "OP_OR:  alu_result = operand_A | operand_B;"
+  }
+ ],
+ "OP-010": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 19,
+   "unit": "logical_alu",
+   "code": "OP_XOR: alu_result = operand_A ^ operand_B;"
+  }
+ ],
+ "OP-011": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 20,
+   "unit": "logical_alu",
+   "code": "OP_SHL: alu_result = int'(a << amt);"
+  }
+ ],
+ "OP-012": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 21,
+   "unit": "logical_alu",
+   "code": "OP_SHR: alu_result = int'(a >> amt);"
+  }
+ ],
+ "OP-013": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 24,
+   "unit": "logical_alu",
+   "code": "OP_ROL: alu_result = int'((a << amt) | (a >> (32 - amt)));"
+  }
+ ],
+ "OP-014": [
+  {
+   "file": "rtl/logical_alu.svh",
+   "line": 25,
+   "unit": "logical_alu",
+   "code": "OP_ROR: alu_result = int'((a >> amt) | (a << (32 - amt)));"
+  }
+ ]
+}

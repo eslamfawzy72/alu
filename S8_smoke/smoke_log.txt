@@ -1,0 +1,100 @@
+PASS GV-01 result = 23
+PASS GV-01 carry = 0
+PASS GV-02 result = 10
+PASS GV-02 carry = 0
+PASS GV-03 result = -2147483648
+PASS GV-03 carry = 0
+PASS GV-04 result = 0
+PASS GV-04 carry = 0
+PASS GV-05 result = 8
+PASS GV-05 carry = 0
+PASS GV-06 result = 2147483647
+PASS GV-06 carry = 0
+PASS GV-07 result = 12
+PASS GV-07 carry = 0
+PASS GV-08 result = 0
+PASS GV-08 carry = 1
+PASS GV-09 result = -2147483648
+PASS GV-09 carry = 0
+PASS GV-10 result = 12
+PASS GV-10 carry = 0
+PASS GV-11 result = 13
+PASS GV-11 carry = 0
+PASS GV-12 result = 0
+PASS GV-12 carry = 1
+PASS GV-13 result = 12
+PASS GV-13 carry = 0
+PASS GV-14 result = 5
+PASS GV-14 carry = 0
+PASS GV-15 result = -5
+PASS GV-15 carry = 1
+PASS GV-16 result = 5
+PASS GV-16 carry = 0
+PASS GV-17 result = 4
+PASS GV-17 carry = 0
+PASS GV-18 result = -1
+PASS GV-18 carry = 1
+PASS GV-19 result = 5
+PASS GV-19 carry = 0
+PASS GV-20 result = 8
+PASS GV-20 carry = 0
+PASS GV-21 result = 3855
+PASS GV-21 carry = 0
+PASS GV-22 result = 14
+PASS GV-22 carry = 0
+PASS GV-23 result = 6
+PASS GV-23 carry = 0
+PASS GV-24 result = 0
+PASS GV-24 carry = 0
+PASS GV-25 result = 16
+PASS GV-25 carry = 0
+PASS GV-26 result = -2147483648
+PASS GV-26 carry = 0
+PASS GV-27 result = 5
+PASS GV-27 carry = 0
+PASS GV-28 result = 5
+PASS GV-28 carry = 0
+PASS GV-29 result = 1
+PASS GV-29 carry = 0
+PASS GV-30 result = 1
+PASS GV-30 carry = 0
+PASS GV-31 result = 2147483647
+PASS GV-31 carry = 0
+PASS GV-32 result = 3
+PASS GV-32 carry = 0
+PASS GV-33 result = 1
+PASS GV-33 carry = 0
+PASS GV-34 result = 878082066
+PASS GV-34 carry = 0
+PASS GV-35 result = -2147483648
+PASS GV-35 carry = 0
+PASS GV-36 result = -2147483647
+PASS GV-36 carry = 0
+PASS GV-37 result = 2014458966
+PASS GV-37 carry = 0
+PASS SM-RESET a_alu.operand_A = 0
+PASS SM-RESET a_alu.operand_B = 0
+PASS SM-RESET a_alu.alu_op = 0
+PASS SM-RESET a_alu.alu_result = 0
+PASS SM-RESET a_alu.carry = 0
+PASS SM-RESET l_alu.operand_A = 0
+PASS SM-RESET l_alu.operand_B = 0
+PASS SM-RESET l_alu.alu_op = 0
+PASS SM-RESET l_alu.alu_result = 0
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1110
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+PASS SM-INV-1110 result = 0
+PASS SM-INV-1110 a_alu.alu_result unchanged = 5
+PASS SM-INV-1110 l_alu.alu_result unchanged = 8
+PASS SM-INV-1110 a_alu.carry unchanged = 0
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1111
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+PASS SM-INV-1111 result = 0
+PASS SM-INV-1111 a_alu.alu_result unchanged = 5
+PASS SM-INV-1111 l_alu.alu_result unchanged = 8
+PASS SM-INV-1111 a_alu.carry unchanged = 0
+[base_alu] op=OP_SEL_B A=0 B=0 result=0
+[logical_alu] op=OP_AND A=12 B=10 result=8
+[arithmetic_alu] op=OP_SUB A=9 B=4 result=5 carry=0
+SUMMARY pass=91 fail=0
+- /home/claude/P2/S8_smoke/smoke_tb.sv:232: Verilog $finish

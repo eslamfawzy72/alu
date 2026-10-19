@@ -1,0 +1,22 @@
+{
+ "conforms": true,
+ "mismatches": [],
+ "ids_total": 61,
+ "implemented": 59,
+ "explained": 2,
+ "missing": [],
+ "graph": {
+  "nodes": 91,
+  "edges": 125,
+  "edge_kinds": [
+   "calls",
+   "contains",
+   "extends",
+   "has",
+   "implemented_in",
+   "includes",
+   "writes"
+  ]
+ },
+ "tag_lines": 87
+}
