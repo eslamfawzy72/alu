@@ -1,0 +1,11 @@
+date:   2026-10-20T18:28:30Z
+commit: 5cc1c8b
+args:   
+tool:   Verilator 5.020 2024-01-01 rev (Debian 5.020-1)
+golden vectors sha256: c7ffada2eae3c12c1be0a767707fc2a32db922d7d7c5aaffa720c6b58661c56c  -
+DUT sha256:
+1dc5112edb66ff5045f3831e379c9513837e0a4485e662eb9e0e723a8f5c75f5  ./CPU.svh
+f73ad7d7fa56384219fad8249d53f7c0e6b5f6705a8bbafde5f0b4757e12d2a3  ./arithmetic_alu.svh
+69f898bf2326272e12ea0f4df164b1e313cf6d62fc98d36abaca44474e1ff88e  ./base_alu.svh
+fa0fc1fb54c042218cd913944c8d6f5688b2a3623b7c1195dfbead90b14d2365  ./cpu_pkg.sv
+8bb6c191c3087c5722298fe7c06a9d4b4237139ed459dd63999d3a12d481aae3  ./logical_alu.svh

@@ -1,0 +1,7 @@
+Phase 5 simulation: PASS   (2026-10-20T18:28:41Z, commit 5cc1c8b)
+SELFTEST OK
+REGRESSION seed7 PASS
+REGRESSION seed1_a PASS
+REGRESSION seed1_b PASS
+REPRODUCIBLE PASS: two seed-1 runs gave identical logs
+SEED-CHECK PASS: seed 1 and seed 7 logs differ

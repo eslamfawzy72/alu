@@ -44,3 +44,14 @@ Run in Ubuntu (WSL on Windows) with Verilator 5.020 or later, after Phase 4 pass
 - every defect in `defects.md` closed or formally deferred.
 
 Results are provisional until Phase 1 approves D-001..D-018.
+
+## Status
+
+| Item | State (2026-10-20, clean clone of `5cc1c8b`, Verilator 5.020 on WSL2) |
+|---|---|
+| Checker self-test | OK: the corrupted value was reported as `FAIL TC-001` |
+| Regression, seed 1 | PASS: 27 counted TCs pass with 0 failures, `COVERAGE 44/44 bins hit`, TC-005 and TC-027 log checks PASS |
+| Regression, seed 7 | PASS, with different per-TC counts from seed 1 |
+| Reproducible | yes: two seed-1 runs gave identical logs |
+| Defects | none (`defects.md`) |
+| Exit criteria | met, provisional |
