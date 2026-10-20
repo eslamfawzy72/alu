@@ -1,6 +1,6 @@
 # Phase 4 elaboration report
 
-**Status: PASS** (provisional until Phase 1 approves D-001..D-018). Built from a clean clone of commit `5cc1c8b` with one command, `bash "phase 4/build.sh"`. Lint and build both give 0 messages.
+**Status: PASS.** Built from a clean clone of commit `5cc1c8b` with one command, `bash "phase 4/build.sh"`. Lint and build both give 0 messages.
 
 ## 1. Build
 
@@ -13,7 +13,7 @@
 | Top | `tb_cpu` (`program`, `../phase 3/tb/tb_cpu.sv`) |
 | Package | `cpu_pkg` (`../phase 2/04_rtl/rtl/cpu_pkg.sv`) |
 | DUT tag | `phase2-rtl-v1` (commit `22b327d`); RTL unchanged since |
-| Spec version | `1.1-proposed` (`../phase 1/alu_spec.json`) |
+| Spec version | built against `1.1-proposed`; still valid for `1.2` (decisions approved, D-014 file name only, no RTL or test change) |
 | Command | `bash build.sh`: lint `--lint-only -Wall`, then `--binary -Wall` with warnings fatal |
 | Evidence | `build_info.txt`, `lint.log`, `build.log` |
 
@@ -38,9 +38,9 @@
 | 1 | `base_alu.svh` | `base_alu.svh` | yes |
 | 2 | `logical_alu.svh` | `logical_alu.svh` | yes |
 | 3 | `arithmetic_alu.svh` | `arithmetic_alu.svh` | yes |
-| 4 | `cpu.svh` | `CPU.svh` | name differs: deviation DV-1, Phase 2 question Q2 |
+| 4 | `CPU.svh` | `CPU.svh` | yes (spec 1.2) |
 
-DV-1 is not settled here: the file name is fixed by D-014, so only Phase 1 can change it. Phase 4 adds one fact to the question: on Linux, file names are case-sensitive, so the include and the file name must change together. Either name builds without warnings. Verilator's `DECLFILENAME` rule favours `CPU.svh` (file name = class name).
+Spec 1.1-proposed listed `cpu.svh` (deviation DV-1). Phase 1 revision 3 (spec 1.2) changed D-014 to `CPU.svh`, so the order and every name now match.
 
 ## 4. Messages and their disposition
 
@@ -82,4 +82,4 @@ From `build_info.txt`: `cpu_pkg::base_alu`, `cpu_pkg::logical_alu`, `cpu_pkg::ar
 | every warning fixed or waived | yes, all 31 fixed, none waived |
 | builds from a clean checkout with one command | yes: clean clone of `5cc1c8b`, `bash "phase 4/build.sh"` |
 
-Results are provisional until Phase 1 approves D-001..D-018.
+Phase 1 approved D-001..D-018 on 2026-10-20 (spec 1.2), so this result is no longer provisional.

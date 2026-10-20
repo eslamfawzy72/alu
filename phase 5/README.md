@@ -43,7 +43,7 @@ Run in Ubuntu (WSL on Windows) with Verilator 5.020 or later, after Phase 4 pass
 - seed 1 reproducible, and seed 7 drives different stimulus;
 - every defect in `defects.md` closed or formally deferred.
 
-Results are provisional until Phase 1 approves D-001..D-018.
+The decisions behind every check (D-001..D-018) were approved on 2026-10-20 (spec 1.2).
 
 ## Status
 
@@ -54,4 +54,4 @@ Results are provisional until Phase 1 approves D-001..D-018.
 | Regression, seed 7 | PASS, with different per-TC counts from seed 1 |
 | Reproducible | yes: two seed-1 runs gave identical logs |
 | Defects | none (`defects.md`) |
-| Exit criteria | met, provisional |
+| Exit criteria | met (decisions approved, spec 1.2) |

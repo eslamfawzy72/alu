@@ -165,7 +165,7 @@ Total: 59 owned + 2 not in RTL = 61.
 
 | # | Spec ID | Spec says | Plan does | Why |
 |---|---|---|---|---|
-| DV-1 | D-014 | file `cpu.svh` | file `CPU.svh` | Verilator `-Wall` DECLFILENAME: file name must equal class name; class name `CPU` is fixed by FR-008 |
+| DV-1 | D-014 | file `cpu.svh` | file `CPU.svh` | Verilator `-Wall` DECLFILENAME: file name must equal class name; class name `CPU` is fixed by FR-008. **Accepted:** spec 1.2 changed D-014 to `CPU.svh` (Q2), so this is no longer a deviation. |
 | DV-2 | IF-007 | `function void initialize()` | `virtual function void initialize()` | `arithmetic_alu` overrides it; virtual makes the override run through any handle. Call interface unchanged |
 
 ## 9. Self-check before coding

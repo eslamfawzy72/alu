@@ -8,15 +8,15 @@ Guidance for AI agents and engineers working in this repository. Read this first
 A SystemVerilog **class model** of an ALU (`base_alu`, `logical_alu`, `arithmetic_alu`) and a
 `CPU` class that uses them, all in package `cpu_pkg`. It is simulation-only and object-oriented,
 not synthesizable RTL: there is no synthesis, timing or gate-level step. The project is built
-in eight phases. Phases 1 to 3 have folders in the repo. Phases 4 to 8 are upcoming.
+in eight phases. Phases 1 to 5 have folders in the repo. Phases 6 to 8 are upcoming.
 
 | Phase | Name | Folder | State |
 |---|---|---|---|
-| 1 | Requirements & Architecture | `phase 1/` | revision 2 done; decisions not yet approved |
+| 1 | Requirements & Architecture | `phase 1/` | revision 3, `spec_version` 1.2: D-001..D-018 approved (Adam, 2026-10-20) |
 | 2 | RTL Design | `phase 2/` | RTL written, lint clean, smoke 91/91 (`phase2-rtl-v1`) |
-| 3 | Verification Development | `phase 3/` | plan and testbench written; **never compiled or run** |
-| 4 | Compilation & Elaboration | `phase 4/` (to create) | not started |
-| 5 | Simulation & Debugging | `phase 5/` (to create) | not started |
+| 3 | Verification Development | `phase 3/` | plan, test map and testbench; lint `-Wall` clean; regression PASS |
+| 4 | Compilation & Elaboration | `phase 4/` | done: clean-clone build, 0 lint messages, no waivers |
+| 5 | Simulation & Debugging | `phase 5/` | done: self-test OK, PASS at seeds 1 and 7, no defects |
 | 6 | Regression Testing | `phase 6/` (to create) | not started |
 | 7 | Coverage Analysis & Closure | `phase 7/` (to create) | not started |
 | 8 | Signoff | `phase 8/` (to create) | not started |
@@ -46,14 +46,19 @@ Folder names contain a space (`phase 1/`), so always quote paths in shell comman
 7. **Don't rename spec names.** Class, method, property and enum names come from
    `alu_spec.json` and `ALU_Interfaces_and_Signals.csv`. Record every addition in
    `phase 2/03_architecture/design_plan.md` → "Added elements" and every deviation as a `DV-n`.
-8. **Results are provisional** until Phase 1 records an approver and date for D-001..D-018.
+8. **Results depend on approved decisions.** D-001..D-018 were approved on 2026-10-20
+   (spec 1.2). A result that depends on a new or changed decision is provisional until Phase 1
+   records an approver and date for it.
 
 ## Tools and environment
 
 - **Simulator:** Verilator 5.020 or later (`--binary`, `--lint-only -Wall`). The spec's
   `tool_gate` also accepts Questa or VCS (for example on EDA Playground).
-- **Shell:** the scripts are bash and were run on Ubuntu. On Windows, use WSL. Verilator is not
-  installed on the Windows host.
+- **Shell:** the scripts are bash and run on Ubuntu. On Windows, use WSL (Adam's host has
+  Ubuntu 24.04 with Verilator 5.020). `.gitattributes` checks out every text file with LF, so
+  the scripts also run from `/mnt/c/...`.
+- **Paths with spaces:** GNU Make cannot build in a directory whose path contains a space
+  (`phase N/`), so every build script compiles in a `mktemp -d` folder. Keep it that way.
 - **Optional:** `verible-verilog-lint` (style lint, used by `run_checks.sh` when present).
 - **Generated and ignored files:** `build/`, `obj_dir/`, `*.docx` (root `.gitignore`).
   `phase 3/results/` is written by `run.sh` and should be committed after a real run.
@@ -69,6 +74,12 @@ Folder names contain a space (`phase 1/`), so always quote paths in shell comman
 bash run.sh +CHECKER_SELFTEST        # must end with "checker self-test OK"
 bash run.sh                          # must end with "Phase 3 regression: PASS"
 bash run.sh +SEED=7 +RANDOM_N=10000  # different seed / more random calls (keep RANDOM_N >= 3000)
+
+# Phase 4: lint (-Wall) and build DUT + test program, warnings fatal
+bash "phase 4/build.sh"              # expect "LINT: PASS (no messages)" and "BUILD: PASS"
+
+# Phase 5: self-test, seed 7, seed 1 twice; reproducibility and seed checks
+bash "phase 5/simulate.sh"           # expect "Phase 5 simulation: PASS"
 ```
 
 Two DUT behaviours every test must handle:
@@ -81,13 +92,15 @@ Two DUT behaviours every test must handle:
 
 ```
 phase 1/   requirements: FR/IF/OP/CA/TC/Q/TR/D tables, golden vectors (37), alu_spec.json,
-           corrected architecture diagram, REVISION_2.md (what changed and why)
+           corrected architecture diagram, REVISION_2.md / REVISION_3.md (what changed and why)
 phase 2/   01_spec_check (s1_intake_log.md, questions) -> 02_requirements -> 03_architecture
            -> 04_rtl (rtl/*.sv, *.svh, files.f) -> 05_build_checks -> 06_repairs -> 07_smoke
            -> 08_release (phase2_handoff.md, release_checklist.md; tag phase2-rtl-v1)
 phase 3/   verification_plan.md, test_map.csv (where each TC/OP/D-ID is checked),
            tb/tb_cpu.sv (self-checking program, reference model, 44 coverage bins), run.sh,
-           questions_for_phase1.md
+           questions_for_phase1.md, repair_log.md, results/ (last regression of record)
+phase 4/   build.sh -> build_info.txt, lint.log, build.log; elab_report.md
+phase 5/   simulate.sh -> runs/<name>/ and runs/summary.txt; defects.md
 sessions/  shared session logs, one file per session (see below)
 ```
 
@@ -115,16 +128,22 @@ range to check.
 | `819d7f0` | Adam | 10-19 22:03 | Phase 3 default random count raised from 2000 to 5000 (`tb_cpu.sv`, README, plan). Below about 3000, some shift-amount coverage bins stay empty. |
 | `22b327d` | Mohamed Wael | 10-20 00:07 | Replaced Phase 2 with the numbered `00_inputs` … `08_release` layout. RTL moved from `S5_rtl/` to `04_rtl/`. The JSON handoff (`S10_handoff/*.json`) became `08_release/phase2_handoff.md`. Phase 3 and the root README now point at the new paths. |
 | `d4e4cb2` | Adam | 10-20 14:04 | Phase 1 README now numbers and describes deliverables 10 to 12 (design decisions, golden vectors, `alu_spec.json`) and states that the JSON is the source for the human-readable files. |
+| `80627e5`..`dda7f9b` | Adam | 10-20 21:09–21:31 | Branch `phase-4-5`. `.gitattributes` (LF everywhere). Phase 4 and 5 created and run in WSL. First compile of `tb_cpu.sv` fixed (`before` is reserved; 31 `-Wall` warnings fixed at source). All build scripts moved to temp folders (GNU Make vs spaces). Phase 3 results committed. |
+| `c3ad293` | Adam | 10-20 | Phase 3 `test_map.csv`: where each TC, OP and D-ID is checked. |
+| `6d7701a` | Adam | 10-20 | Phase 1 revision 3, spec 1.2: D-001..D-018 approved; D-014 names `CPU.svh` (closes DV-1). |
 
-Net effect: Phase 1 and Phase 2 have stable layouts. Phase 3 was simplified to one testbench
-that has not been compiled yet, so the first job of Phase 4 is to compile it.
+Net effect: Phases 1 to 5 are done. The design passes the full Phase 3 regression on approved
+decisions, so the next job is Phase 6 (multi-seed regression).
 
 ## Known issues
 
-1. **Spec vs RTL file name.** `alu_spec.json` lists `cpu.svh` and the RTL uses `CPU.svh`
-   (deviation DV-1, Phase 2 question Q2). This is still open.
-2. **Open Phase 1 questions.** Phase 2 Q1 to Q6 and Phase 3 #1 to #3 have not been answered.
-   D-001..D-018 have no approver or date.
+1. **Open Phase 1 questions** (none blocks testing): Phase 2 Q1 (IF IDs for
+   `get_carry`/`set_carry`), Q3 (`virtual initialize()`, DV-2), Q5 (FR priorities), Q6 (coding
+   rules); Phase 3 #2 (TC acceptance wording), #3 (`GV-nn` ID column).
+2. **Stale PNG.** `phase 1/ALU_Architecture_Corrected.png` still says `cpu.svh`; re-render it
+   from the `.svg` (`phase 1/REVISION_3.md` has the command).
+3. **TC-005 checks part of D-010.** `run.sh` matches the expected `display()` text as a
+   substring, so arithmetic_alu's `carry=<0/1>` field is not checked (`phase 3/test_map.csv`).
 
 Phase 2's handoff notes are labelled F1 (Verilator stops on `$error`) and F2 (`carry` is
 state); Phase 3 files cite them by those labels.
@@ -138,13 +157,14 @@ criteria) and, when needed, a `questions_for_phase1.md` (or a defect list for Ph
 follows the ground rules above. The deliverables listed below are proposals; adjust them in the
 phase README when the phase starts.
 
-### Phase 1 — Requirements & Architecture (done, pending approval)
+### Phase 1 — Requirements & Architecture (done, revision 3, spec 1.2)
 
 **Goal:** understand what must be built and how it should behave.
-Converts the assignment PDF into traceable records, one proposed decision per open question,
-37 golden vectors from a reference model, and `alu_spec.json`.
-**Remaining:** approve D-001..D-018 (fill "Approved by" and "Date"); answer the Phase 2 and Phase 3
-questions; add a `GV-nn` ID column to the golden vectors; check the traceability evidence
+Converts the assignment PDF into traceable records, one decision per open question,
+37 golden vectors from a reference model, and `alu_spec.json`. D-001..D-018 approved by Adam on
+2026-10-20; D-014 names `CPU.svh` (`REVISION_3.md`).
+**Remaining:** answer the open Phase 2 and Phase 3 questions (known issue 1); add a `GV-nn` ID
+column to the golden vectors; re-render the PNG diagram; check the traceability evidence
 against the PDF.
 
 ### Phase 2 — RTL Design (done)
@@ -155,58 +175,37 @@ Five files in `04_rtl/rtl/` (`cpu_pkg.sv` including `base_alu.svh`, `logical_alu
 test passes 91/91. Every fix after release goes through `06_repairs/repair_log.md` and gets a
 new tag (`phase2-rtl-v2`, …).
 
-### Phase 3 — Verification Development (written, not run)
+### Phase 3 — Verification Development (done, regression PASS)
 
 **Goal:** create tests, checkers, assertions and coverage models.
 `tb/tb_cpu.sv` has one task per TC (TC-001..TC-028). It reads the golden vectors at run time,
 uses a reference model that must reproduce every golden vector before any DUT check runs, runs
 5000 constrained-random calls with corner values, and counts 44 functional coverage bins.
 `run.sh` adds log checks for TC-005 (`display()` text) and TC-027 (exactly two `%Error` lines).
+`test_map.csv` shows where each TC, OP and D-ID is checked; `repair_log.md` lists the fixes
+later phases asked for.
 **Remaining:** consider adding immediate assertions for state invariants
-(for example, invalid codes leave the ALU state unchanged).
+(for example, invalid codes leave the ALU state unchanged); check the `carry=` field in TC-005
+(known issue 3).
 
-### Phase 4 — Compilation & Elaboration
+### Phase 4 — Compilation & Elaboration (done)
 
 **Goal:** resolve the source code into a usable design representation.
+`bash "phase 4/build.sh"` lints DUT + test program with `-Wall` and builds the binary with
+warnings fatal (Verilator 5.020). The first compile found 3 errors and 31 warnings, all in the
+test program and all fixed at source (no waivers). A clean clone builds with one command.
+`elab_report.md` has the tool, files with sha256, include order (matches spec 1.2) and every
+message's disposition. Not done: optional second simulator (Questa/VCS), skipped by decision.
+Rerun after any change to `phase 2/04_rtl/` or `phase 3/tb/tb_cpu.sv`.
 
-- **Inputs:** `phase 2/04_rtl/files.f` and the compile line in `phase2_handoff.md`,
-  `phase 3/tb/tb_cpu.sv`, `alu_spec.json` → `tool_gate`.
-- **Work:**
-  - Compile and elaborate DUT and testbench together with Verilator ≥ 5.020
-    (`--binary --top-module tb_cpu`). Record the exact tool version.
-  - Compile `tb_cpu.sv` for the first time. Fix testbench compile errors in Phase 3 and DUT
-    errors in Phase 2, logged in each phase's own repair log.
-  - Review every warning. `run.sh` uses `-Wno-fatal`, so warnings don't stop the build; each one
-    must be fixed or waived with a reason.
-  - Lint the testbench with `-Wall`, as Phase 2 did for the RTL.
-  - Optionally compile on a second simulator (Questa or VCS) to catch tool-specific behaviour,
-    such as `$error` semantics, class handle defaults and `program` blocks.
-  - Confirm the include order matches `alu_spec.json` → `package.includes_in_order`, and settle
-    the `cpu.svh`/`CPU.svh` question (known issue 1).
-  - Check that paths with spaces are handled. `run.sh` copies the DUT into `build/` for this.
-- **Deliverables:** `phase 4/README.md`, a build script, `build.log` and `elab_report.md`
-  (tool, version, top, files with sha256, warnings and their disposition).
-- **Exit criteria:** zero errors; every warning fixed or waived; the binary builds from a clean
-  checkout with one command.
-
-### Phase 5 — Simulation & Debugging
+### Phase 5 — Simulation & Debugging (done)
 
 **Goal:** execute tests, identify failures and fix defects.
-
-- **Inputs:** the Phase 4 build, `phase 3/run.sh`.
-- **Work:**
-  - Run `bash run.sh +CHECKER_SELFTEST` first. If it is not OK, the checkers can't be trusted,
-    so stop and fix the testbench.
-  - Run `bash run.sh` and triage every `FAIL` using Phase 3 README step 6:
-    - "reference model disagrees with golden vector N": the model is wrong; fix it in Phase 3.
-    - A DUT check fails and the cited Phase 1 source is clear: DUT bug; file it with the TC,
-      inputs, value received, value expected and Phase 1 ID.
-    - A DUT check fails and the source is unclear: ask Phase 1.
-  - Debug with `$display` traces or waveforms (`--trace`/`--trace-fst`) at a fixed `+SEED`.
-- **Deliverables:** `phase 5/defects.md` (ID, TC, seed, inputs, got/expected, root cause, owner,
-  fix commit, status); updated Phase 2 `repair_log.md` and a new RTL tag for each fix.
-- **Exit criteria:** checker self-test OK; `Phase 3 regression: PASS` at seed 1; every defect
-  closed or formally deferred.
+`bash "phase 5/simulate.sh"` runs the checker self-test (stop if not OK), then `phase 3/run.sh`
+at seed 7 and twice at seed 1, and checks reproducibility and that the seed changes the
+stimulus. First run (clean clone of `5cc1c8b`): all PASS, no defects. Triage any future FAIL
+with Phase 3 README step 6 and record it in `defects.md`; a DUT fix goes through Phase 2
+`repair_log.md` and a new RTL tag.
 
 ### Phase 6 — Regression Testing
 

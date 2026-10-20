@@ -13,7 +13,8 @@ Phase 3 checks that the Phase 2 design does what Phase 1 specifies. It delivers 
 | `questions_for_phase1.md` | what Phase 3 asked Phase 1 in the last readiness check |
 | `tb/tb_cpu.sv` | the test program: Phase 1 golden vectors, one test per TC, random test with a reference model, coverage |
 | `run.sh` | builds and runs the test program against the Phase 2 DUT, checks the log, writes `results/` |
-| `results/` | written by `run.sh`: `summary.txt`, `sim.log`, `build.log`, `run_info.txt` (not present until the first run) |
+| `repair_log.md` | every fix to `tb/tb_cpu.sv` or `run.sh` that a later phase asked for |
+| `results/` | written by `run.sh`: `summary.txt`, `sim.log`, `build.log`, `run_info.txt`, and `checker_selftest/` |
 
 ## Inputs
 

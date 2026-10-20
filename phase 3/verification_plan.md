@@ -1,6 +1,6 @@
 # Phase 3 verification plan: ALU class model
 
-**Status:** ready with conditions (section 3). **Not run yet:** `tb/tb_cpu.sv` has not been compiled or simulated, so there are no results.
+**Status:** regression PASS (section 9). First compiled and run by Phases 4 and 5 on 2026-10-20; the decisions behind it were approved the same day (spec 1.2).
 
 ## 1. Scope
 
@@ -28,7 +28,7 @@ Phase 1 defines what is correct and Phase 3 defines how it is tested. Every expe
 Checked against Phase 1 revision 2 (`spec_version` 1.1-proposed) and the Phase 2 tag `phase2-rtl-v1` (commit `22b327d`). Its RTL is the same as the earlier baseline `phase2-baseline-s1.1-proposed-p2` apart from one whitespace change.
 
 - **No blocking gaps.** Every TC has a pass criterion, either in its own row or through a D-ID or the golden vectors. Every operation has semantics and at least one golden vector. All 18 questions have an answer.
-- **C1 (condition on sign-off):** D-001 to D-003 and D-005 to D-018 are "Proposed" with no approver. Results are provisional until Phase 1 records approval (`questions_for_phase1.md` #1).
+- **C1 (condition on sign-off):** D-001 to D-003 and D-005 to D-018 are "Proposed" with no approver. Results are provisional until Phase 1 records approval (`questions_for_phase1.md` #1). **Met** in spec 1.2 (Phase 1 revision 3, 2026-10-20): all 18 approved as written, D-014 now names `CPU.svh`. No tested behaviour changed, so no check or result changes.
 - **C2, C3 (requests, no effect on the tests):** stale criteria wording in 13 TC rows; golden vectors have no ID column (`questions_for_phase1.md` #2 and #3).
 
 ## 4. Test map
@@ -83,8 +83,8 @@ Each bin counts checked `Calc` calls (directed and random). The goal is all 44 b
 
 | Item | State |
 |---|---|
-| Readiness | ready with conditions C1 to C3 |
+| Readiness | ready; C1 met (spec 1.2); C2, C3 are clean-up requests still open |
 | Plan | complete for TC-001 to TC-028 |
-| Test program | written; **not compiled yet** |
-| Regression | **not run**: no simulator was available where this plan was written |
-| Sign-off | not achieved (needs exit criteria 1 to 3) |
+| Test program | compiles with Verilator 5.020, lint `-Wall` 0 messages (Phase 4; fixes in `repair_log.md`) |
+| Regression | **PASS** at seeds 1 and 7 on commit `5cc1c8b`: every TC passes, 44/44 bins, both log checks PASS; checker self-test OK (`results/`, `../phase 5/runs/`) |
+| Sign-off | exit criteria 1 to 4 met; Phase 3's part of signoff is done. Project signoff is Phase 8 |

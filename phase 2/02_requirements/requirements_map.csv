@@ -55,7 +55,7 @@ D-010,decision,display() prints one line: [<class>] op=<op.name()> A=<%0d> B=<%0
 D-011,decision,"function void load_operand_A(int value), function void load_operand_B(int value), function void initialize(), ",method signatures as in the interface table,base_alu.svh,
 D-012,decision,"function int Calc(int in1, int in2, alu_op_t operation). Codes 0000-0110 go to a_alu, 0111-1101 to l_alu. Calc","Calc: 0000-0110 -> a_alu, 0111-1101 -> l_alu, via base_alu handle + virtual execute()",CPU.svh,
 D-013,decision,extern is not used (it is optional). Methods are defined inside each class.,no extern; methods defined inside each class,cpu_pkg.sv,
-D-014,decision,"cpu_pkg defines alu_op_t and includes base_alu.svh, logical_alu.svh, arithmetic_alu.svh, cpu.svh in that order","cpu_pkg includes base, logical, arithmetic, CPU in that order (file CPU.svh: deviation DV-1)",cpu_pkg.sv,
+D-014,decision,"cpu_pkg defines alu_op_t and includes base_alu.svh, logical_alu.svh, arithmetic_alu.svh, CPU.svh in that order","cpu_pkg includes base, logical, arithmetic, CPU in that order (file CPU.svh: D-014 since spec 1.2; was DV-1)",cpu_pkg.sv,
 D-015,decision,"Self-checking test program: every opcode at least once, plus the boundary vectors in alu_spec.json (wrap-aroun",,,defines the test program's content (FR-013): Phase 3
 D-016,decision,"Expose only the carry flag (D-005), read with function bit get_carry(). No overflow flag.","only carry exposed, via function bit get_carry(); no overflow flag",arithmetic_alu.svh,
 D-017,decision,SEL_B writes operand_B into alu_result.,SEL_B writes operand_B into alu_result,arithmetic_alu.svh,
