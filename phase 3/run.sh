@@ -14,9 +14,12 @@ case " $* " in *" +CHECKER_SELFTEST "*) OUT=results/checker_selftest ;; esac
 LOG=$OUT/sim.log
 
 command -v verilator > /dev/null || { echo "verilator not found (Phase 3 uses Verilator >= 5.020)"; exit 1; }
-rm -rf build
-mkdir -p build "$OUT"
-cp -r "$DUT" build/dut    # built from a copy so no compiler path contains a space
+# Built from a copy in a temp folder: GNU Make cannot build in a path with a space ("phase 3")
+BUILD=$(mktemp -d)
+trap 'rm -rf "$BUILD"' EXIT
+mkdir -p "$OUT"
+cp -r "$DUT" "$BUILD/dut"
+cp tb/tb_cpu.sv "$BUILD/"
 
 {
   echo "date:   $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -25,10 +28,10 @@ cp -r "$DUT" build/dut    # built from a copy so no compiler path contains a spa
   echo "tool:   $(verilator --version)"
   echo "golden vectors sha256: $(sha256sum < '../phase 1/ALU_Golden_Vectors.csv')"
   echo "DUT sha256:"
-  (cd build/dut/rtl && sha256sum ./*)
+  (cd "$BUILD/dut/rtl" && sha256sum ./*)
 } > "$OUT/run_info.txt"
 
-if ! (cd build/dut && verilator --binary -Wno-fatal -f files.f ../../tb/tb_cpu.sv \
+if ! (cd "$BUILD/dut" && verilator --binary -Wno-fatal -f files.f ../tb_cpu.sv \
         --top-module tb_cpu -Mdir ../obj -o tb_cpu) > "$OUT/build.log" 2>&1; then
   echo "BUILD FAILED, see $OUT/build.log"
   exit 1
@@ -37,7 +40,7 @@ fi
 # +verilator+error+limit: CPU.Calc reports invalid codes with $error, which Verilator would
 # otherwise treat as $stop (Phase 2 review flag F1). Runs from this folder because the
 # program reads ../phase 1/ALU_Golden_Vectors.csv.
-build/obj/tb_cpu +verilator+error+limit+100 "$@" > "$LOG" 2>&1 || true
+"$BUILD/obj/tb_cpu" +verilator+error+limit+100 "$@" > "$LOG" 2>&1 || true
 
 # TC-005 (D-010): every EXPECT-DISPLAY text must appear in a line printed by display()
 want=0

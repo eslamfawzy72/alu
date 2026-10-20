@@ -43,6 +43,11 @@ program automatic tb_cpu;
     end
   endfunction
 
+  // check() for 1-bit values: carry, comparisons, handle tests
+  function void check_bit(int tc, string what, bit got, bit expected);
+    check(tc, what, int'(got), int'(expected));
+  endfunction
+
   function void check_text(int tc, string what, string got, string expected);
     if (got == expected) pass_n[tc]++;
     else begin
@@ -102,7 +107,7 @@ program automatic tb_cpu;
   endfunction
 
   function void cov_hit(string key);
-    if (cov.exists(key)) cov[key]++;  // names that are not a bin are ignored
+    if (cov.exists(key) != 0) cov[key]++;  // names that are not a bin are ignored
   endfunction
 
   function void cov_sample(logic [3:0] code, int b, bit carry_in, bit carry_out);
@@ -138,8 +143,9 @@ program automatic tb_cpu;
 
   vector_t gv[$];
 
-  function bit expected_carry(vector_t v);
-    return v.carry_given ? v.carry : v.carry_in;
+  // "Expected carry" is a value, or "unchanged" (carry keeps its carry-in)
+  function bit expected_carry(bit carry_given, bit carry, bit carry_in);
+    return carry_given ? carry : carry_in;
   endfunction
 
   typedef string fields_t[$];
@@ -210,9 +216,10 @@ program automatic tb_cpu;
                       output int result, output bit carry_out);
     longint unsigned ua  = {32'b0, a};  // operands as unsigned 32-bit values
     longint unsigned ub  = {32'b0, b};
+    longint unsigned uc  = {63'b0, carry_in};
     bit [31:0]       u   = a;           // A as a bit pattern
     bit [63:0]       uu  = {u, u};      // rotates read a 32-bit window of two copies
-    int              amt = b[4:0];      // D-003
+    int              amt = {27'b0, b[4:0]};  // D-003
     carry_out = carry_in;
     case (op)
       OP_SEL_B: result = b;              // OP-001, D-017
@@ -223,16 +230,16 @@ program automatic tb_cpu;
         carry_out = (ua + ub) > MAX_U32;
       end
       OP_ADDC: begin                     // OP-005, D-005
-        result    = int'(ua + ub + carry_in);
-        carry_out = (ua + ub + carry_in) > MAX_U32;
+        result    = int'(ua + ub + uc);
+        carry_out = (ua + ub + uc) > MAX_U32;
       end
       OP_SUB: begin                      // OP-006, D-006: carry = borrow out
         result    = int'(ua - ub);
         carry_out = ua < ub;
       end
       OP_SUBB: begin                     // OP-007, D-006
-        result    = int'(ua - ub - carry_in);
-        carry_out = ua < ub + carry_in;
+        result    = int'(ua - ub - uc);
+        carry_out = ua < ub + uc;
       end
       OP_AND: result = a & b;            // OP-008
       OP_OR:  result = a | b;            // OP-009
@@ -253,7 +260,7 @@ program automatic tb_cpu;
       model(gv[i].op, gv[i].a, gv[i].b, gv[i].carry_in, r, c);
       // Fix the model to match alu_spec.json; if the two Phase 1 files contradict each
       // other, ask Phase 1. Never edit the vector.
-      if (r != gv[i].result || c != expected_carry(gv[i]))
+      if (r != gv[i].result || c != expected_carry(gv[i].carry_given, gv[i].carry, gv[i].carry_in))
         $fatal(1, "reference model disagrees with Phase 1 golden vector %0d", gv[i].num);
     end
   endfunction
@@ -264,7 +271,7 @@ program automatic tb_cpu;
   function void check_d007(int tc, string who, base_alu x);
     check(tc, {who, " operand_A = 0 (D-007)"}, x.operand_A, 0);
     check(tc, {who, " operand_B = 0 (D-007)"}, x.operand_B, 0);
-    check(tc, {who, " alu_op = OP_SEL_B (D-007)"}, x.alu_op, OP_SEL_B);
+    check(tc, {who, " alu_op = OP_SEL_B (D-007)"}, int'(x.alu_op), int'(OP_SEL_B));
     check(tc, {who, " alu_result = 0 (D-007)"}, x.alu_result, 0);
   endfunction
 
@@ -304,9 +311,9 @@ program automatic tb_cpu;
     x.operand_A  = -1;
     x.operand_B  = -1;
     x.alu_result = -1;
-    check(1, "operand_A is signed", x.operand_A < 0, 1);
-    check(1, "operand_B is signed", x.operand_B < 0, 1);
-    check(1, "alu_result is signed", x.alu_result < 0, 1);
+    check_bit(1, "operand_A is signed", x.operand_A < 0, 1'b1);
+    check_bit(1, "operand_B is signed", x.operand_B < 0, 1'b1);
+    check_bit(1, "alu_result is signed", x.alu_result < 0, 1'b1);
   endtask
 
   // TC-002 / TC-003 (FR-002, FR-003, D-011): load_operand_A/B store the value given.
@@ -331,7 +338,7 @@ program automatic tb_cpu;
     check_d007(4, "base_alu after new()", x);
     check_d007(4, "logical_alu after new()", l);
     check_d007(4, "arithmetic_alu after new()", a);
-    check(4, "arithmetic_alu carry after new()", a.get_carry(), 0);
+    check_bit(4, "arithmetic_alu carry after new()", a.get_carry(), 1'b0);
     make_dirty(x);
     x.initialize();
     check_d007(4, "base_alu after initialize()", x);
@@ -342,7 +349,7 @@ program automatic tb_cpu;
     a.set_carry(1);
     a.initialize();
     check_d007(4, "arithmetic_alu after initialize()", a);
-    check(4, "arithmetic_alu carry after initialize()", a.get_carry(), 0);
+    check_bit(4, "arithmetic_alu carry after initialize()", a.get_carry(), 1'b0);
   endtask
 
   // TC-005 (FR-005, D-010): display() prints "[<class>] op=<name> A=<n> B=<n> result=<n>".
@@ -376,11 +383,13 @@ program automatic tb_cpu;
       string   id = $sformatf("GV-%s %s A=%0d B=%0d carry_in=%0b",
                               two_digits(v.num), op.name(), v.a, v.b, v.carry_in);
       int      r;
+      bit      expected_c;
       cpu.a_alu.set_carry(v.carry_in);
       r = cpu.Calc(v.a, v.b, v.op);
       check(tc_of(v.op), {id, " result"}, r, v.result);
-      check(tc_of(v.op), {id, " carry"}, cpu.a_alu.get_carry(), expected_carry(v));
-      cov_sample(v.op, v.b, v.carry_in, expected_carry(v));
+      expected_c = expected_carry(v.carry_given, v.carry, v.carry_in);
+      check_bit(tc_of(v.op), {id, " carry"}, cpu.a_alu.get_carry(), expected_c);
+      cov_sample(v.op, v.b, v.carry_in, expected_c);
     end
   endtask
 
@@ -401,7 +410,7 @@ program automatic tb_cpu;
       model(op, a, b, carry_in, expected, expected_c);
       r = cpu.Calc(a, b, op);
       check(tc_of(op), {id, " result"}, r, expected);
-      check(tc_of(op), {id, " carry"}, cpu.a_alu.get_carry(), expected_c);
+      check_bit(tc_of(op), {id, " carry"}, cpu.a_alu.get_carry(), expected_c);
       cov_sample(op, b, carry_in, expected_c);
     end
   endtask
@@ -412,8 +421,8 @@ program automatic tb_cpu;
     CPU            cpu = new();
     logical_alu    l   = cpu.l_alu;
     arithmetic_alu a   = cpu.a_alu;
-    check(20, "l_alu built by CPU.new()", l != null, 1);
-    check(20, "a_alu built by CPU.new()", a != null, 1);
+    check_bit(20, "l_alu built by CPU.new()", l != null, 1'b1);
+    check_bit(20, "a_alu built by CPU.new()", a != null, 1'b1);
   endtask
 
   // TC-021 (FR-009, D-008): Reset() returns both ALUs to the D-007 state with carry = 0 and
@@ -427,10 +436,10 @@ program automatic tb_cpu;
     cpu.a_alu.set_carry(1);
     cpu.Reset();
     check_d007(21, "a_alu after Reset()", cpu.a_alu);
-    check(21, "a_alu carry after Reset()", cpu.a_alu.get_carry(), 0);
+    check_bit(21, "a_alu carry after Reset()", cpu.a_alu.get_carry(), 1'b0);
     check_d007(21, "l_alu after Reset()", cpu.l_alu);
-    check(21, "Reset() keeps the l_alu object", cpu.l_alu == l, 1);
-    check(21, "Reset() keeps the a_alu object", cpu.a_alu == a, 1);
+    check_bit(21, "Reset() keeps the l_alu object", cpu.l_alu == l, 1'b1);
+    check_bit(21, "Reset() keeps the a_alu object", cpu.a_alu == a, 1'b1);
   endtask
 
   // TC-022 / TC-023 (FR-010, D-012): Calc loads A, B and the code into the ALU that owns the
@@ -458,7 +467,7 @@ program automatic tb_cpu;
       end
       check(tc, {op.name(), ": routed ALU operand_A"}, used.operand_A, 3);
       check(tc, {op.name(), ": routed ALU operand_B"}, used.operand_B, 1);
-      check(tc, {op.name(), ": routed ALU alu_op"}, used.alu_op, op);
+      check(tc, {op.name(), ": routed ALU alu_op"}, int'(used.alu_op), int'(op));
       check(tc, {op.name(), ": Calc returns routed alu_result"}, r, used.alu_result);
       check_d007(tc, {op.name(), ": other ALU untouched,"}, other);
     end
@@ -468,7 +477,13 @@ program automatic tb_cpu;
   // checked against the golden vectors' Operation column in load_vectors().
   task automatic tc024_enum();
     alu_op_t e;
-    check(24, "alu_op_t has 14 members", e.num(), 14);
+    int      n = 0;
+    e = e.first();
+    do begin  // walks the members, as e.num() would count them
+      n++;
+      e = e.next();
+    end while (e != e.first());
+    check(24, "alu_op_t has 14 members", n, 14);
   endtask
 
   // TC-025 (FR-012, D-014): cpu_pkg compiles and its definitions resolve through the package.
@@ -477,10 +492,10 @@ program automatic tb_cpu;
     cpu_pkg::logical_alu    l   = new();
     cpu_pkg::arithmetic_alu a   = new();
     cpu_pkg::CPU            cpu = new();
-    check(25, "cpu_pkg::base_alu", x != null, 1);
-    check(25, "cpu_pkg::logical_alu", l != null, 1);
-    check(25, "cpu_pkg::arithmetic_alu", a != null, 1);
-    check(25, "cpu_pkg::CPU", cpu != null, 1);
+    check_bit(25, "cpu_pkg::base_alu", x != null, 1'b1);
+    check_bit(25, "cpu_pkg::logical_alu", l != null, 1'b1);
+    check_bit(25, "cpu_pkg::arithmetic_alu", a != null, 1'b1);
+    check_bit(25, "cpu_pkg::CPU", cpu != null, 1'b1);
     check(25, "cpu_pkg::alu_op_t is 4 bits", $bits(cpu_pkg::alu_op_t), 4);
   endtask
 
@@ -488,15 +503,16 @@ program automatic tb_cpu;
   // state. Calc also reports each one with $error; run.sh checks those two log lines.
   task automatic tc027_invalid();
     CPU cpu = new();
-    for (int code = 4'b1110; code <= 4'b1111; code++) begin
-      string before;
+    for (int code = 'b1110; code <= 'b1111; code++) begin
+      string state_before;  // "before" is a reserved word
       int    r;
       void'(cpu.Calc(9, 4, OP_SUB));  // known state in both ALUs
       void'(cpu.Calc(12, 10, OP_AND));
-      before = state_of(cpu);
-      r      = cpu.Calc(1, 2, alu_op_t'(4'(code)));
+      state_before = state_of(cpu);
+      r            = cpu.Calc(1, 2, alu_op_t'(4'(code)));
       check(27, $sformatf("Calc(1, 2, 4'b%b) returns 0", 4'(code)), r, 0);
-      check_text(27, $sformatf("4'b%b changes no ALU state", 4'(code)), state_of(cpu), before);
+      check_text(27, $sformatf("4'b%b changes no ALU state", 4'(code)), state_of(cpu),
+                 state_before);
       cov_sample(4'(code), 2, 0, 0);
     end
   endtask
