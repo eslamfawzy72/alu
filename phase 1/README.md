@@ -21,9 +21,9 @@ This folder holds the current Phase 1 output for the ALU assignment. Later phase
 | `ALU_Open_Questions.csv` | 7. Open questions, each answered by a decision | Q-001 to Q-018 |
 | `ALU_Traceability.csv` | 8. Traceability | TR-001 to TR-108 |
 | `ALU_Architecture_Corrected.svg`, `.png` | 9. High-level architecture | |
-| `ALU_Design_Decisions.csv` | answers to the open questions, with approval status | D-001 to D-018 |
-| `ALU_Golden_Vectors.csv` | exact expected results, including boundary cases | vectors 1 to 37 |
-| `alu_spec.json` | the same content in machine-readable form, with `spec_version` (read this first) | |
+| `ALU_Design_Decisions.csv` | 10. Design decisions: answers to the open questions, with approval status | D-001 to D-018 |
+| `ALU_Golden_Vectors.csv` | 11. Golden vectors: exact expected results, including boundary cases | vectors 1 to 37 |
+| `alu_spec.json` | 12. Machine-readable spec: the same content with `spec_version` (read this first) | |
 | `REVISION_2.md` | what revision 2 changed from revision 1, and why | |
 
 Revision 1, in which all 18 questions are still open, is kept in git history at commit `1463e78`.
@@ -192,9 +192,53 @@ Traceability helps reviewers verify the source and distinguish directly stated i
 
 Produces a high-level view of the system and its main components and relationships. The exact diagram content depends on the information available in the specification.
 
+### 10. Design Decisions
+
+**Format:** CSV (`.csv`)
+
+Gives one proposed answer for each open question so later phases do not have to guess. A decision is treated as a requirement only after it is approved.
+
+Fields captured:
+- Decision ID
+- Question it resolves
+- Proposed decision
+- Status: proposed or approved
+- Approved by
+- Date
+
+### 11. Golden Vectors
+
+**Format:** CSV (`.csv`), also embedded in `alu_spec.json`
+
+Lists exact expected results for each operation, including boundary cases such as wrap-around, carry and borrow, shift amounts of 0 and 32, and rotation across the sign bit. The values are computed by a reference model rather than written by hand, and Phase 3 checks the design against them.
+
+Fields captured:
+- Vector number
+- Operation and code
+- Operands A and B
+- Carry in
+- Expected result, in decimal and hex
+- Expected carry, or `unchanged` for operations that do not update it
+- Note describing the case
+
+### 12. Machine-Readable Spec
+
+**Format:** JSON (`alu_spec.json`)
+
+Holds the same content as the CSVs in a typed form that later phases read first. It contains:
+- `spec_version`: increased whenever Phase 1 changes the spec, for example when it answers a question from a later phase
+- `package`: package name, file, and include order
+- `types`: the opcode enum, its codes, and the invalid codes
+- `data_semantics`: integer width, wrap-around, and shift rules
+- `classes`: properties, method signatures, and the requirements and decisions they come from
+- `operations`: the semantics of each opcode and whether it updates carry
+- `test_program`: what the test program must cover and its pass criterion
+- `golden_vectors`: the vectors from deliverable 11
+- `tool_gate`: the simulator and checks the design must pass
+
 ## Recommended Output Strategy
 
-The proposed approach is to define the output schema in JSON and use it to generate human-readable deliverables.
+The structured output is stored in JSON (`alu_spec.json`), and the human-readable deliverables present the same content.
 
 - **JSON — structured output:** Stores the sections, fixed fields, identifiers, statuses, and source references. It can be validated and passed to later agents.
 - **CSV / Excel — review tables:** Allows engineers to inspect and review requirements, interfaces, operations, and verification records.
@@ -226,6 +270,8 @@ Phase 1 can be considered ready for review when:
 - Constraints and assumptions are recorded and categorized.
 - Candidate verification scenarios are linked to related requirements and clearly marked as specified or proposed.
 - Missing or ambiguous information is recorded as open questions.
+- Every open question has a design decision, and each decision is approved, with Approved by and Date filled in.
+- The golden vectors and `alu_spec.json` agree with the approved decisions.
 - Extracted and derived items have source references wherever available.
 - A high-level architecture view is prepared when the specification provides sufficient information.
 - The outputs are available in the agreed formats and are ready for engineering review.
