@@ -17,8 +17,8 @@
 | Open items | decisions D-001..D-018 still "Proposed"; spec has no approver; Phase 1 to update D-014, IF-007 and add IF IDs for get_carry/set_carry (`01_spec_check/questions_for_phase1.md`, Q1–Q6) |
 
 Notes for Phase 3 (testing):
-- `$error` in Verilator also calls `$stop`: run invalid-code tests with `+verilator+error+limit+N` (Questa/VCS only count the error).
-- `carry` is state: its value carries from one `Calc` to the next, so set it with `set_carry()` before ADDC/SUBB, or order the calls on purpose.
+- F1: `$error` in Verilator also calls `$stop`: run invalid-code tests with `+verilator+error+limit+N` (Questa/VCS only count the error).
+- F2: `carry` is state: its value carries from one `Calc` to the next, so set it with `set_carry()` before ADDC/SUBB, or order the calls on purpose.
 - Each line that implements a spec ID ends with a `// @ID` comment, so you can find the code for any requirement with `grep -n "@OP-005" 04_rtl/rtl/*`.
 
 Who uses what:

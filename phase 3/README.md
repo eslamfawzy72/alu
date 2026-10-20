@@ -32,7 +32,7 @@ Read from the other phase folders as they are.
 
 ### 1. Read the inputs
 
-Read every file in the Inputs table. Note the Phase 1 `spec_version` (in `alu_spec.json`) and the Phase 2 git tag (in `phase2_handoff.json`).
+Read every file in the Inputs table. Note the Phase 1 `spec_version` (in `alu_spec.json`) and the Phase 2 git tag (in `phase2_handoff.md`).
 
 ### 2. Readiness check: ask Phase 1 for anything missing
 
@@ -49,7 +49,7 @@ Check each row. A failed row is a question for Phase 1.
 | R7 | the output format of anything the tests compare | Design Decisions | defined |
 | R8 | no open questions | Open Questions | no row has Status "Open" |
 | R9 | approved decisions | Design Decisions → "Approved by", "Date" | filled in |
-| R10 | a design to test | `phase2_handoff.json` | `dut.filelist` exists and gates S6 and S8 passed |
+| R10 | a design to test | `phase2_handoff.md` | it names a git tag and a build list that exists (`04_rtl/files.f`), and its lint and smoke results passed |
 
 Write every failed row to `questions_for_phase1.md` (or report R10 to Phase 2). Use one numbered question per gap, cite the ID, and say what answer is needed. This is the same format as `phase 2/01_spec_check/questions_for_phase1.md`.
 

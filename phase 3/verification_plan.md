@@ -25,7 +25,7 @@ Phase 1 defines what is correct and Phase 3 defines how it is tested. Every expe
 
 ## 3. Readiness result
 
-Checked against Phase 1 revision 2 (`spec_version` 1.1-proposed) and the Phase 2 baseline `phase2-baseline-s1.1-proposed-p2`.
+Checked against Phase 1 revision 2 (`spec_version` 1.1-proposed) and the Phase 2 tag `phase2-rtl-v1` (commit `22b327d`). Its RTL is the same as the earlier baseline `phase2-baseline-s1.1-proposed-p2` apart from one whitespace change.
 
 - **No blocking gaps.** Every TC has a pass criterion, either in its own row or through a D-ID or the golden vectors. Every operation has semantics and at least one golden vector. All 18 questions have an answer.
 - **C1 (condition on sign-off):** D-001 to D-003 and D-005 to D-018 are "Proposed" with no approver. Results are provisional until Phase 1 records approval (`questions_for_phase1.md` #1).

@@ -4,7 +4,7 @@ Work through the folders in number order.
 
 | Folder | What it holds | Done when |
 |---|---|---|
-| `00_inputs/` | Phase 1 files, **read-only** | — |
+| `../phase 1/` | Phase 1 files, read in place and **read-only** (no copy is kept here) | — |
 | `01_spec_check/` | `s1_intake_log.md` (what was received, counts, inconsistencies), `questions_for_phase1.md` | all files read, problems written down |
 | `02_requirements/` | `requirements_map.csv`: what each of the 61 IDs means in code and which file owns it | every row filled |
 | `03_architecture/` | `design_plan.md`: files, members, datapath, control, reset, ownership, additions, deviations | self-check (section 9) ticked |
@@ -23,7 +23,7 @@ Work through the folders in number order.
 
 ## Rules
 
-- Names, types and signatures come from `00_inputs/alu_spec.json` and `ALU_Interfaces_and_Signals.csv`. Don't rename anything.
+- Names, types and signatures come from `../phase 1/alu_spec.json` and `../phase 1/ALU_Interfaces_and_Signals.csv`. Don't rename anything.
 - Every behaviour the assignment doesn't define comes from a decision (D-xxx). If none covers it, ask; don't invent.
 - Anything added that isn't in the spec goes into `design_plan.md` → "Added elements".
 - If a lint error means the plan was wrong, change the plan first, then the code.

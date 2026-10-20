@@ -34,7 +34,7 @@ Folder names contain a space (`phase 1/`), so always quote paths in shell comman
    existing table format (see `phase 2/01_spec_check/questions_for_phase1.md`). Don't fill the
    gap yourself.
 3. **Read, don't copy.** A phase reads earlier phases' folders in place. It keeps no copies of
-   their files (see "Known issues" for one current exception).
+   their files.
 4. **Never edit an expected value to make a test pass.** A failing check is either a DUT bug
    (report to Phase 2), a reference-model bug (fix in Phase 3), or a spec gap (ask Phase 1).
 5. **Phase 1 answers by editing in place.** Keep existing IDs, add new IDs for new items, and
@@ -82,9 +82,9 @@ Two DUT behaviours every test must handle:
 ```
 phase 1/   requirements: FR/IF/OP/CA/TC/Q/TR/D tables, golden vectors (37), alu_spec.json,
            corrected architecture diagram, REVISION_2.md (what changed and why)
-phase 2/   00_inputs (copy of Phase 1) -> 01_spec_check -> 02_requirements -> 03_architecture
+phase 2/   01_spec_check (s1_intake_log.md, questions) -> 02_requirements -> 03_architecture
            -> 04_rtl (rtl/*.sv, *.svh, files.f) -> 05_build_checks -> 06_repairs -> 07_smoke
-           -> 08_release (phase2_handoff.md, release_checklist.md)
+           -> 08_release (phase2_handoff.md, release_checklist.md; tag phase2-rtl-v1)
 phase 3/   verification_plan.md, tb/tb_cpu.sv (self-checking program, reference model,
            44 coverage bins), run.sh, questions_for_phase1.md
 ```
@@ -103,28 +103,15 @@ phase 3/   verification_plan.md, tb/tb_cpu.sv (self-checking program, reference 
 Net effect: Phase 1 and Phase 2 have stable layouts. Phase 3 was simplified to one testbench
 that has not been compiled yet, so the first job of Phase 4 is to compile it.
 
-## Known issues (found while writing this file)
+## Known issues
 
-Fix these, or check them, before relying on the references:
-
-1. **Missing tag.** `phase2_handoff.md` and `release_checklist.md` say the tag
-   `phase2-rtl-v1` was created, but the tag does not exist locally or on `origin`.
-2. **Stale handoff references in Phase 3.** `phase 3/README.md` (step 1, check R10) still names
-   `phase2_handoff.json`, which `22b327d` deleted; it is now `phase2_handoff.md`.
-   `verification_plan.md` cites the baseline `phase2-baseline-s1.1-proposed-p2` and the flags
-   "F1" and "F2", which the Markdown handoff does not label that way. F1 is the `$error`/`$stop`
-   note and F2 is the carry-state note.
-3. **Phase 2 keeps a copy of Phase 1** in `phase 2/00_inputs/`, against ground rule 3. It has
-   already drifted: `00_inputs/README.md` differs from `phase 1/README.md`, and the `.png`
-   diagram is missing.
-4. **Missing file.** `phase 2/README.md` and `06_repairs/repair_log.md` refer to
-   `01_spec_check/s1_intake_log.md`, which is not in the repo.
-5. **Stale ignore rule.** `phase 2/.gitignore` ignores `08_smoke/obj_dir/`; the folder is now
-   `07_smoke`. The root `obj_dir/` rule still covers it.
-6. **Spec vs RTL file name.** `alu_spec.json` lists `cpu.svh` and the RTL uses `CPU.svh`
+1. **Spec vs RTL file name.** `alu_spec.json` lists `cpu.svh` and the RTL uses `CPU.svh`
    (deviation DV-1, Phase 2 question Q2). This is still open.
-7. **Open Phase 1 questions.** Phase 2 Q1 to Q6 and Phase 3 #1 to #3 have not been answered.
+2. **Open Phase 1 questions.** Phase 2 Q1 to Q6 and Phase 3 #1 to #3 have not been answered.
    D-001..D-018 have no approver or date.
+
+Phase 2's handoff notes are labelled F1 (Verilator stops on `$error`) and F2 (`carry` is
+state); Phase 3 files cite them by those labels.
 
 ---
 
@@ -159,7 +146,7 @@ new tag (`phase2-rtl-v2`, …).
 uses a reference model that must reproduce every golden vector before any DUT check runs, runs
 5000 constrained-random calls with corner values, and counts 44 functional coverage bins.
 `run.sh` adds log checks for TC-005 (`display()` text) and TC-027 (exactly two `%Error` lines).
-**Remaining:** fix known issue 2; consider adding immediate assertions for state invariants
+**Remaining:** consider adding immediate assertions for state invariants
 (for example, invalid codes leave the ALU state unchanged).
 
 ### Phase 4 — Compilation & Elaboration
@@ -179,7 +166,7 @@ uses a reference model that must reproduce every golden vector before any DUT ch
   - Optionally compile on a second simulator (Questa or VCS) to catch tool-specific behaviour,
     such as `$error` semantics, class handle defaults and `program` blocks.
   - Confirm the include order matches `alu_spec.json` → `package.includes_in_order`, and settle
-    the `cpu.svh`/`CPU.svh` question (known issue 6).
+    the `cpu.svh`/`CPU.svh` question (known issue 1).
   - Check that paths with spaces are handled. `run.sh` copies the DUT into `build/` for this.
 - **Deliverables:** `phase 4/README.md`, a build script, `build.log` and `elab_report.md`
   (tool, version, top, files with sha256, warnings and their disposition).
