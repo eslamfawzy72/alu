@@ -35,30 +35,23 @@ Checked against Phase 1 revision 2 (`spec_version` 1.1-proposed) and the Phase 2
 
 All tests are in `tb/tb_cpu.sv` and are named after the TC they cover. Each check is counted under its TC, and the run prints one PASS/FAIL line per TC.
 
-| TC | What is checked | Test | Expected values from |
-|---|---|---|---|
-| TC-001 | `operand_A`, `operand_B`, `alu_result` are 32-bit signed; `alu_op` is 4-bit | `tc001_properties` | TC-001, D-001, D-004 |
-| TC-002 | `load_operand_A` stores 17, −4, 0 and the int limits | `tc002_tc003_load` | TC-002, D-011 |
-| TC-003 | `load_operand_B`, same values | `tc002_tc003_load` | TC-003, D-011 |
-| TC-004 | `new()` and `initialize()` give the D-007 state in all three classes; `carry` = 0 | `tc004_initialize` | TC-004, D-007, D-018 |
-| TC-005 | `display()` prints class, op, A, B and result | `tc005_display` + log check in `run.sh` | TC-005, D-010 |
-| TC-006 to TC-012 | AND, OR, XOR, SHL, SHR, ROL, ROR (in that order) | `golden_vectors`, `random_test` | golden vectors of the operation; model from `alu_spec.json` |
-| TC-013 to TC-019 | SEL_B, INC_B, DEC_B, ADD, ADDC, SUB, SUBB (in that order), including `carry` | `golden_vectors`, `random_test` | same, plus D-005, D-006 |
-| TC-020 | `CPU.new()` builds `l_alu` (`logical_alu`) and `a_alu` (`arithmetic_alu`) | `tc020_members` | TC-020, D-018 |
-| TC-021 | `Reset()` gives D-007 in both ALUs with `carry` = 0 and keeps the objects | `tc021_reset` | TC-021, D-007, D-008 |
-| TC-022 | `Calc(7, 5, ADD)` = 12; codes 4'b0000 to 4'b0110 load and run `a_alu` only | `tc022_tc023_dispatch` | TC-022, D-012 |
-| TC-023 | `Calc(12, 10, AND)` = 8; codes 4'b0111 to 4'b1101 load and run `l_alu` only | `tc022_tc023_dispatch` | TC-023, D-012 |
-| TC-024 | `alu_op_t` has 14 members; each code has the name Phase 1 uses | `tc024_enum`, `load_vectors` | TC-024, D-001, golden vectors (Operation, Code) |
-| TC-025 | each class and `alu_op_t` resolve through `cpu_pkg::` | `tc025_package` | TC-025, D-014 |
-| TC-026 | the program compiles, imports `cpu_pkg` and runs every section | end of the `initial` block | TC-026, D-015 |
-| TC-027 | 4'b1110 and 4'b1111: `Calc` returns 0, no ALU state changes, one `$error` each | `tc027_invalid` + log check in `run.sh` | TC-027, D-009 |
-| TC-028 | `initialize()` clears earlier loads; later loads stick | `tc028_load_then_initialize` | TC-028, D-007 |
+The map itself is `test_map.csv`. It has one row for each Phase 1 ID that sets something Phase 3 checks: every test (TC-001 to TC-028), every operation (OP-001 to OP-014) and every decision (D-001 to D-018). The columns are:
 
-D-015 requires every opcode, the boundary vectors, Reset and an invalid opcode. These are covered by TC-006 to TC-019, the golden vectors, TC-021 and TC-027.
+| Column | Content |
+|---|---|
+| Related Phase 1 IDs | for a TC, the FR IDs Phase 1 gives it; for an OP or D, the TCs that check it |
+| What is checked | Phase 3's description of the check (Phase 1 text is cited by ID, not copied) |
+| Where checked | the task or function in `tb/tb_cpu.sv`, or the log check in `run.sh` |
+| How checked | directed, golden vectors, random vs reference model, log check, or compile |
+| Expected values from | the TC, D-, OP- and GV- IDs the expected values come from |
+| Coverage bins | the section 7 bins the row's checks fill, named as the program prints them |
+| Not tested? reason | empty when fully tested; otherwise what is not tested and why ("Partly: …" or "Not tested: …") |
+
+The map has no pass/fail column. Results come from `results/summary.txt` for each run, and Phase 7 joins the two.
 
 ## 5. Stimulus
 
-- **Directed:** every row of `ALU_Golden_Vectors.csv` goes through `CPU.Calc`, with `carry` first set to the vector's "Carry in" (review flag F2). The TC-specific tests in section 4 use the Phase 1 example inputs where a TC gives them (17 and −4 for the loads, `Calc(7, 5, ADD)`, `Calc(12, 10, AND)`).
+- **Directed:** every row of `ALU_Golden_Vectors.csv` goes through `CPU.Calc`, with `carry` first set to the vector's "Carry in" (review flag F2). The TC-specific tests in `test_map.csv` use the Phase 1 example inputs where a TC gives them (17 and −4 for the loads, `Calc(7, 5, ADD)`, `Calc(12, 10, AND)`).
 - **Random:** 5000 calls by default (`+RANDOM_N`), seed 1 (`+SEED`). The opcode is uniform over the 14 valid codes. One operand in four is a corner value (0, 1, −1, 31, 32, `INT_MAX`, `INT_MIN`), the rest are uniform 32-bit values. `carry` is never reset between calls, so carry chains across calls are tested. Invalid codes are directed only (TC-027), because each one prints an `$error`.
 
 ## 6. Checking

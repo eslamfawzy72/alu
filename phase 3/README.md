@@ -8,7 +8,8 @@ Phase 3 checks that the Phase 2 design does what Phase 1 specifies. It delivers 
 
 | File | Content |
 |---|---|
-| `verification_plan.md` | inputs used, readiness result, TC-to-test map, stimulus, checking, coverage, exit criteria, status |
+| `verification_plan.md` | inputs used, readiness result, how the test map is laid out, stimulus, checking, coverage, exit criteria, status |
+| `test_map.csv` | where each TC, OP and D-ID is checked in `tb/tb_cpu.sv`, how, its coverage bins, and anything not tested with the reason |
 | `questions_for_phase1.md` | what Phase 3 asked Phase 1 in the last readiness check |
 | `tb/tb_cpu.sv` | the test program: Phase 1 golden vectors, one test per TC, random test with a reference model, coverage |
 | `run.sh` | builds and runs the test program against the Phase 2 DUT, checks the log, writes `results/` |
@@ -60,7 +61,7 @@ Record the result in `verification_plan.md` section 3.
 
 ### 3. Write the plan
 
-Update `verification_plan.md`. There is one row per Phase 1 TC in section 4: what is checked, which test checks it, and which Phase 1 IDs the expected values come from. Do not copy Phase 1 text into the plan; cite the ID instead.
+Update `verification_plan.md` and `test_map.csv`. The map has one row per Phase 1 TC, OP and D-ID: what is checked, which test checks it, how, which Phase 1 IDs the expected values come from, and which coverage bins it fills. Anything left untested gets a reason in "Not tested? reason", never an empty row. Do not copy Phase 1 text into the plan or the map; cite the ID instead.
 
 ### 4. Write the test program
 

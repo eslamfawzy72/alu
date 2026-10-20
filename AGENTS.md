@@ -85,8 +85,9 @@ phase 1/   requirements: FR/IF/OP/CA/TC/Q/TR/D tables, golden vectors (37), alu_
 phase 2/   01_spec_check (s1_intake_log.md, questions) -> 02_requirements -> 03_architecture
            -> 04_rtl (rtl/*.sv, *.svh, files.f) -> 05_build_checks -> 06_repairs -> 07_smoke
            -> 08_release (phase2_handoff.md, release_checklist.md; tag phase2-rtl-v1)
-phase 3/   verification_plan.md, tb/tb_cpu.sv (self-checking program, reference model,
-           44 coverage bins), run.sh, questions_for_phase1.md
+phase 3/   verification_plan.md, test_map.csv (where each TC/OP/D-ID is checked),
+           tb/tb_cpu.sv (self-checking program, reference model, 44 coverage bins), run.sh,
+           questions_for_phase1.md
 sessions/  shared session logs, one file per session (see below)
 ```
 
@@ -236,7 +237,8 @@ uses a reference model that must reproduce every golden vector before any DUT ch
     out, 4 carry in, 16 shift/rotate amount);
   - TC coverage: 28 of 28 checked with no failures;
   - requirement coverage: every FR traced to at least one passing TC (through
-    `ALU_Traceability.csv` and `phase 2/02_requirements/requirements_map.csv`);
+    `ALU_Traceability.csv`, `phase 2/02_requirements/requirements_map.csv` and
+    `phase 3/test_map.csv`);
   - optional code coverage of the RTL from `verilator --coverage` and `verilator_coverage`
     (line, toggle).
 - **Closure:** close a gap by adding directed stimulus or adjusting random weights in Phase 3, or

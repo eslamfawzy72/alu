@@ -4,8 +4,8 @@
 //   ../phase 1/ALU_Golden_Vectors.csv     read at run time; no copy is kept in Phase 3
 //   ../phase 1/ALU_Design_Decisions.csv   D-xxx, cited at each check that uses one
 //   ../phase 1/alu_spec.json              operation semantics behind the reference model
-// Each check is counted under the Phase 1 test (TC-xxx) it belongs to. verification_plan.md
-// section 4 maps every TC to the task below that tests it.
+// Each check is counted under the Phase 1 test (TC-xxx) it belongs to. ../test_map.csv maps
+// every TC, OP and D-ID to the task below that tests it.
 //
 // Plusargs: +GOLDEN=<file>      golden vectors (default ../phase 1/ALU_Golden_Vectors.csv)
 //           +SEED=<n>           random seed (default 1)
