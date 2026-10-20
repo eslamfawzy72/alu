@@ -1,0 +1,4 @@
+# Check out every text file with LF, also on Windows (core.autocrlf=true). The bash scripts
+# fail with CRLF under WSL, and run.sh records the sha256 of the golden vectors and the DUT,
+# which must be the same on every machine.
+* text=auto eol=lf
