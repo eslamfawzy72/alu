@@ -1,7 +1,7 @@
 {
-  "spec_version": "1.1-proposed",
+  "spec_version": "1.2",
   "source": "ALU_assignment.pdf + Phase 1 tables + ALU_Design_Decisions.csv",
-  "status_note": "Decisions marked Proposed must be approved before Phase 2 treats them as requirements.",
+  "status_note": "Decisions D-001..D-018 approved by Adam on 2026-10-20 (revision 3). D-014 names the CPU file CPU.svh.",
   "design_kind": "SystemVerilog class hierarchy (simulation only, not synthesizable)",
   "package": {
     "name": "cpu_pkg",
@@ -10,7 +10,7 @@
       "base_alu.svh",
       "logical_alu.svh",
       "arithmetic_alu.svh",
-      "cpu.svh"
+      "CPU.svh"
     ],
     "decision": "D-014"
   },
@@ -238,7 +238,7 @@
     },
     {
       "name": "CPU",
-      "file": "cpu.svh",
+      "file": "CPU.svh",
       "extends": null,
       "req": [
         "FR-008",

@@ -6,7 +6,7 @@ Phase 1 focuses on analyzing the project's specification and converting its cont
 
 The phase captures the system overview, functional requirements, interfaces and signals, operations and behavior, constraints and assumptions, verification requirements, open questions, and traceability information. It also identifies the high-level architecture.
 
-## Current output: revision 2
+## Current output: revision 3 (`spec_version` 1.2)
 
 This folder holds the current Phase 1 output for the ALU assignment. Later phases read these files directly.
 
@@ -25,6 +25,7 @@ This folder holds the current Phase 1 output for the ALU assignment. Later phase
 | `ALU_Golden_Vectors.csv` | 11. Golden vectors: exact expected results, including boundary cases | vectors 1 to 37 |
 | `alu_spec.json` | 12. Machine-readable spec: the same content with `spec_version` (read this first) | |
 | `REVISION_2.md` | what revision 2 changed from revision 1, and why | |
+| `REVISION_3.md` | revision 3: D-001..D-018 approved, D-014 names `CPU.svh` | |
 
 Revision 1, in which all 18 questions are still open, is kept in git history at commit `1463e78`.
 
