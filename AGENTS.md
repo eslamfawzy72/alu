@@ -87,7 +87,22 @@ phase 2/   01_spec_check (s1_intake_log.md, questions) -> 02_requirements -> 03_
            -> 08_release (phase2_handoff.md, release_checklist.md; tag phase2-rtl-v1)
 phase 3/   verification_plan.md, tb/tb_cpu.sv (self-checking program, reference model,
            44 coverage bins), run.sh, questions_for_phase1.md
+sessions/  shared session logs, one file per session (see below)
 ```
+
+## Session logs
+
+Chat history stays on each person's machine, so `sessions/` holds a short shared record of each
+working session: what was asked, what was done, decisions with reasons, follow-ups and the git
+range to check.
+
+- **Reading:** don't load `sessions/` by default. Open it only when asked about earlier work, or
+  when the code, phase READMEs and `git log` don't explain a change. Find entries with
+  `ls sessions/` or `grep -ril "<keyword>" sessions/`, read only the matches, and check them
+  against git.
+- **Writing:** at the end of any session that changed the repo or a decision, add one new file
+  using the template in `sessions/README.md`. Never edit another person's entry, and never paste
+  the conversation.
 
 ## Recent changes (last 24 hours, as of 2026-10-20)
 
