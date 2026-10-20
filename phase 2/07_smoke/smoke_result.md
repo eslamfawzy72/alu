@@ -5,6 +5,7 @@ Test: `07_smoke/smoke_tb.sv`: 37 golden vectors (result + carry each = 74 checks
 | Run | Date | SUMMARY line | Failing cases | Error lines (expect 2) | Action |
 |---|---|---|---|---|---|
 | 1 | 2026-10-19 | `SUMMARY pass=91 fail=0` | none | 2 (`invalid operation code 4'b1110`, `… 4'b1111`) | none: go to 09 |
+| 2 | 2026-10-20 | `SUMMARY pass=91 fail=0` | none | 2 (same) | rerun by Phase 4 on Verilator 5.020 / WSL2 after the build-path fix (`06_repairs` #1); `smoke_log.txt` identical to run 1. "09" in run 1 is the old step numbering; the next folder is `08_release`. |
 
 display() output (D-010 format):
 ```
