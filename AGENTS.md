@@ -17,7 +17,7 @@ in eight phases. Phases 1 to 5 have folders in the repo. Phases 6 to 8 are upcom
 | 3 | Verification Development | `phase 3/` | plan, test map and testbench; lint `-Wall` clean; regression PASS |
 | 4 | Compilation & Elaboration | `phase 4/` | done: clean-clone build, 0 lint messages, no waivers |
 | 5 | Simulation & Debugging | `phase 5/` | done: self-test OK, PASS at seeds 1 and 7, no defects |
-| 6 | Regression Testing | `phase 6/` (to create) | not started |
+| 6 | Regression Testing | `phase 6/` | `regress.sh` written from `spec.md` and checked with a stub; **first real run pending** (needs Verilator) |
 | 7 | Coverage Analysis & Closure | `phase 7/` (to create) | not started |
 | 8 | Signoff | `phase 8/` (to create) | not started |
 
@@ -68,7 +68,7 @@ Folder names contain a space (`phase 1/`), so always quote paths in shell comman
 ```bash
 # Phase 2: lint and smoke test (from "phase 2/")
 ./05_build_checks/run_checks.sh      # expect "LINT: PASS (no messages)"
-./07_smoke/run_smoke.sh              # expect "SUMMARY pass=91 fail=0" and 2 expected %Error lines
+./07_smoke/run_smoke.sh              # expect "SMOKE: PASS" (SUMMARY pass=91 fail=0, 2 expected %Error lines); exit 1 otherwise
 
 # Phase 3: checker self-test, then regression (from "phase 3/")
 bash run.sh +CHECKER_SELFTEST        # must end with "checker self-test OK"
@@ -77,6 +77,9 @@ bash run.sh +SEED=7 +RANDOM_N=10000  # different seed / more random calls (keep 
 
 # Phase 4: lint (-Wall) and build DUT + test program, warnings fatal
 bash "phase 4/build.sh"              # expect "LINT: PASS (no messages)" and "BUILD: PASS"
+
+# Phase 6: multi-seed regression with history (from the repo root); levels quick|full|release
+bash "phase 6/regress.sh" full       # expect "Phase 6 regression: PASS"; skips if inputs unchanged (--force)
 
 # Phase 5: self-test, seed 7, seed 1 twice; reproducibility and seed checks
 bash "phase 5/simulate.sh"           # expect "Phase 5 simulation: PASS"
@@ -101,6 +104,7 @@ phase 3/   verification_plan.md, test_map.csv (where each TC/OP/D-ID is checked)
            questions_for_phase1.md, repair_log.md, results/ (last regression of record)
 phase 4/   build.sh -> build_info.txt, lint.log, build.log; elab_report.md
 phase 5/   simulate.sh -> runs/<name>/ and runs/summary.txt; defects.md
+phase 6/   spec.md, regress.sh -> results/<date>_<commit>_<level>/, history.csv
 sessions/  shared session logs, one file per session (see below)
 ```
 
@@ -210,6 +214,9 @@ with Phase 3 README step 6 and record it in `defects.md`; a DUT fix goes through
 ### Phase 6 — Regression Testing
 
 **Goal:** rerun selected tests or the full suite after changes.
+
+**State:** implemented from `phase 6/spec.md` (`regress.sh`, `README.md`); the first real run on
+Verilator is still to do. The list below was the original proposal; `spec.md` replaces it.
 
 - **Work:**
   - Script a multi-seed regression (for example seeds 1..20 at `RANDOM_N` ≥ 5000, plus one long

@@ -9,7 +9,7 @@ A SystemVerilog class model of an ALU (`base_alu`, `logical_alu`, `arithmetic_al
 | 3 | Verification Development | `phase 3/` | `phase 1/` (expected behaviour), `phase 2/` (design) | verification plan, test map, test program (`tb/tb_cpu.sv`), regression results | regression PASS |
 | 4 | Compilation & Elaboration | `phase 4/` | `phase 2/`, `phase 3/` | clean-clone build, lint log, `elab_report.md` | 0 lint messages, no waivers |
 | 5 | Simulation & Debugging | `phase 5/` | `phase 3/`, `phase 4/` | seeded runs (`runs/`), `defects.md` | PASS at seeds 1 and 7, no defects |
-| 6 | Regression Testing | `phase 6/` (to create) | | | not started |
+| 6 | Regression Testing | `phase 6/` | `phase 2/`, `phase 3/`, `phase 4/` | `regress.sh` (quick/full/release), `results/`, `history.csv` | script written; first real run pending |
 | 7 | Coverage Analysis & Closure | `phase 7/` (to create) | | | not started |
 | 8 | Signoff | `phase 8/` (to create) | | | not started |
 
@@ -20,7 +20,7 @@ You need Verilator 5.020 or later and bash. On Windows, use WSL. Folder names co
 ```bash
 # Phase 2: lint and smoke test (from "phase 2/")
 ./05_build_checks/run_checks.sh      # expect "LINT: PASS (no messages)"
-./07_smoke/run_smoke.sh              # expect "SUMMARY pass=91 fail=0"
+./07_smoke/run_smoke.sh              # expect "SMOKE: PASS" (SUMMARY pass=91 fail=0)
 
 # Phase 3: checker self-test, then regression (from "phase 3/")
 bash run.sh +CHECKER_SELFTEST        # must end with "checker self-test OK"
@@ -31,6 +31,9 @@ bash "phase 4/build.sh"              # expect "LINT: PASS (no messages)" and "BU
 
 # Phase 5: self-test plus seeded runs (from the repo root)
 bash "phase 5/simulate.sh"           # expect "Phase 5 simulation: PASS"
+
+# Phase 6: multi-seed regression (from the repo root)
+bash "phase 6/regress.sh" full       # expect "Phase 6 regression: PASS"
 ```
 
 ## How the phases work together

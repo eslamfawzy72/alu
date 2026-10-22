@@ -18,7 +18,7 @@ Work through the folders in number order.
 
 ```bash
 ./05_build_checks/run_checks.sh     # lint
-./07_smoke/run_smoke.sh             # golden vectors, reset, invalid codes
+./07_smoke/run_smoke.sh             # golden vectors, reset, invalid codes; ends with SMOKE: PASS (exit 0) or SMOKE: FAIL (exit 1)
 ```
 
 ## Rules
