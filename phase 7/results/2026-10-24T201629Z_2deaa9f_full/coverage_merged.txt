@@ -1,0 +1,60 @@
+Functional coverage, merged over 20 seed runs of phase 6/results/2026-10-24T201629Z_2deaa9f_full
+
+Goal (phase 3/verification_plan.md section 7): 44 bins, each hit in every run: MET
+Bins found: 44; hit in every run: 44; hit in no run: 0
+
+BIN                          RUNS HIT   TOTAL HITS    MIN/RUN    MAX/RUN
+OP_ADD carry out 0              20/20         4254        180        245
+OP_ADD carry out 1              20/20         2842        120        172
+OP_ADDC carry in 0              20/20         3926        170        231
+OP_ADDC carry in 1              20/20         3246        128        183
+OP_ADDC carry out 0             20/20         4176        181        244
+OP_ADDC carry out 1             20/20         2996        126        169
+OP_ROL B[31:5]!=0               20/20         6381        292        342
+OP_ROL B[4:0]=0                 20/20          256          6         19
+OP_ROL B[4:0]=1..30             20/20          248          8         20
+OP_ROL B[4:0]=31                20/20          281          4         21
+OP_ROR B[31:5]!=0               20/20         6332        290        342
+OP_ROR B[4:0]=0                 20/20          255          7         18
+OP_ROR B[4:0]=1..30             20/20          259          8         22
+OP_ROR B[4:0]=31                20/20          256          4         20
+OP_SHL B[31:5]!=0               20/20         6370        294        342
+OP_SHL B[4:0]=0                 20/20          254          7         22
+OP_SHL B[4:0]=1..30             20/20          242          6         17
+OP_SHL B[4:0]=31                20/20          256          7         18
+OP_SHR B[31:5]!=0               20/20         6431        290        367
+OP_SHR B[4:0]=0                 20/20          277          7         21
+OP_SHR B[4:0]=1..30             20/20          248          5         20
+OP_SHR B[4:0]=31                20/20          252          7         21
+OP_SUB carry out 0              20/20         3685        160        206
+OP_SUB carry out 1              20/20         3513        154        197
+OP_SUBB carry in 0              20/20         3980        186        221
+OP_SUBB carry in 1              20/20         3243        127        193
+OP_SUBB carry out 0             20/20         3595        152        201
+OP_SUBB carry out 1             20/20         3628        164        215
+opcode 0000                     20/20         7866        364        432
+opcode 0001                     20/20         7114        323        387
+opcode 0010                     20/20         7197        335        397
+opcode 0011                     20/20         7096        311        392
+opcode 0100                     20/20         7172        312        401
+opcode 0101                     20/20         7198        320        387
+opcode 0110                     20/20         7223        316        396
+opcode 0111                     20/20         7241        339        401
+opcode 1000                     20/20         7068        323        391
+opcode 1001                     20/20         6967        311        382
+opcode 1010                     20/20         7122        331        381
+opcode 1011                     20/20         7208        326        401
+opcode 1100                     20/20         7166        329        379
+opcode 1101                     20/20         7102        330        387
+opcode 1110                     20/20           20          1          1
+opcode 1111                     20/20           20          1          1
+
+Lowest MIN/RUN first (the bins closest to being missed):
+  opcode 1110                min 1 per run
+  opcode 1111                min 1 per run
+  OP_ROL B[4:0]=31           min 4 per run
+  OP_ROR B[4:0]=31           min 4 per run
+  OP_SHR B[4:0]=1..30        min 5 per run
+  OP_ROL B[4:0]=0            min 6 per run
+  OP_SHL B[4:0]=1..30        min 6 per run
+  OP_ROR B[4:0]=0            min 7 per run

@@ -1,0 +1,53 @@
+Test report: each Phase 1 TC over 20 seed runs (TC-005 and TC-027 log checks from run.sh)
+
+TC       STATUS RUNS PASSED  CHECKS (summed over runs)
+TC-001   PASS   20/20        pass=140 fail=0
+TC-002   PASS   20/20        pass=100 fail=0
+TC-003   PASS   20/20        pass=100 fail=0
+TC-004   PASS   20/20        pass=520 fail=0
+TC-005   PASS   20/20        log check 20/20
+TC-006   PASS   20/20        pass=14482 fail=0
+TC-007   PASS   20/20        pass=14136 fail=0
+TC-008   PASS   20/20        pass=13934 fail=0
+TC-009   PASS   20/20        pass=14244 fail=0
+TC-010   PASS   20/20        pass=14416 fail=0
+TC-011   PASS   20/20        pass=14332 fail=0
+TC-012   PASS   20/20        pass=14204 fail=0
+TC-013   PASS   20/20        pass=15732 fail=0
+TC-014   PASS   20/20        pass=14228 fail=0
+TC-015   PASS   20/20        pass=14394 fail=0
+TC-016   PASS   20/20        pass=14192 fail=0
+TC-017   PASS   20/20        pass=14344 fail=0
+TC-018   PASS   20/20        pass=14396 fail=0
+TC-019   PASS   20/20        pass=14446 fail=0
+TC-020   PASS   20/20        pass=40 fail=0
+TC-021   PASS   20/20        pass=220 fail=0
+TC-022   PASS   20/20        pass=1140 fail=0
+TC-023   PASS   20/20        pass=1140 fail=0
+TC-024   PASS   20/20        pass=760 fail=0
+TC-025   PASS   20/20        pass=100 fail=0
+TC-026   PASS   20/20        pass=20 fail=0
+TC-027   PASS   20/20        pass=80 fail=0 + log check 20/20
+TC-028   PASS   20/20        pass=80 fail=0
+
+Coverage per seed run:
+  seed1    COVERAGE 44/44 bins hit
+  seed2    COVERAGE 44/44 bins hit
+  seed3    COVERAGE 44/44 bins hit
+  seed4    COVERAGE 44/44 bins hit
+  seed5    COVERAGE 44/44 bins hit
+  seed6    COVERAGE 44/44 bins hit
+  seed7    COVERAGE 44/44 bins hit
+  seed8    COVERAGE 44/44 bins hit
+  seed9    COVERAGE 44/44 bins hit
+  seed10   COVERAGE 44/44 bins hit
+  seed11   COVERAGE 44/44 bins hit
+  seed12   COVERAGE 44/44 bins hit
+  seed13   COVERAGE 44/44 bins hit
+  seed14   COVERAGE 44/44 bins hit
+  seed15   COVERAGE 44/44 bins hit
+  seed16   COVERAGE 44/44 bins hit
+  seed17   COVERAGE 44/44 bins hit
+  seed18   COVERAGE 44/44 bins hit
+  seed19   COVERAGE 44/44 bins hit
+  seed20   COVERAGE 44/44 bins hit

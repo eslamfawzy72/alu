@@ -1,0 +1,18 @@
+Requirement coverage of phase 6/results/2026-10-24T201629Z_2deaa9f_full
+
+Goal (phase 7/coverage_goals.md): every ID covered, or excluded with an approved exclusion
+
+KIND   IDS  DONE   STATUS COUNTS
+FR      13    13   covered 13, excluded 0
+IF      16    16   covered 16, excluded 0
+OP      14    14   covered 14, excluded 0
+D       18    14   covered 14, excluded 0, not covered 1, partial 3
+TC      28    28   covered 28, excluded 0
+
+Not covered yet:
+  D-011   partial      Partly: only checked as far as the calls compile; a non-void return type would only give a warning
+  D-013   not covered  Not tested: source style, not visible through the class API; Phase 2 lint and review own it
+  D-014   partial      Partly: include order and file names are not tested here; Phase 4 checks them against alu_spec.json package.includes_in_order (phase 4/elab_report.md section...
+  D-016   partial      Partly: "no overflow flag" is not tested; an absent member can only be shown by a compile that is meant to fail
+
+Every ID: requirement_coverage.csv

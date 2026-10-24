@@ -1,25 +1,26 @@
 # Phase 7 coverage report
 
-**Status: goals G1, G2 and G4 (measured points) met; G3 and G4 (unmeasured lines) wait on 7 proposed exclusions that no reviewer has approved yet. Not a run of record: the Phase 3 repairs it measures are not committed yet.**
+**Status: goals G1, G2 and G4 (measured points) met on the run of record; G3 and G4 (unmeasured lines) wait on 7 proposed exclusions that no reviewer has approved yet.**
 
 | Field | Value |
 |---|---|
 | Date | 2026-10-24 |
-| Phase 6 run analysed | `../phase 6/results/2026-10-24T192925Z_e0fe096_full` (20 seeds, `RANDOM_N=5000`, PASS) |
-| Commit | `e0fe096` with uncommitted Phase 3 repairs 4–6 (`dirty inputs: yes` in `run_config.txt`) |
+| Phase 6 run analysed | `../phase 6/results/2026-10-24T201629Z_2deaa9f_full` (run of record: 20 seeds, `RANDOM_N=5000`, PASS) |
+| Commit | `2deaa9f`, no uncommitted inputs |
 | RTL | tag `phase2-rtl-v1`, unchanged |
 | Spec | `spec_version` 1.2 |
 | Tool | Verilator 5.020 (Ubuntu 24.04, WSL2) |
-| Code coverage run | `results/code_2026-10-24T193414Z_e0fe096` (seed 1, `RANDOM_N=5000`) |
+| Code coverage run | `results/code_2026-10-24T201627Z_2deaa9f` (seed 1, `RANDOM_N=5000`, commit `2deaa9f`, no uncommitted changes) |
+| Earlier analysis | the same numbers on `2026-10-24T192925Z_e0fe096_full` and `code_2026-10-24T193414Z_e0fe096`, before the changes were committed |
 
 ## 1. Results against the goals
 
 | Goal (`coverage_goals.md`) | Measured | Result | Evidence |
 |---|---|---|---|
-| G1: 44 bins, each hit in every seed run | 44 bins found; 44 hit in 20 of 20 runs | **met** | `results/2026-10-24T192925Z_e0fe096_full/coverage_merged.txt` |
-| G2: 28/28 TCs pass in every run, none partial | 28/28 pass in 20/20 runs; 28/28 covered, 0 partial | **met** | `../phase 6/results/2026-10-24T192925Z_e0fe096_full/test_report.txt`; `requirement_summary.txt` |
-| G3: every FR, IF, OP, D covered or excluded | FR 13/13, IF 16/16, OP 14/14 covered; D 14/18 covered, D-011, D-014, D-016 partial, D-013 not covered | **not met**: 4 exclusions proposed, none approved | `results/2026-10-24T192925Z_e0fe096_full/requirement_summary.txt`, `requirement_coverage.csv` |
-| G4: every RTL coverage point hit | 35/35 points (CPU 5/5, arithmetic_alu 14/14, base_alu 6/6, logical_alu 10/10) | **met** | `results/code_2026-10-24T193414Z_e0fe096/summary.txt`, `rtl_points.txt`, `annotated/` |
+| G1: 44 bins, each hit in every seed run | 44 bins found; 44 hit in 20 of 20 runs | **met** | `results/2026-10-24T201629Z_2deaa9f_full/coverage_merged.txt` |
+| G2: 28/28 TCs pass in every run, none partial | 28/28 pass in 20/20 runs; 28/28 covered, 0 partial | **met** | `../phase 6/results/2026-10-24T201629Z_2deaa9f_full/test_report.txt`; `requirement_summary.txt` |
+| G3: every FR, IF, OP, D covered or excluded | FR 13/13, IF 16/16, OP 14/14 covered; D 14/18 covered, D-011, D-014, D-016 partial, D-013 not covered | **not met**: 4 exclusions proposed, none approved | `results/2026-10-24T201629Z_2deaa9f_full/requirement_summary.txt`, `requirement_coverage.csv` |
+| G4: every RTL coverage point hit | 35/35 points (CPU 5/5, arithmetic_alu 14/14, base_alu 6/6, logical_alu 10/10) | **met** | `results/code_2026-10-24T201627Z_2deaa9f/summary.txt`, `rtl_points.txt`, `annotated/` |
 | G4: every line Verilator does not measure covered or excluded | 4 `$error` lines: 1 covered functionally, 3 proposed exclusions | **not met**: 3 exclusions proposed, none approved | section 3 |
 
 ## 2. Gaps found and how each was handled
@@ -48,4 +49,5 @@ The proposed exclusions are proposals, not decisions. A reviewer may instead ask
 ## 4. What is left for exit
 
 1. A reviewer decides the 7 proposed exclusions in `exclusions.md` (approve with name and date, reject, or ask for a test).
-2. Commit Phase 3 repairs 4–6 and the Phase 6–8 folders; then a Phase 6 `full` run with `dirty inputs: no`, and the three Phase 7 scripts on it, to make these results a run of record.
+2. Done: Phase 3 repairs 4–6 and Phases 6–8 committed (`c544fef`, `2deaa9f`); run of record `2026-10-24T201629Z_2deaa9f_full` and code coverage `code_2026-10-24T201627Z_2deaa9f` give the results above.
+3. For signoff: the same three scripts on the Phase 6 `release` run of the frozen commit.

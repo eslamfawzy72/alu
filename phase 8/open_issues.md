@@ -2,7 +2,7 @@
 
 Every issue that is unresolved at signoff time, and every waiver. An issue is closed only with evidence (a commit, a Phase 1 answer with approver and date, or a run). **Blocks signoff** = signoff can't be given while it is open (Phase 8 checklist, `README.md`).
 
-Last updated: 2026-10-24, branch `phase-6-8`, HEAD `e0fe096` plus uncommitted Phase 3 repairs 4 and 5 and the new `phase 6/`, `phase 7/`, `phase 8/` folders.
+Last updated: 2026-10-24, branch `phase-6-8`, after commit `2deaa9f` and the run of record `2026-10-24T201629Z_2deaa9f_full`.
 
 ## Open issues
 
@@ -18,13 +18,12 @@ Last updated: 2026-10-24, branch `phase-6-8`, HEAD `e0fe096` plus uncommitted Ph
 | OI-8 | `../phase 2/08_release/phase2_handoff.md` still says spec "1.1-proposed" and "decisions still Proposed" | that file, "Spec version used" and "Open items" | Phase 2 | handoff updated to spec 1.2 | yes (evidence must be consistent) |
 | OI-9 | `../phase 2/07_smoke/run_smoke.sh` exits 0 even when the smoke test fails | its last line is an `echo` | Phase 2 | optional script fix; Phase 6 judges smoke from `smoke_log.txt`, so no result depends on it | no |
 | OI-10 | Coverage gaps from Phase 7 (D-011, D-013, D-014, D-016 partial or not covered; RTL `$error` branches not measured by Verilator) | `../phase 7/coverage_report.md` | Phase 7 / Phase 3 | test, map, or approved exclusion per gap | yes (checklist 5) |
-| OI-11 | Phase 3 repairs 4 and 5 and the Phase 6–8 folders are not committed, so no run so far is a run of record for them | `git status` | the team | commit, then Phase 6 `full`/`release` with `dirty inputs: no` | yes (checklist 4) |
-
 ## Closed since the last signoff attempt
 
 | Issue | Closed by |
 |---|---|
-| AGENTS.md known issue 3: TC-005 checks only part of D-010 (`carry=` field) | Phase 3 repair 5 (whole-line check, carry set to 1). Proven to catch a wrong or missing `carry=` field (`../phase 6/regression_report.md`). Final once committed (OI-11). |
+| AGENTS.md known issue 3: TC-005 checks only part of D-010 (`carry=` field) | Phase 3 repair 5 (whole-line check, carry set to 1), committed in `c544fef`. Proven to catch a wrong or missing `carry=` field (`../phase 6/regression_report.md`); PASS in the run of record. |
+| OI-11: Phase 3 repairs 4–6 and the Phase 6–8 folders not committed | committed in `c544fef` and `2deaa9f` (pushed to `origin/phase-6-8`); run of record `../phase 6/results/2026-10-24T201629Z_2deaa9f_full` (`dirty inputs: no`), PASS |
 
 ## Waivers
 

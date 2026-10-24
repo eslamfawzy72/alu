@@ -1,0 +1,33 @@
+Phase 3 regression: PASS   (results/run_info.txt has the inputs used)
+
+TC-001 PASS pass=7 fail=0
+TC-002 PASS pass=5 fail=0
+TC-003 PASS pass=5 fail=0
+TC-004 PASS pass=26 fail=0
+TC-006 PASS pass=688 fail=0
+TC-007 PASS pass=674 fail=0
+TC-008 PASS pass=764 fail=0
+TC-009 PASS pass=756 fail=0
+TC-010 PASS pass=732 fail=0
+TC-011 PASS pass=676 fail=0
+TC-012 PASS pass=734 fail=0
+TC-013 PASS pass=762 fail=0
+TC-014 PASS pass=726 fail=0
+TC-015 PASS pass=794 fail=0
+TC-016 PASS pass=684 fail=0
+TC-017 PASS pass=668 fail=0
+TC-018 PASS pass=742 fail=0
+TC-019 PASS pass=674 fail=0
+TC-020 PASS pass=2 fail=0
+TC-021 PASS pass=11 fail=0
+TC-022 PASS pass=57 fail=0
+TC-023 PASS pass=57 fail=0
+TC-024 PASS pass=38 fail=0
+TC-025 PASS pass=5 fail=0
+TC-026 PASS pass=1 fail=0
+TC-027 PASS pass=4 fail=0
+TC-028 PASS pass=4 fail=0
+COVERAGE 44/44 bins hit
+RESULT PASS
+LOG-CHECK TC-005 PASS: 3 of 3 expected display() lines found
+LOG-CHECK TC-027 PASS: 2 %Error lines, 1 naming 4'b1110, 1 naming 4'b1111 (expected 2, 1, 1)

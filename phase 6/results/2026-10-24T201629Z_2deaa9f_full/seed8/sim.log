@@ -1,0 +1,87 @@
+tb_cpu: golden=../phase 1/ALU_Golden_Vectors.csv seed=8 random_n=5000 checker_selftest=0
+tb_cpu: 37 golden vectors read; reference model agrees with all of them
+EXPECT-DISPLAY [base_alu] op=OP_SEL_B A=1 B=2 result=3
+[base_alu] op=OP_SEL_B A=1 B=2 result=3
+EXPECT-DISPLAY [logical_alu] op=OP_AND A=12 B=10 result=8
+[logical_alu] op=OP_AND A=12 B=10 result=8
+EXPECT-DISPLAY [arithmetic_alu] op=OP_SUB A=-5 B=4 result=-9 carry=1
+[arithmetic_alu] op=OP_SUB A=-5 B=4 result=-9 carry=1
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1110
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1111
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+SUMMARY per Phase 1 test (TC-005 is checked by run.sh from this log)
+TC-001 PASS pass=7 fail=0
+TC-002 PASS pass=5 fail=0
+TC-003 PASS pass=5 fail=0
+TC-004 PASS pass=26 fail=0
+TC-006 PASS pass=700 fail=0
+TC-007 PASS pass=730 fail=0
+TC-008 PASS pass=696 fail=0
+TC-009 PASS pass=726 fail=0
+TC-010 PASS pass=722 fail=0
+TC-011 PASS pass=658 fail=0
+TC-012 PASS pass=664 fail=0
+TC-013 PASS pass=784 fail=0
+TC-014 PASS pass=686 fail=0
+TC-015 PASS pass=740 fail=0
+TC-016 PASS pass=784 fail=0
+TC-017 PASS pass=728 fail=0
+TC-018 PASS pass=728 fail=0
+TC-019 PASS pass=728 fail=0
+TC-020 PASS pass=2 fail=0
+TC-021 PASS pass=11 fail=0
+TC-022 PASS pass=57 fail=0
+TC-023 PASS pass=57 fail=0
+TC-024 PASS pass=38 fail=0
+TC-025 PASS pass=5 fail=0
+TC-026 PASS pass=1 fail=0
+TC-027 PASS pass=4 fail=0
+TC-028 PASS pass=4 fail=0
+COVERAGE BIN OP_ADD carry out 0 230
+COVERAGE BIN OP_ADD carry out 1 162
+COVERAGE BIN OP_ADDC carry in 0 183
+COVERAGE BIN OP_ADDC carry in 1 181
+COVERAGE BIN OP_ADDC carry out 0 195
+COVERAGE BIN OP_ADDC carry out 1 169
+COVERAGE BIN OP_ROL B[31:5]!=0 292
+COVERAGE BIN OP_ROL B[4:0]=0 19
+COVERAGE BIN OP_ROL B[4:0]=1..30 9
+COVERAGE BIN OP_ROL B[4:0]=31 9
+COVERAGE BIN OP_ROR B[31:5]!=0 299
+COVERAGE BIN OP_ROR B[4:0]=0 10
+COVERAGE BIN OP_ROR B[4:0]=1..30 12
+COVERAGE BIN OP_ROR B[4:0]=31 11
+COVERAGE BIN OP_SHL B[31:5]!=0 326
+COVERAGE BIN OP_SHL B[4:0]=0 9
+COVERAGE BIN OP_SHL B[4:0]=1..30 17
+COVERAGE BIN OP_SHL B[4:0]=31 11
+COVERAGE BIN OP_SHR B[31:5]!=0 322
+COVERAGE BIN OP_SHR B[4:0]=0 13
+COVERAGE BIN OP_SHR B[4:0]=1..30 15
+COVERAGE BIN OP_SHR B[4:0]=31 11
+COVERAGE BIN OP_SUB carry out 0 191
+COVERAGE BIN OP_SUB carry out 1 173
+COVERAGE BIN OP_SUBB carry in 0 195
+COVERAGE BIN OP_SUBB carry in 1 169
+COVERAGE BIN OP_SUBB carry out 0 171
+COVERAGE BIN OP_SUBB carry out 1 193
+COVERAGE BIN opcode 0000 392
+COVERAGE BIN opcode 0001 343
+COVERAGE BIN opcode 0010 370
+COVERAGE BIN opcode 0011 392
+COVERAGE BIN opcode 0100 364
+COVERAGE BIN opcode 0101 364
+COVERAGE BIN opcode 0110 364
+COVERAGE BIN opcode 0111 350
+COVERAGE BIN opcode 1000 365
+COVERAGE BIN opcode 1001 348
+COVERAGE BIN opcode 1010 363
+COVERAGE BIN opcode 1011 361
+COVERAGE BIN opcode 1100 329
+COVERAGE BIN opcode 1101 332
+COVERAGE BIN opcode 1110 1
+COVERAGE BIN opcode 1111 1
+COVERAGE 44/44 bins hit
+RESULT PASS
+- ../tb_cpu.sv:600: Verilog $finish

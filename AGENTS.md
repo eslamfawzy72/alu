@@ -17,7 +17,7 @@ in eight phases. Phases 1 to 5 have folders in the repo. Phases 6 to 8 are upcom
 | 3 | Verification Development | `phase 3/` | plan, test map and testbench; lint `-Wall` clean; regression PASS |
 | 4 | Compilation & Elaboration | `phase 4/` | done: clean-clone build, 0 lint messages, no waivers |
 | 5 | Simulation & Debugging | `phase 5/` | done: self-test OK, PASS at seeds 1 and 7, no defects |
-| 6 | Regression Testing | `phase 6/` | `regress.sh` written; 2 `full` runs PASS (20 seeds); release run not yet |
+| 6 | Regression Testing | `phase 6/` | `regress.sh`; 3 `full` runs PASS (20 seeds), run of record on `2deaa9f`; release run not yet |
 | 7 | Coverage Analysis & Closure | `phase 7/` | 44/44 bins, 28/28 TCs, FR/IF/OP 100%, RTL 35/35 points; 7 exclusions proposed, none approved |
 | 8 | Signoff | `phase 8/` | `signoff_check.py` written; status NOT SIGNED OFF (8 FAIL) |
 

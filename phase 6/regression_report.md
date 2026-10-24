@@ -7,7 +7,8 @@ The runs of record and what each one shows. Every number below comes from the ru
 | # | Run (`results/…`) | Level | Commit | Inputs | Why | Verdict |
 |---|---|---|---|---|---|---|
 | 1 | `2026-10-24T192036Z_e0fe096_full` | full | `e0fe096` | committed | **baseline** on spec 1.2: the Phase 4/5 evidence was from `5cc1c8b`, and `tb_cpu.sv` (comment) and `alu_spec.json` (1.1 → 1.2) changed since | **PASS** |
-| 2 | `2026-10-24T192925Z_e0fe096_full` | full | `e0fe096` | **uncommitted** Phase 3 repairs 4–5 | after a change: per-bin coverage lines (T4) and the whole-line TC-005 check (C1) | **PASS** (not a run of record until committed) |
+| 2 | `2026-10-24T192925Z_e0fe096_full` | full | `e0fe096` | **uncommitted** Phase 3 repairs 4–5 | after a change: per-bin coverage lines (T4) and the whole-line TC-005 check (C1) | **PASS** (superseded by run 3) |
+| 3 | `2026-10-24T201629Z_2deaa9f_full` | full | `2deaa9f` | committed (`dirty inputs: no`) | **run of record** for Phase 3 repairs 4–6 and Phases 6–8 (commits `c544fef`, `2deaa9f`) | **PASS** |
 
 Before run 1, three script tests (one `quick` PASS, two deliberate `quick` FAILs with `RANDOM_N=100` to exercise the failure path, the FAIL-vs-FLAKY rerun, `failures.txt` and the comparison) were run and then deleted with their history rows; they tested `regress.sh`, not the design.
 
@@ -32,15 +33,21 @@ Before run 1, three script tests (one `quick` PASS, two deliberate `quick` FAILs
 
 The stricter TC-005 check was also shown to fail when it should: on a copy of the seed-1 log with the display line changed to `carry=0`, or with `carry=` removed, the new check finds 2 of 3 lines (FAIL); the old substring check found 3 of 3 (PASS).
 
+## Run 3: run of record on committed code
+
+- Commit `2deaa9f`, no uncommitted inputs, RTL `phase2-rtl-v1`, spec 1.2, Verilator 5.020; 5 min 58 s.
+- Build PASS, smoke PASS, self-test OK; seeds 1–20: 20 PASS, 0 FAIL, 0 FLAKY; 28/28 TCs in every seed; 44/44 bins in every seed.
+- Against run 2 (`comparison.txt`): no input changed (the committed files equal the ones run 2 tested), no TC status change, and **all 20 seed logs byte-identical**. Run 2's result is therefore confirmed on committed code.
+
 ## Failures and investigation status
 
 | Run | Failure | Investigation | Status |
 |---|---|---|---|
-| — | none in runs 1 and 2 | — | — |
+| — | none in runs 1 to 3 | — | — |
 
 No defect was found; `../phase 5/defects.md` is unchanged.
 
 ## Next runs
 
-1. After the Phase 3 repairs and the Phase 6–8 folders are committed: `full`, so run 2's result becomes a run of record (`dirty inputs: no`).
+1. After any change to an input: the level from the README table.
 2. Release candidate for Phase 8: `release` (seeds 1–20 plus seed 99 at `RANDOM_N=100000`) on the frozen commit.

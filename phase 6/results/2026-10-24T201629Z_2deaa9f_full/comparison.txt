@@ -1,0 +1,63 @@
+Compared with: phase 6/results/2026-10-24T192925Z_e0fe096_full
+
+verdict:   PASS -> PASS
+level:        same (full)
+commit:       e0fe096 -> 2deaa9f
+rtl_tag:      same (phase2-rtl-v1)
+spec_version: same (1.2)
+tool:         same (Verilator 5.020 2024-01-01 rev (Debian 5.020-1))
+random_n:     same (5000)
+seeds:        same (1-20)
+
+Inputs changed (sha256):
+  none
+
+Steps (previous -> this run):
+  build     PASS -> PASS
+  smoke     PASS -> PASS
+  selftest  OK -> OK
+  seed1     PASS -> PASS
+  seed2     PASS -> PASS
+  seed3     PASS -> PASS
+  seed4     PASS -> PASS
+  seed5     PASS -> PASS
+  seed6     PASS -> PASS
+  seed7     PASS -> PASS
+  seed8     PASS -> PASS
+  seed9     PASS -> PASS
+  seed10    PASS -> PASS
+  seed11    PASS -> PASS
+  seed12    PASS -> PASS
+  seed13    PASS -> PASS
+  seed14    PASS -> PASS
+  seed15    PASS -> PASS
+  seed16    PASS -> PASS
+  seed17    PASS -> PASS
+  seed18    PASS -> PASS
+  seed19    PASS -> PASS
+  seed20    PASS -> PASS
+
+TC status changes:
+  none
+
+Seed logs (same seed in both runs; identical is expected when no input changed):
+  seed1 identical
+  seed2 identical
+  seed3 identical
+  seed4 identical
+  seed5 identical
+  seed6 identical
+  seed7 identical
+  seed8 identical
+  seed9 identical
+  seed10 identical
+  seed11 identical
+  seed12 identical
+  seed13 identical
+  seed14 identical
+  seed15 identical
+  seed16 identical
+  seed17 identical
+  seed18 identical
+  seed19 identical
+  seed20 identical
