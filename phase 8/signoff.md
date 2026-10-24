@@ -2,7 +2,7 @@
 
 ## Final status: NOT SIGNED OFF
 
-`signoff_check.txt` (2026-10-24, HEAD `e0fe096`): **NOT READY**, 8 FAIL, 2 MANUAL. The design has passed every regression run so far and no defect is open, but signoff needs open Phase 1 questions answered, exclusions reviewed, the work committed and a `release` regression on the frozen commit. Each blocker is listed in section 7 and in `open_issues.md`.
+`signoff_check.txt` (2026-10-24, HEAD `55c4e4c`): **NOT READY**, 6 FAIL, 2 MANUAL. The design has passed every regression run so far and no defect is open, but signoff needs open Phase 1 questions answered, exclusions reviewed and a `release` regression on the frozen commit. Each blocker is listed in section 7 and in `open_issues.md`.
 
 This report is filled in from the evidence as it stands. Re-run `python3 "phase 8/signoff_check.py"` and update every section on the signoff commit before anyone approves it.
 
