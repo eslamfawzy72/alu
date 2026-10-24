@@ -42,12 +42,12 @@ fi
 # program reads ../phase 1/ALU_Golden_Vectors.csv.
 "$BUILD/obj/tb_cpu" +verilator+error+limit+100 "$@" > "$LOG" 2>&1 || true
 
-# TC-005 (D-010): every EXPECT-DISPLAY text must appear in a line printed by display()
+# TC-005 (D-010): every EXPECT-DISPLAY line must be printed exactly by display(), whole line
 want=0
 got=0
 while IFS= read -r text; do
   want=$((want + 1))
-  if grep -v '^EXPECT-DISPLAY ' "$LOG" | grep -qF -- "$text"; then got=$((got + 1)); fi
+  if grep -v '^EXPECT-DISPLAY ' "$LOG" | grep -qxF -- "$text"; then got=$((got + 1)); fi
 done < <(sed -n 's/^EXPECT-DISPLAY //p' "$LOG")
 tc005=FAIL
 if [ "$want" -gt 0 ] && [ "$got" -eq "$want" ]; then tc005=PASS; fi
@@ -65,7 +65,8 @@ if grep -q '^RESULT PASS' "$LOG" && [ "$tc005" = PASS ] && [ "$tc027" = PASS ]; 
 {
   echo "Phase 3 regression: $verdict   ($OUT/run_info.txt has the inputs used)"
   echo
-  grep -E '^(TC-|COVERAGE|RESULT)' "$LOG" || echo "no summary from tb_cpu: read $LOG"
+  # per-bin "COVERAGE BIN" lines stay in sim.log (Phase 7 merges them)
+  grep -E '^(TC-|COVERAGE (HOLE|[0-9])|RESULT)' "$LOG" || echo "no summary from tb_cpu: read $LOG"
   echo "LOG-CHECK TC-005 $tc005: $got of $want expected display() lines found"
   echo "LOG-CHECK TC-027 $tc027: $errors %Error lines, $e1110 naming 4'b1110, $e1111 naming 4'b1111 (expected 2, 1, 1)"
 } > "$OUT/summary.txt"

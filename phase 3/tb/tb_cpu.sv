@@ -121,9 +121,11 @@ program automatic tb_cpu;
 
   function int cov_report();  // returns the number of bins never hit
     int hit = 0;
-    foreach (cov[key])
+    foreach (cov[key]) begin
+      $display("COVERAGE BIN %s %0d", key, cov[key]);  // hits per bin, merged over seeds by Phase 7
       if (cov[key] > 0) hit++;
       else $display("COVERAGE HOLE %s", key);
+    end
     $display("COVERAGE %0d/%0d bins hit", hit, cov.num());
     return cov.num() - hit;
   endfunction
@@ -352,15 +354,17 @@ program automatic tb_cpu;
     check_bit(4, "arithmetic_alu carry after initialize()", a.get_carry(), 1'b0);
   endtask
 
-  // TC-005 (FR-005, D-010): display() prints "[<class>] op=<name> A=<n> B=<n> result=<n>".
-  // A program cannot read its own output, so it prints the text it expects after
-  // EXPECT-DISPLAY, and run.sh checks that a display() line contains that text.
-  function void expect_display(base_alu x, string cls, alu_op_t op, int a, int b, int r);
+  // TC-005 (FR-005, D-010): display() prints "[<class>] op=<name> A=<n> B=<n> result=<n>",
+  // and arithmetic_alu adds " carry=<0/1>". A program cannot read its own output, so it
+  // prints the whole line it expects after EXPECT-DISPLAY, and run.sh checks that display()
+  // printed exactly that line.
+  function void expect_display(base_alu x, string cls, alu_op_t op, int a, int b, int r,
+                               string tail);
     x.load_operand_A(a);
     x.load_operand_B(b);
     x.alu_op     = op;
     x.alu_result = r;
-    $display("EXPECT-DISPLAY [%s] op=%s A=%0d B=%0d result=%0d", cls, op.name(), a, b, r);
+    $display("EXPECT-DISPLAY [%s] op=%s A=%0d B=%0d result=%0d%s", cls, op.name(), a, b, r, tail);
     x.display();
   endfunction
 
@@ -368,9 +372,11 @@ program automatic tb_cpu;
     base_alu       x = new();
     logical_alu    l = new();
     arithmetic_alu a = new();
-    expect_display(x, "base_alu", OP_SEL_B, 1, 2, 3);
-    expect_display(l, "logical_alu", OP_AND, 12, 10, 8);
-    expect_display(a, "arithmetic_alu", OP_SUB, -5, 4, -9);
+    expect_display(x, "base_alu", OP_SEL_B, 1, 2, 3, "");
+    expect_display(l, "logical_alu", OP_AND, 12, 10, 8, "");
+    // carry=1 rather than its reset value 0, so a field stuck at 0 is caught (D-005 set_carry)
+    a.set_carry(1'b1);
+    expect_display(a, "arithmetic_alu", OP_SUB, -5, 4, -9, " carry=1");
   endtask
 
   // TC-006 to TC-019: every golden vector through CPU.Calc (D-012). carry is state (Phase 2

@@ -1,5 +1,5 @@
-date:   2026-10-20T18:27:48Z
-commit: 5cc1c8b
+date:   2026-10-24T19:28:23Z
+commit: e0fe096 (DUT or test program has uncommitted changes)
 tool:   Verilator 5.020 2024-01-01 rev (Debian 5.020-1)
 host:   Linux 6.18.54.1-microsoft-standard-WSL2 x86_64
 top:    tb_cpu
@@ -10,7 +10,7 @@ fa0fc1fb54c042218cd913944c8d6f5688b2a3623b7c1195dfbead90b14d2365  rtl/cpu_pkg.sv
 f73ad7d7fa56384219fad8249d53f7c0e6b5f6705a8bbafde5f0b4757e12d2a3  rtl/arithmetic_alu.svh
 1dc5112edb66ff5045f3831e379c9513837e0a4485e662eb9e0e723a8f5c75f5  rtl/CPU.svh
 c1b7cdabcb9aa6aa3ee9cf7a012e2b4cbbcd18982459eb49e8f7c8cdc87c2b44  files.f
-7ddb6e749b80eedddcb32ff5a1466188502ed6f11246d5c5eac2ea930105f19a  tb_cpu.sv
+634eec7a80b0d345c9133d34a20fcc14b2f08cd08182168812dae14ebcc86be2  tb_cpu.sv
 elaborated classes:
   cpu_pkg::CPU
   cpu_pkg::arithmetic_alu

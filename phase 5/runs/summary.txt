@@ -1,4 +1,4 @@
-Phase 5 simulation: PASS   (2026-10-20T18:28:41Z, commit 5cc1c8b)
+Phase 5 simulation: PASS   (2026-10-24T19:43:27Z, commit e0fe096)
 SELFTEST OK
 REGRESSION seed7 PASS
 REGRESSION seed1_a PASS

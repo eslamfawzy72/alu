@@ -3,7 +3,7 @@ TC-001,test,FR-001,"operand_A, operand_B, alu_result are 32-bit signed; alu_op i
 TC-002,test,FR-002,"load_operand_A stores 17, -4, 0 and the int limits",tc002_tc003_load,directed,"TC-002, D-011",,
 TC-003,test,FR-003,"load_operand_B stores 17, -4, 0 and the int limits",tc002_tc003_load,directed,"TC-003, D-011",,
 TC-004,test,FR-004,new() and initialize() give the D-007 state in all three classes; carry = 0,tc004_initialize,directed,"TC-004, D-007, D-018",,
-TC-005,test,FR-005,"display() prints class, op, A, B and result",tc005_display; run.sh TC-005 log check,directed + log check,"TC-005, D-010",,"Partly: the arithmetic_alu ""carry=<0/1>"" field of D-010 is not checked; run.sh only looks for the expected text inside the display() line"
+TC-005,test,FR-005,"display() prints the exact D-010 line in all three classes, including arithmetic_alu ""carry=<0/1>"" (carry set to 1 first)",tc005_display; run.sh TC-005 log check (whole-line match),directed + log check,"TC-005, D-010",,
 TC-006,test,FR-006,AND through CPU.Calc,golden_vectors; random_test,golden vectors + random vs reference model,"GV-20..GV-21, OP-008",opcode 0111,
 TC-007,test,FR-006,OR through CPU.Calc,golden_vectors; random_test,golden vectors + random vs reference model,"GV-22, OP-009",opcode 1000,
 TC-008,test,FR-006,XOR through CPU.Calc,golden_vectors; random_test,golden vectors + random vs reference model,"GV-23..GV-24, OP-010",opcode 1001,
@@ -50,7 +50,7 @@ D-006,decision,"TC-018, TC-019",the same carry bit is the borrow for SUB/SUBB,mo
 D-007,decision,"TC-004, TC-021, TC-022, TC-023, TC-028",state after new()/initialize(): A = 0; B = 0; alu_op = OP_SEL_B; alu_result = 0; carry = 0,check_d007 (called by tc004_initialize; tc021_reset; tc022_tc023_dispatch; tc028_load_then_initialize),directed,D-007,,
 D-008,decision,TC-021,Reset() calls initialize() on both ALUs and keeps the objects,tc021_reset,directed,D-008,,
 D-009,decision,TC-027,"invalid codes: Calc returns 0, no state change, $error naming the code",tc027_invalid; run.sh TC-027 log check,directed + log check,D-009,"opcode 1110, opcode 1111",
-D-010,decision,TC-005,display() line format,tc005_display; run.sh TC-005 log check,directed + log check,D-010,,"Partly: the arithmetic_alu ""carry=<0/1>"" field is not checked (see TC-005)"
+D-010,decision,TC-005,"display() line format, whole line, including arithmetic_alu ""carry=<0/1>""",tc005_display; run.sh TC-005 log check,directed + log check,D-010,,
 D-011,decision,"TC-002, TC-003, TC-004, TC-005","signatures of load_operand_A/B, initialize(), display()",tc002_tc003_load; tc004_initialize; tc005_display,compile (the calls must match the declarations),D-011,,"Partly: only checked as far as the calls compile; a non-void return type would only give a warning"
 D-012,decision,"TC-022, TC-023",Calc signature; routing by code range; returns the routed ALU's alu_result,tc022_tc023_dispatch,directed,D-012,,
 D-013,decision,,extern is not used,,,,,"Not tested: source style, not visible through the class API; Phase 2 lint and review own it"
@@ -59,3 +59,19 @@ D-015,decision,TC-026,"test program content: every opcode, boundary vectors, Res
 D-016,decision,"TC-016, TC-017, TC-018, TC-019",carry read with function bit get_carry(); no overflow flag,every carry check (golden_vectors; random_test; tc004_initialize; tc021_reset),directed + golden vectors + random vs reference model,D-016,,"Partly: ""no overflow flag"" is not tested; an absent member can only be shown by a compile that is meant to fail"
 D-017,decision,TC-013,SEL_B writes operand_B into alu_result,model; golden_vectors; random_test,golden vectors + random vs reference model,"D-017, GV-01",see TC-013,
 D-018,decision,"TC-004, TC-020",CPU.new() builds both ALUs; new() calls initialize(),tc004_initialize; tc020_members,directed,D-018,,
+IF-001,interface,"TC-001, TC-002, TC-028",operand_A is a 32-bit signed int that load_operand_A writes and initialize() clears,tc001_properties; tc002_tc003_load; tc028_load_then_initialize,directed,"TC-001, TC-002, TC-028, D-004, D-007",,
+IF-002,interface,"TC-001, TC-003, TC-028",operand_B is a 32-bit signed int that load_operand_B writes and initialize() clears,tc001_properties; tc002_tc003_load; tc028_load_then_initialize,directed,"TC-001, TC-003, TC-028, D-004, D-007",,
+IF-003,interface,"TC-001, TC-022, TC-023, TC-024",alu_op is the 4-bit alu_op_t; Calc writes the code into the routed ALU,tc001_properties; tc022_tc023_dispatch; tc024_enum,directed,"TC-001, TC-024, D-001, D-012",,
+IF-004,interface,"TC-001, TC-022, TC-023",alu_result is a 32-bit signed int; Calc returns the routed ALU's alu_result,tc001_properties; tc022_tc023_dispatch,directed,"TC-001, D-004, D-012",,
+IF-005,interface,"TC-002, TC-028","load_operand_A(int) stores its argument, also after initialize()",tc002_tc003_load; tc028_load_then_initialize,directed,"TC-002, TC-028, D-011",,
+IF-006,interface,"TC-003, TC-028","load_operand_B(int) stores its argument, also after initialize()",tc002_tc003_load; tc028_load_then_initialize,directed,"TC-003, TC-028, D-011",,
+IF-007,interface,"TC-004, TC-028",initialize() gives the D-007 state in all three classes (carry = 0 in arithmetic_alu),tc004_initialize; tc028_load_then_initialize,directed,"TC-004, TC-028, D-007",,
+IF-008,interface,TC-005,display() prints the D-010 line in all three classes,tc005_display; run.sh TC-005 log check,directed + log check,"TC-005, D-010",,
+IF-009,interface,"TC-020, TC-021, TC-023","CPU.l_alu is a logical_alu built by CPU.new(), kept by Reset(), used for codes 4'b0111-4'b1101",tc020_members; tc021_reset; tc022_tc023_dispatch,directed,"TC-020, TC-021, TC-023, D-012, D-018",,
+IF-010,interface,"TC-020, TC-021, TC-022","CPU.a_alu is an arithmetic_alu built by CPU.new(), kept by Reset(), used for codes 4'b0000-4'b0110",tc020_members; tc021_reset; tc022_tc023_dispatch,directed,"TC-020, TC-021, TC-022, D-012, D-018",,
+IF-011,interface,TC-021,Reset() returns both ALUs to the D-007 state with carry = 0,tc021_reset,directed,"TC-021, D-008",,
+IF-012,interface,"TC-006, TC-007, TC-008, TC-009, TC-010, TC-011, TC-012, TC-013, TC-014, TC-015, TC-016, TC-017, TC-018, TC-019, TC-022, TC-023, TC-027","Calc(in1, in2, operation) for every valid and invalid code",golden_vectors; random_test; tc022_tc023_dispatch; tc027_invalid,golden vectors + random vs reference model + directed,"golden vectors, TC-022, TC-023, TC-027, D-009, D-012",,
+IF-013,interface,"TC-025, TC-026",cpu_pkg holds every definition and the test program imports it,tc025_package; TC-026 check at the end of the program,directed,"TC-025, TC-026, D-014, D-015",,
+IF-014,interface,"TC-024, TC-027","the 14 valid codes and the 2 invalid codes 4'b1110, 4'b1111",tc024_enum; load_vectors (names); tc027_invalid,directed,"TC-024, TC-027, D-001, D-009",,
+IF-015,interface,"TC-004, TC-005, TC-016, TC-017, TC-018, TC-019, TC-021","carry: 0 after new()/initialize()/Reset(), carry and borrow in and out of ADD, ADDC, SUB, SUBB, shown by display()",tc004_initialize; tc005_display; golden_vectors; random_test; tc021_reset,directed + golden vectors + random vs reference model,"TC-004, TC-016 to TC-019, TC-021, D-005, D-006, D-007, D-016",,
+IF-016,interface,"TC-006, TC-007, TC-008, TC-009, TC-010, TC-011, TC-012, TC-013, TC-014, TC-015, TC-016, TC-017, TC-018, TC-019","execute() of logical_alu and arithmetic_alu, called by Calc, for every valid code",golden_vectors; random_test,golden vectors + random vs reference model,"golden vectors, OP-001 to OP-014",,

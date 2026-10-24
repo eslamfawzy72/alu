@@ -35,11 +35,11 @@ Checked against Phase 1 revision 2 (`spec_version` 1.1-proposed) and the Phase 2
 
 All tests are in `tb/tb_cpu.sv` and are named after the TC they cover. Each check is counted under its TC, and the run prints one PASS/FAIL line per TC.
 
-The map itself is `test_map.csv`. It has one row for each Phase 1 ID that sets something Phase 3 checks: every test (TC-001 to TC-028), every operation (OP-001 to OP-014) and every decision (D-001 to D-018). The columns are:
+The map itself is `test_map.csv`. It has one row for each Phase 1 ID that sets something Phase 3 checks: every test (TC-001 to TC-028), every operation (OP-001 to OP-014), every decision (D-001 to D-018) and every interface (IF-001 to IF-016, added by repair 6 for Phase 7). The columns are:
 
 | Column | Content |
 |---|---|
-| Related Phase 1 IDs | for a TC, the FR IDs Phase 1 gives it; for an OP or D, the TCs that check it |
+| Related Phase 1 IDs | for a TC, the FR IDs Phase 1 gives it; for an OP, D or IF, the TCs that check it |
 | What is checked | Phase 3's description of the check (Phase 1 text is cited by ID, not copied) |
 | Where checked | the task or function in `tb/tb_cpu.sv`, or the log check in `run.sh` |
 | How checked | directed, golden vectors, random vs reference model, log check, or compile |
@@ -58,12 +58,12 @@ The map has no pass/fail column. Results come from `results/summary.txt` for eac
 
 - **Scoreboard:** each check compares the DUT value with the expected value and prints `FAIL TC-xxx <what>: got …, expected …` on a mismatch.
 - **Reference model** (random test): written in `tb_cpu.sv` from the `alu_spec.json` semantics, independently of the Phase 2 code. It must reproduce all golden vectors before any DUT test runs; otherwise the run stops.
-- **Log checks** in `run.sh`, for output the program cannot read itself: TC-005 (`display()` text) and TC-027 (exactly two `%Error` lines, one naming each invalid code).
+- **Log checks** in `run.sh`, for output the program cannot read itself: TC-005 (each `display()` line must equal the expected D-010 line exactly, including arithmetic_alu's `carry=<0/1>`, with carry set to 1 first; repair 5) and TC-027 (exactly two `%Error` lines, one naming each invalid code).
 - **Checker self-test:** `bash run.sh +CHECKER_SELFTEST` corrupts the first checked value. The run must report it as FAIL, which shows that mismatches are caught.
 
 ## 7. Coverage
 
-Each bin counts checked `Calc` calls (directed and random). The goal is all 44 bins.
+Each bin counts checked `Calc` calls (directed and random). The goal is all 44 bins. At the end of a run the program prints `COVERAGE BIN <name> <hits>` for every bin (repair 4), `COVERAGE HOLE <name>` for each bin never hit, and the `COVERAGE <hit>/<total> bins hit` total; Phase 7 merges the per-bin counts over the Phase 6 seeds.
 
 | Group | Bins | Count |
 |---|---|---|
@@ -86,5 +86,5 @@ Each bin counts checked `Calc` calls (directed and random). The goal is all 44 b
 | Readiness | ready; C1 met (spec 1.2); C2, C3 are clean-up requests still open |
 | Plan | complete for TC-001 to TC-028 |
 | Test program | compiles with Verilator 5.020, lint `-Wall` 0 messages (Phase 4; fixes in `repair_log.md`) |
-| Regression | **PASS** at seeds 1 and 7 on commit `5cc1c8b`: every TC passes, 44/44 bins, both log checks PASS; checker self-test OK (`results/`, `../phase 5/runs/`) |
+| Regression | **PASS** at seeds 1 and 7 on commit `5cc1c8b`: every TC passes, 44/44 bins, both log checks PASS; checker self-test OK (`results/`, `../phase 5/runs/`). After repairs 4–6 (2026-10-24, uncommitted): Phase 6 `full`, seeds 1–20, PASS (`../phase 6/regression_report.md`) |
 | Sign-off | exit criteria 1 to 4 met; Phase 3's part of signoff is done. Project signoff is Phase 8 |
