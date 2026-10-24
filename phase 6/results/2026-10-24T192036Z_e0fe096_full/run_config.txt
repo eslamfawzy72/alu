@@ -1,0 +1,26 @@
+date:         2026-10-24T19:20:35Z
+level:        full
+note:         baseline on spec 1.2 before Phase 7 changes
+commit:       e0fe096
+branch:       phase-6-8
+dirty inputs: no
+rtl_tag:      phase2-rtl-v1
+spec_version: 1.2
+tool:         Verilator 5.020 2024-01-01 rev (Debian 5.020-1)
+host:         Linux 6.18.54.1-microsoft-standard-WSL2 x86_64
+seeds:        1-20
+random_n:     5000
+inputs (sha256):
+1dc5112edb66ff5045f3831e379c9513837e0a4485e662eb9e0e723a8f5c75f5  phase 2/04_rtl/rtl/CPU.svh
+f73ad7d7fa56384219fad8249d53f7c0e6b5f6705a8bbafde5f0b4757e12d2a3  phase 2/04_rtl/rtl/arithmetic_alu.svh
+69f898bf2326272e12ea0f4df164b1e313cf6d62fc98d36abaca44474e1ff88e  phase 2/04_rtl/rtl/base_alu.svh
+fa0fc1fb54c042218cd913944c8d6f5688b2a3623b7c1195dfbead90b14d2365  phase 2/04_rtl/rtl/cpu_pkg.sv
+8bb6c191c3087c5722298fe7c06a9d4b4237139ed459dd63999d3a12d481aae3  phase 2/04_rtl/rtl/logical_alu.svh
+c1b7cdabcb9aa6aa3ee9cf7a012e2b4cbbcd18982459eb49e8f7c8cdc87c2b44  phase 2/04_rtl/files.f
+d35196c2f47e96e2a99bcd604bdd6fe606c01a1f89a2e6340f65d1ded6e3ebd5  phase 2/07_smoke/smoke_tb.sv
+00115f3e552f20e3fc4bb6e52c77800e3a664add2d647a176cd9d3e124748caf  phase 2/07_smoke/run_smoke.sh
+e827a08bceb6ac5483971f2587b24c11cd89ce8ad1eb11c4f8c466c662427002  phase 3/tb/tb_cpu.sv
+8b25c2287cb2efadc4e14be82c1311e5b4b63487cfabed9189ab972e4a3f61a0  phase 3/run.sh
+57f3c728310d96d93a95abcb414c2ef7d7cc10123af47913de0dfd82d062d580  phase 4/build.sh
+c7ffada2eae3c12c1be0a767707fc2a32db922d7d7c5aaffa720c6b58661c56c  phase 1/ALU_Golden_Vectors.csv
+33adf8f2de02e5641b82ef96f44f6219c52c01f967fd224b48b7e49ecd5dbfb4  phase 1/alu_spec.json

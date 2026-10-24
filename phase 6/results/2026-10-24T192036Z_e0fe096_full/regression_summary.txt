@@ -1,0 +1,31 @@
+Phase 6 regression: PASS   (level full, 2026-10-24T19:20:35Z, commit e0fe096, 6 min 48 s)
+note:         baseline on spec 1.2 before Phase 7 changes
+rtl_tag:      phase2-rtl-v1   spec_version: 1.2   tool: Verilator 5.020
+seeds:        1-20 at random_n 5000 (pass=20 fail=0 flaky=0)
+tests:        28 of 28 TCs passed in every seed run (test_report.txt)
+coverage:     all bins hit in 20 of 20 seed runs (test_report.txt)
+compared:     none (baseline) (comparison.txt)
+
+  build PASS
+  smoke PASS
+  selftest OK
+  seed1 PASS seed=1 random_n=5000
+  seed2 PASS seed=2 random_n=5000
+  seed3 PASS seed=3 random_n=5000
+  seed4 PASS seed=4 random_n=5000
+  seed5 PASS seed=5 random_n=5000
+  seed6 PASS seed=6 random_n=5000
+  seed7 PASS seed=7 random_n=5000
+  seed8 PASS seed=8 random_n=5000
+  seed9 PASS seed=9 random_n=5000
+  seed10 PASS seed=10 random_n=5000
+  seed11 PASS seed=11 random_n=5000
+  seed12 PASS seed=12 random_n=5000
+  seed13 PASS seed=13 random_n=5000
+  seed14 PASS seed=14 random_n=5000
+  seed15 PASS seed=15 random_n=5000
+  seed16 PASS seed=16 random_n=5000
+  seed17 PASS seed=17 random_n=5000
+  seed18 PASS seed=18 random_n=5000
+  seed19 PASS seed=19 random_n=5000
+  seed20 PASS seed=20 random_n=5000

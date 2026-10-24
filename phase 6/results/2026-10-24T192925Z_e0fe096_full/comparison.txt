@@ -1,0 +1,64 @@
+Compared with: phase 6/results/2026-10-24T192036Z_e0fe096_full
+
+verdict:   PASS -> PASS
+level:        same (full)
+commit:       same (e0fe096)
+rtl_tag:      same (phase2-rtl-v1)
+spec_version: same (1.2)
+tool:         same (Verilator 5.020 2024-01-01 rev (Debian 5.020-1))
+random_n:     same (5000)
+seeds:        same (1-20)
+
+Inputs changed (sha256):
+  changed: phase 3/run.sh
+  changed: phase 3/tb/tb_cpu.sv
+
+Steps (previous -> this run):
+  build     PASS -> PASS
+  smoke     PASS -> PASS
+  selftest  OK -> OK
+  seed1     PASS -> PASS
+  seed2     PASS -> PASS
+  seed3     PASS -> PASS
+  seed4     PASS -> PASS
+  seed5     PASS -> PASS
+  seed6     PASS -> PASS
+  seed7     PASS -> PASS
+  seed8     PASS -> PASS
+  seed9     PASS -> PASS
+  seed10    PASS -> PASS
+  seed11    PASS -> PASS
+  seed12    PASS -> PASS
+  seed13    PASS -> PASS
+  seed14    PASS -> PASS
+  seed15    PASS -> PASS
+  seed16    PASS -> PASS
+  seed17    PASS -> PASS
+  seed18    PASS -> PASS
+  seed19    PASS -> PASS
+  seed20    PASS -> PASS
+
+TC status changes:
+  none
+
+Seed logs (same seed in both runs; identical is expected when no input changed):
+  seed1 differs
+  seed10 differs
+  seed11 differs
+  seed12 differs
+  seed13 differs
+  seed14 differs
+  seed15 differs
+  seed16 differs
+  seed17 differs
+  seed18 differs
+  seed19 differs
+  seed2 differs
+  seed20 differs
+  seed3 differs
+  seed4 differs
+  seed5 differs
+  seed6 differs
+  seed7 differs
+  seed8 differs
+  seed9 differs

@@ -1,0 +1,90 @@
+ID,Kind,Title,RTL (owner; @ID tags),Tests,Test results,Status,Note
+FR-001,FR,Define base ALU class,base_alu.svh; base_alu.svh:5,TC-001 TC-027,TC-001 PASS 20/20; TC-027 PASS 20/20,covered,
+FR-002,FR,Load operand A,base_alu.svh; base_alu.svh:17,TC-002 TC-028,TC-002 PASS 20/20; TC-028 PASS 20/20,covered,
+FR-003,FR,Load operand B,base_alu.svh; base_alu.svh:21,TC-003 TC-028,TC-003 PASS 20/20; TC-028 PASS 20/20,covered,
+FR-004,FR,Initialize base ALU,base_alu.svh; base_alu.svh:26,TC-004 TC-028,TC-004 PASS 20/20; TC-028 PASS 20/20,covered,
+FR-005,FR,Display ALU information,base_alu.svh; base_alu.svh:38,TC-005,TC-005 PASS 20/20,partial,via TC-005
+FR-006,FR,Implement logical ALU operations,logical_alu.svh; logical_alu.svh:5,TC-006 TC-007 TC-008 TC-009 TC-010 TC-011 TC-012 TC-027,TC-006 PASS 20/20; TC-007 PASS 20/20; TC-008 PASS 20/20; TC-009 PASS 20/20; TC-010 PASS 20/20; TC-011 PASS 20/20; TC-012 PASS 20/20; TC-027 PASS 20/20,covered,
+FR-007,FR,Implement arithmetic ALU operations,arithmetic_alu.svh; arithmetic_alu.svh:8,TC-013 TC-014 TC-015 TC-016 TC-017 TC-018 TC-019 TC-027,TC-013 PASS 20/20; TC-014 PASS 20/20; TC-015 PASS 20/20; TC-016 PASS 20/20; TC-017 PASS 20/20; TC-018 PASS 20/20; TC-019 PASS 20/20; TC-027 PASS 20/20,covered,
+FR-008,FR,Define CPU class,CPU.svh; CPU.svh:3,TC-020,TC-020 PASS 20/20,covered,
+FR-009,FR,Reset CPU,CPU.svh; CPU.svh:14,TC-021,TC-021 PASS 20/20,covered,
+FR-010,FR,Calculate selected ALU operation,CPU.svh; CPU.svh:21,TC-022 TC-023,TC-022 PASS 20/20; TC-023 PASS 20/20,covered,
+FR-011,FR,Define operation enumeration,cpu_pkg.sv; cpu_pkg.sv:8,TC-024,TC-024 PASS 20/20,covered,
+FR-012,FR,Create CPU package,cpu_pkg.sv; cpu_pkg.sv:5,TC-025,TC-025 PASS 20/20,covered,
+FR-013,FR,Provide a test program,,TC-026,TC-026 PASS 20/20,covered,
+IF-001,IF,operand_A,base_alu.svh; base_alu.svh:7,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-002,IF,operand_B,base_alu.svh; base_alu.svh:8,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-003,IF,alu_op,base_alu.svh; base_alu.svh:9,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-004,IF,alu_result,base_alu.svh; base_alu.svh:10,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-005,IF,load_operand_A,base_alu.svh; base_alu.svh:17,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-006,IF,load_operand_B,base_alu.svh; base_alu.svh:21,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-007,IF,initialize,base_alu.svh; base_alu.svh:26,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-008,IF,display,base_alu.svh; base_alu.svh:38,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-009,IF,l_alu,CPU.svh; CPU.svh:5,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-010,IF,a_alu,CPU.svh; CPU.svh:6,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-011,IF,Reset,CPU.svh; CPU.svh:14,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-012,IF,Calc,CPU.svh; CPU.svh:21,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-013,IF,cpu_pkg,cpu_pkg.sv; cpu_pkg.sv:5,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-014,IF,Operation code set,cpu_pkg.sv; cpu_pkg.sv:8,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-015,IF,carry,arithmetic_alu.svh; arithmetic_alu.svh:10,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+IF-016,IF,execute,base_alu.svh; base_alu.svh:44,,,not mapped,no row in phase 3/test_map.csv and no TC cites it
+OP-001,OP,Select data on port B,arithmetic_alu.svh; arithmetic_alu.svh:42,TC-013,TC-013 PASS 20/20,covered,
+OP-002,OP,Increment data on port B,arithmetic_alu.svh; arithmetic_alu.svh:43,TC-014,TC-014 PASS 20/20,covered,
+OP-003,OP,Decrement data on port B,arithmetic_alu.svh; arithmetic_alu.svh:44,TC-015,TC-015 PASS 20/20,covered,
+OP-004,OP,ADD without CARRY,arithmetic_alu.svh; arithmetic_alu.svh:45,TC-016,TC-016 PASS 20/20,covered,
+OP-005,OP,ADD with CARRY,arithmetic_alu.svh; arithmetic_alu.svh:50,TC-017,TC-017 PASS 20/20,covered,
+OP-006,OP,SUB without BORROW,arithmetic_alu.svh; arithmetic_alu.svh:55,TC-018,TC-018 PASS 20/20,covered,
+OP-007,OP,SUB with BORROW,arithmetic_alu.svh; arithmetic_alu.svh:60,TC-019,TC-019 PASS 20/20,covered,
+OP-008,OP,AND,logical_alu.svh; logical_alu.svh:17,TC-006,TC-006 PASS 20/20,covered,
+OP-009,OP,OR,logical_alu.svh; logical_alu.svh:18,TC-007,TC-007 PASS 20/20,covered,
+OP-010,OP,XOR,logical_alu.svh; logical_alu.svh:19,TC-008,TC-008 PASS 20/20,covered,
+OP-011,OP,Shift left,logical_alu.svh; logical_alu.svh:20,TC-009,TC-009 PASS 20/20,covered,
+OP-012,OP,Shift right,logical_alu.svh; logical_alu.svh:21,TC-010,TC-010 PASS 20/20,covered,
+OP-013,OP,Rotate left,logical_alu.svh; logical_alu.svh:24,TC-011,TC-011 PASS 20/20,covered,
+OP-014,OP,Rotate right,logical_alu.svh; logical_alu.svh:25,TC-012,TC-012 PASS 20/20,covered,
+D-001,D,"Declare typedef enum logic [3:0] {...} alu_op_t; once in cpu_pkg, w...",cpu_pkg.sv; cpu_pkg.sv:8,TC-001 TC-024 TC-025,TC-001 PASS 20/20; TC-024 PASS 20/20; TC-025 PASS 20/20,covered,
+D-002,D,"in1/operand_A is the first operand, in2/operand_B the second. Binar...",CPU.svh; CPU.svh:33 CPU.svh:34 arithmetic_alu.svh:45 arithmetic_alu.svh:55 logical_alu.svh:17 logical_alu.svh:18 logical_alu.svh:19,TC-018 TC-019 TC-022 TC-023,TC-018 PASS 20/20; TC-019 PASS 20/20; TC-022 PASS 20/20; TC-023 PASS 20/20,covered,
+D-003,D,Shifts and rotates act on operand_A; the amount is operand_B[4:0] (...,logical_alu.svh; logical_alu.svh:14,TC-009 TC-010 TC-011 TC-012,TC-009 PASS 20/20; TC-010 PASS 20/20; TC-011 PASS 20/20; TC-012 PASS 20/20,covered,
+D-004,D,"Resolved by the language: the spec declares int, which is 32-bit, s...",logical_alu.svh; arithmetic_alu.svh:36 logical_alu.svh:13 logical_alu.svh:21,TC-001 TC-010 TC-014 TC-015 TC-016,TC-001 PASS 20/20; TC-010 PASS 20/20; TC-014 PASS 20/20; TC-015 PASS 20/20; TC-016 PASS 20/20,covered,
+D-005,D,"Add a bit carry property to arithmetic_alu (status flag, like a CPU...",arithmetic_alu.svh; arithmetic_alu.svh:10 arithmetic_alu.svh:26 arithmetic_alu.svh:50,TC-004 TC-016 TC-017 TC-021,TC-004 PASS 20/20; TC-016 PASS 20/20; TC-017 PASS 20/20; TC-021 PASS 20/20,covered,
+D-006,D,The same carry bit acts as borrow. SUBB computes A - B - carry. Bor...,arithmetic_alu.svh; arithmetic_alu.svh:10 arithmetic_alu.svh:60,TC-018 TC-019,TC-018 PASS 20/20; TC-019 PASS 20/20,covered,
+D-007,D,"initialize() sets operand_A = 0, operand_B = 0, alu_op = OP_SEL_B, ...",base_alu.svh; arithmetic_alu.svh:18 base_alu.svh:27 base_alu.svh:28 base_alu.svh:29 base_alu.svh:30,TC-004 TC-021 TC-022 TC-023 TC-028,TC-004 PASS 20/20; TC-021 PASS 20/20; TC-022 PASS 20/20; TC-023 PASS 20/20; TC-028 PASS 20/20,covered,
+D-008,D,CPU.Reset() calls initialize() on l_alu and a_alu. It does not re-c...,CPU.svh; CPU.svh:15 CPU.svh:16,TC-021,TC-021 PASS 20/20,covered,
+D-009,D,"Codes 4'b1110 and 4'b1111 are invalid. Calc returns 0, sets alu_res...",CPU.svh; CPU.svh:29 CPU.svh:30,TC-027,TC-027 PASS 20/20,covered,
+D-010,D,display() prints one line: [<class>] op=<op.name()> A=<%0d> B=<%0d>...,base_alu.svh; arithmetic_alu.svh:31 base_alu.svh:39,TC-005,TC-005 PASS 20/20,partial,"Partly: the arithmetic_alu ""carry=<0/1>"" field is not checked (see TC-005)"
+D-011,D,"function void load_operand_A(int value), function void load_operand...",base_alu.svh; base_alu.svh:17 base_alu.svh:21 base_alu.svh:26 base_alu.svh:38,TC-002 TC-003 TC-004 TC-005,TC-002 PASS 20/20; TC-003 PASS 20/20; TC-004 PASS 20/20; TC-005 PASS 20/20,partial,Partly: only checked as far as the calls compile; a non-void return type would only give a warning
+D-012,D,"function int Calc(int in1, int in2, alu_op_t operation). Codes 0000...",CPU.svh; CPU.svh:24 CPU.svh:26 base_alu.svh:44,TC-022 TC-023,TC-022 PASS 20/20; TC-023 PASS 20/20,covered,
+D-013,D,extern is not used (it is optional). Methods are defined inside eac...,cpu_pkg.sv; cpu_pkg.sv:25,,,not covered,"Not tested: source style, not visible through the class API; Phase 2 lint and review own it"
+D-014,D,"cpu_pkg defines alu_op_t and includes base_alu.svh, logical_alu.svh...",cpu_pkg.sv; cpu_pkg.sv:26 cpu_pkg.sv:27 cpu_pkg.sv:28 cpu_pkg.sv:29,TC-025,TC-025 PASS 20/20,partial,Partly: include order and file names are not tested here; Phase 4 checks them against alu_spec.json package.includes_in_order (phase 4/elab_report.md section...
+D-015,D,"Self-checking test program: every opcode at least once, plus the bo...",,TC-026,TC-026 PASS 20/20,covered,
+D-016,D,"Expose only the carry flag (D-005), read with function bit get_carr...",arithmetic_alu.svh; arithmetic_alu.svh:21,TC-016 TC-017 TC-018 TC-019,TC-016 PASS 20/20; TC-017 PASS 20/20; TC-018 PASS 20/20; TC-019 PASS 20/20,partial,"Partly: ""no overflow flag"" is not tested; an absent member can only be shown by a compile that is meant to fail"
+D-017,D,SEL_B writes operand_B into alu_result.,arithmetic_alu.svh; arithmetic_alu.svh:42,TC-013,TC-013 PASS 20/20,covered,
+D-018,D,CPU.new() constructs l_alu and a_alu; base_alu.new() calls initiali...,CPU.svh; CPU.svh:9 CPU.svh:10 base_alu.svh:14,TC-004 TC-020,TC-004 PASS 20/20; TC-020 PASS 20/20,covered,
+TC-001,TC,Verify that base_alu declares the required common properties with t...,,TC-001,TC-001 PASS 20/20,covered,
+TC-002,TC,Verify that load_operand_A stores the supplied value in operand_A.,,TC-002,TC-002 PASS 20/20,covered,
+TC-003,TC,Verify that load_operand_B stores the supplied value in operand_B.,,TC-003,TC-003 PASS 20/20,covered,
+TC-004,TC,Verify initialize behavior after operands and result have been assi...,,TC-004,TC-004 PASS 20/20,covered,
+TC-005,TC,Verify display provides the intended ALU information.,,TC-005,TC-005 PASS 20/20,partial,"Partly: the arithmetic_alu ""carry=<0/1>"" field of D-010 is not checked; run.sh only looks for the expected text inside the display() line"
+TC-006,TC,Verify logical AND operation for opcode 4'b0111.,,TC-006,TC-006 PASS 20/20,covered,
+TC-007,TC,Verify logical OR operation for opcode 4'b1000.,,TC-007,TC-007 PASS 20/20,covered,
+TC-008,TC,Verify logical XOR operation for opcode 4'b1001.,,TC-008,TC-008 PASS 20/20,covered,
+TC-009,TC,Verify logical shift-left operation for opcode 4'b1010.,,TC-009,TC-009 PASS 20/20,covered,
+TC-010,TC,Verify logical shift-right operation for opcode 4'b1011.,,TC-010,TC-010 PASS 20/20,covered,
+TC-011,TC,Verify rotate-left operation for opcode 4'b1100.,,TC-011,TC-011 PASS 20/20,covered,
+TC-012,TC,Verify rotate-right operation for opcode 4'b1101.,,TC-012,TC-012 PASS 20/20,covered,
+TC-013,TC,Verify select-data-on-port-B operation for opcode 4'b0000.,,TC-013,TC-013 PASS 20/20,covered,
+TC-014,TC,Verify increment-data-on-port-B operation for opcode 4'b0001.,,TC-014,TC-014 PASS 20/20,covered,
+TC-015,TC,Verify decrement-data-on-port-B operation for opcode 4'b0010.,,TC-015,TC-015 PASS 20/20,covered,
+TC-016,TC,Verify ADD without carry for opcode 4'b0011.,,TC-016,TC-016 PASS 20/20,covered,
+TC-017,TC,Verify ADD with carry for opcode 4'b0100.,,TC-017,TC-017 PASS 20/20,covered,
+TC-018,TC,Verify SUB without borrow for opcode 4'b0101.,,TC-018,TC-018 PASS 20/20,covered,
+TC-019,TC,Verify SUB with borrow for opcode 4'b0110.,,TC-019,TC-019 PASS 20/20,covered,
+TC-020,TC,Verify CPU contains logical_alu and arithmetic_alu members.,,TC-020,TC-020 PASS 20/20,covered,
+TC-021,TC,Verify CPU Reset behavior.,,TC-021,TC-021 PASS 20/20,covered,
+TC-022,TC,Verify CPU Calc dispatches an arithmetic operation and returns Result.,,TC-022,TC-022 PASS 20/20,covered,
+TC-023,TC,Verify CPU Calc dispatches a logical operation and returns Result.,,TC-023,TC-023 PASS 20/20,covered,
+TC-024,TC,Verify operation enumeration represents all listed operation codes.,,TC-024,TC-024 PASS 20/20,covered,
+TC-025,TC,Verify cpu_pkg contains the CPU-related definitions and can be impo...,,TC-025,TC-025 PASS 20/20,covered,
+TC-026,TC,Verify a simple program imports cpu_pkg and exercises the CPU and A...,,TC-026,TC-026 PASS 20/20,covered,
+TC-027,TC,Check operation-code handling for an unassigned 4-bit opcode.,,TC-027,TC-027 PASS 20/20,covered,
+TC-028,TC,Check initialization and operand-loading interaction.,,TC-028,TC-028 PASS 20/20,covered,

@@ -1,0 +1,43 @@
+tb_cpu: golden=../phase 1/ALU_Golden_Vectors.csv seed=10 random_n=5000 checker_selftest=0
+tb_cpu: 37 golden vectors read; reference model agrees with all of them
+EXPECT-DISPLAY [base_alu] op=OP_SEL_B A=1 B=2 result=3
+[base_alu] op=OP_SEL_B A=1 B=2 result=3
+EXPECT-DISPLAY [logical_alu] op=OP_AND A=12 B=10 result=8
+[logical_alu] op=OP_AND A=12 B=10 result=8
+EXPECT-DISPLAY [arithmetic_alu] op=OP_SUB A=-5 B=4 result=-9
+[arithmetic_alu] op=OP_SUB A=-5 B=4 result=-9 carry=0
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1110
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1111
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+SUMMARY per Phase 1 test (TC-005 is checked by run.sh from this log)
+TC-001 PASS pass=7 fail=0
+TC-002 PASS pass=5 fail=0
+TC-003 PASS pass=5 fail=0
+TC-004 PASS pass=26 fail=0
+TC-006 PASS pass=770 fail=0
+TC-007 PASS pass=730 fail=0
+TC-008 PASS pass=658 fail=0
+TC-009 PASS pass=762 fail=0
+TC-010 PASS pass=700 fail=0
+TC-011 PASS pass=754 fail=0
+TC-012 PASS pass=686 fail=0
+TC-013 PASS pass=772 fail=0
+TC-014 PASS pass=710 fail=0
+TC-015 PASS pass=720 fail=0
+TC-016 PASS pass=682 fail=0
+TC-017 PASS pass=668 fail=0
+TC-018 PASS pass=718 fail=0
+TC-019 PASS pass=744 fail=0
+TC-020 PASS pass=2 fail=0
+TC-021 PASS pass=11 fail=0
+TC-022 PASS pass=57 fail=0
+TC-023 PASS pass=57 fail=0
+TC-024 PASS pass=38 fail=0
+TC-025 PASS pass=5 fail=0
+TC-026 PASS pass=1 fail=0
+TC-027 PASS pass=4 fail=0
+TC-028 PASS pass=4 fail=0
+COVERAGE 44/44 bins hit
+RESULT PASS
+- ../tb_cpu.sv:594: Verilog $finish

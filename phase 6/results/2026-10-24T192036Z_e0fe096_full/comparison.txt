@@ -1,0 +1,1 @@
+No previous regression in history.csv: this run is the baseline.

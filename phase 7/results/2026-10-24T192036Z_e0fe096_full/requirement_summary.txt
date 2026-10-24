@@ -1,0 +1,37 @@
+Requirement coverage of phase 6/results/2026-10-24T192036Z_e0fe096_full
+
+Goal (phase 7/coverage_goals.md): every ID covered, or excluded with an approved exclusion
+
+KIND   IDS  DONE   STATUS COUNTS
+FR      13    12   covered 12, excluded 0, partial 1
+IF      16     0   covered 0, excluded 0, not mapped 16
+OP      14    14   covered 14, excluded 0
+D       18    13   covered 13, excluded 0, not covered 1, partial 4
+TC      28    27   covered 27, excluded 0, partial 1
+
+Not covered yet:
+  FR-005  partial      via TC-005
+  IF-001  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-002  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-003  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-004  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-005  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-006  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-007  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-008  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-009  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-010  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-011  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-012  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-013  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-014  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-015  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  IF-016  not mapped   no row in phase 3/test_map.csv and no TC cites it
+  D-010   partial      Partly: the arithmetic_alu "carry=<0/1>" field is not checked (see TC-005)
+  D-011   partial      Partly: only checked as far as the calls compile; a non-void return type would only give a warning
+  D-013   not covered  Not tested: source style, not visible through the class API; Phase 2 lint and review own it
+  D-014   partial      Partly: include order and file names are not tested here; Phase 4 checks them against alu_spec.json package.includes_in_order (phase 4/elab_report.md section...
+  D-016   partial      Partly: "no overflow flag" is not tested; an absent member can only be shown by a compile that is meant to fail
+  TC-005  partial      Partly: the arithmetic_alu "carry=<0/1>" field of D-010 is not checked; run.sh only looks for the expected text inside the display() line
+
+Every ID: requirement_coverage.csv

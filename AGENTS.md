@@ -17,9 +17,9 @@ in eight phases. Phases 1 to 5 have folders in the repo. Phases 6 to 8 are upcom
 | 3 | Verification Development | `phase 3/` | plan, test map and testbench; lint `-Wall` clean; regression PASS |
 | 4 | Compilation & Elaboration | `phase 4/` | done: clean-clone build, 0 lint messages, no waivers |
 | 5 | Simulation & Debugging | `phase 5/` | done: self-test OK, PASS at seeds 1 and 7, no defects |
-| 6 | Regression Testing | `phase 6/` (to create) | not started |
-| 7 | Coverage Analysis & Closure | `phase 7/` (to create) | not started |
-| 8 | Signoff | `phase 8/` (to create) | not started |
+| 6 | Regression Testing | `phase 6/` | `regress.sh` written; 2 `full` runs PASS (20 seeds); release run not yet |
+| 7 | Coverage Analysis & Closure | `phase 7/` | 44/44 bins, 28/28 TCs, FR/IF/OP 100%, RTL 35/35 points; 7 exclusions proposed, none approved |
+| 8 | Signoff | `phase 8/` | `signoff_check.py` written; status NOT SIGNED OFF (8 FAIL) |
 
 Folder names contain a space (`phase 1/`), so always quote paths in shell commands.
 
@@ -80,6 +80,17 @@ bash "phase 4/build.sh"              # expect "LINT: PASS (no messages)" and "BU
 
 # Phase 5: self-test, seed 7, seed 1 twice; reproducibility and seed checks
 bash "phase 5/simulate.sh"           # expect "Phase 5 simulation: PASS"
+
+# Phase 6: regression (quick ~1 min, full ~7 min, release); results/<run>/, history.csv
+bash "phase 6/regress.sh" full --note "why"   # expect "Phase 6 regression: PASS"
+
+# Phase 7: coverage of one Phase 6 run, plus RTL code coverage
+bash "phase 7/merge_coverage.sh" "phase 6/results/<run>"      # G1: 44 bins in every seed
+python3 "phase 7/trace_requirements.py" "phase 6/results/<run>" # G2/G3: every ID traced
+bash "phase 7/code_coverage.sh"                                # G4: RTL points
+
+# Phase 8: signoff evidence check (run from Windows Git Bash if WSL git has no GitHub login)
+python3 "phase 8/signoff_check.py"   # writes phase 8/signoff_check.txt, READY or NOT READY
 ```
 
 Two DUT behaviours every test must handle:
@@ -101,6 +112,11 @@ phase 3/   verification_plan.md, test_map.csv (where each TC/OP/D-ID is checked)
            questions_for_phase1.md, repair_log.md, results/ (last regression of record)
 phase 4/   build.sh -> build_info.txt, lint.log, build.log; elab_report.md
 phase 5/   simulate.sh -> runs/<name>/ and runs/summary.txt; defects.md
+phase 6/   regress.sh -> results/<UTC>_<commit>_<level>/ (run_config, summaries, test report,
+           comparison, failures), history.csv; regression_report.md
+phase 7/   coverage_goals.md; merge_coverage.sh, trace_requirements.py, code_coverage.sh ->
+           results/; coverage_report.md; exclusions.md (proposed/approved)
+phase 8/   signoff_check.py -> signoff_check.txt; open_issues.md; signoff.md
 sessions/  shared session logs, one file per session (see below)
 ```
 
@@ -132,8 +148,9 @@ range to check.
 | `c3ad293` | Adam | 10-20 | Phase 3 `test_map.csv`: where each TC, OP and D-ID is checked. |
 | `6d7701a` | Adam | 10-20 | Phase 1 revision 3, spec 1.2: D-001..D-018 approved; D-014 names `CPU.svh` (closes DV-1). |
 
-Net effect: Phases 1 to 5 are done. The design passes the full Phase 3 regression on approved
-decisions, so the next job is Phase 6 (multi-seed regression).
+Net effect: Phases 1 to 5 are done. Phases 6 to 8 were built on 2026-10-24 (branch `phase-6-8`):
+20-seed regressions PASS, coverage goals met except 7 exclusions awaiting review, signoff NOT
+READY (open Phase 1 questions, pending exclusions, release run on a frozen commit still to do).
 
 ## Known issues
 
@@ -142,8 +159,12 @@ decisions, so the next job is Phase 6 (multi-seed regression).
    rules); Phase 3 #2 (TC acceptance wording), #3 (`GV-nn` ID column).
 2. **Stale PNG.** `phase 1/ALU_Architecture_Corrected.png` still says `cpu.svh`; re-render it
    from the `.svg` (`phase 1/REVISION_3.md` has the command).
-3. **TC-005 checks part of D-010.** `run.sh` matches the expected `display()` text as a
-   substring, so arithmetic_alu's `carry=<0/1>` field is not checked (`phase 3/test_map.csv`).
+3. **TC-005 checks part of D-010.** Fixed by Phase 3 repair 5 (whole-line match, carry set to
+   1), regression PASS on 2026-10-24; closed once that change is committed.
+4. **Phase 7 exclusions pending.** D-011, D-013, D-014, D-016 and three unreachable RTL `$error`
+   branches have proposed exclusions in `phase 7/exclusions.md`; none is approved yet.
+5. **`phase 2/07_smoke/run_smoke.sh` always exits 0.** Phase 6 judges smoke from its log, so no
+   result depends on it (`phase 8/open_issues.md` OI-9).
 
 Phase 2's handoff notes are labelled F1 (Verilator stops on `$error`) and F2 (`carry` is
 state); Phase 3 files cite them by those labels.

@@ -1,0 +1,10 @@
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1110
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+[0] %Error: CPU.svh:29: Assertion failed in TOP.cpu_pkg.CPU.Calc: CPU.Calc: invalid operation code 4'b1111
+-Info: rtl/CPU.svh:29: Verilog $stop, ignored due to +verilator+error+limit
+[base_alu] op=OP_SEL_B A=0 B=0 result=0
+[logical_alu] op=OP_AND A=12 B=10 result=8
+[arithmetic_alu] op=OP_SUB A=9 B=4 result=5 carry=0
+SUMMARY pass=91 fail=0
+- ../07_smoke/smoke_tb.sv:233: Verilog $finish
+Full log: 07_smoke/smoke_log.txt   (expected: 2 %Error lines for the invalid codes, SUMMARY pass=91 fail=0)

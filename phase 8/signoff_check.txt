@@ -1,0 +1,18 @@
+Signoff check: NOT READY   (HEAD e0fe096; 8 FAIL, 2 MANUAL to confirm in signoff.md)
+
+FAIL   working tree clean (signoff is on a committed state): HEAD e0fe096; 31 uncommitted paths
+PASS   Phase 1 spec_version final (no -proposed): spec_version 1.2
+PASS   Phase 1 decisions approved with approver and date: 18/18 approved
+PASS   Phase 1 ALU_Open_Questions.csv has no open question: 18/18 resolved
+FAIL   Phase 2 questions for Phase 1 answered: 2/6 answered; open: Q1, Q3, Q5, Q6
+FAIL   Phase 3 questions for Phase 1 answered: 1/3 answered; open: #2, #3
+PASS   accepted RTL revision: a phase2-rtl-v* tag equals phase 2/04_rtl at HEAD: phase2-rtl-v1
+PASS   RTL tag phase2-rtl-v1 exists on origin: found on origin
+FAIL   deviations DV-1 and DV-2 accepted by Phase 1: DV-1 accepted (Q2); DV-2 not answered (Q3 open)
+PASS   Phase 5 defects closed or formally deferred: 0 open
+FAIL   Phase 6 release regression PASS on the inputs at HEAD, no uncommitted inputs, no FLAKY: no release run in phase 6/history.csv
+MANUAL every failing Phase 6 run explained in phase 6/regression_report.md: 0 non-PASS rows in history.csv
+FAIL   Phase 7 coverage on the release run: no release run to analyse
+FAIL   Phase 7 G4 RTL code coverage points all hit, on the inputs at HEAD: phase 7/results/code_2026-10-24T193414Z_e0fe096: RTL code coverage: 35/35 points hit   (RESULT PASS; inputs in run_info.txt); run is not on the inputs at HEAD
+FAIL   Phase 7 exclusions all approved (reviewer and date): 0/7 approved; pending: D-013, D-014, D-016, D-011, RTL-1, RTL-2, RTL-3
+MANUAL AGENTS.md known issues resolved: 5 listed under 'Known issues'

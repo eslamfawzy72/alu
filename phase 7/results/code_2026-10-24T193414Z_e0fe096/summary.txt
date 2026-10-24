@@ -1,0 +1,19 @@
+RTL code coverage: 35/35 points hit   (RESULT PASS; inputs in run_info.txt)
+
+Per file (points hit / points):
+  rtl/CPU.svh              5/5
+  rtl/arithmetic_alu.svh   14/14
+  rtl/base_alu.svh         6/6
+  rtl/logical_alu.svh      10/10
+
+Points never hit:
+  none
+
+Not measured: RTL lines that call $stop or $error get no coverage point from Verilator.
+Phase 7 covers them by a functional check or a justified exclusion (coverage_report.md):
+  rtl/CPU.svh:29:      $error("CPU.Calc: invalid operation code 4'b%04b", operation);  // @D-009
+  rtl/arithmetic_alu.svh:65:      default: $error("arithmetic_alu: %s is not an arithmetic operation", alu_op.name());
+  rtl/base_alu.svh:45:    $error("%s: execute() has no operations; use logical_alu or arithmetic_alu", get_name());
+  rtl/logical_alu.svh:26:      default: $error("logical_alu: %s is not a logical operation", alu_op.name());
+
+Every point: rtl_points.txt (<file>:<line> <kind> <hits>); annotated sources: annotated/
